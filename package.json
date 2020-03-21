@@ -18,6 +18,7 @@
   },
   "homepage": "https://futebol-game.netlify.com",
   "dependencies": {
-    "@11ty/eleventy": "^0.10.0"
+    "@11ty/eleventy": "^0.10.0",
+    "faunadb": "^2.13.0"
   }
 }
