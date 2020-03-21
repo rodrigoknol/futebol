@@ -1,0 +1,22 @@
+{
+  "name": "futebol",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rodrigoknol/futebol.git"
+  },
+  "author": "Rodrigo Thaler Knolseisen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rodrigoknol/futebol/issues"
+  },
+  "homepage": "https://github.com/rodrigoknol/futebol#readme",
+  "dependencies": {
+    "@11ty/eleventy": "^0.10.0"
+  }
+}
