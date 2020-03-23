@@ -13,7 +13,7 @@ exports.handler = (event, context, callback) => {
     return await response.json();
   }
   
-  post('/.netlify/functions/get_players_for_match', event.body)
+  post('https://futebol-game.netlify.com/.netlify/functions/get_players_for_match', event.body)
     .then((data) => {
       matchLogic(data)
     });
