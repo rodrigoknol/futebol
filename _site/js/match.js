@@ -56,15 +56,8 @@ function callBackEnd(){
 function print(data){
   const gameData = data;
   const canvas = document.getElementById('content');
-  const homePlays = gameData.theGame.filter(team => team.attackingTeam === 'homeTeam');
-  const alwayPlays = gameData.theGame.filter(team => team.attackingTeam === 'alwayTeam');
 
-  const score = {
-    homeTeam: homePlays.filter(play => play.result === 'success').length,
-    alwayTeam: alwayPlays.filter(play => play.result === 'success').length,
-  }
-
-  const screen = `<h1 class="text--centered">Time da casa ${score.homeTeam} v ${score.alwayTeam} Time visitante</h1>`
+  const screen = '';
 
   canvas.innerHTML = screen;
 

@@ -2,8 +2,32 @@
 layout: simple_base.html
 ---
 <main>
-  <button id="btn">Rodar uma partida</button>
+  <h1 class="text--centered text__main-title">Time da casa <span>0</span> x <span>0</span> Time visitante</h1>
+  <!-- Teams details -->
+  <h2 class="hidden-mobile">Detalhes dos times</h2>
+  <section class="grid hidden-mobile">
+    <div>
+      <h3>Time da casa</h3>
+      <ul class="list--no-style">
+        <li>Estilo de jogo: <strong>normal</strong></li>
+        <li>Prioridade de ataques: <strong>mista</strong></li>
+        <li>Posse de bola: <strong>50%</strong></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Time visitante</h3>
+      <ul class="list--no-style">
+        <li>Estilo de jogo: <strong>normal</strong></li>
+        <li>Prioridade de ataques: <strong>mista</strong></li>
+        <li>Posse de bola: <strong>50%</strong></li>
+      </ul>
+    </div>
+  </section>
+  <hr class="hidden-mobile" />
 
-  <div id="content"></div>
+  <article>
+    <h2>Jogo lance-a-lance</h2>
+    <div id="content"></div>
+  </article>
 </main>
 <script src="/js/match.js"></script>

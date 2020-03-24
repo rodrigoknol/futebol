@@ -11,10 +11,38 @@ body{
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   color: var(--dark-gray);
   background: var(--background);
+  position: relative;
+}
+
+h1, h2, h3{
+  margin-top: 1rem;
+}
+
+h1{
+  font-weight: 900;
+  font-size: 2.75rem;
 }
 
 .text--centered{
   text-align: center;
+}
+
+.text__main-title{
+  position: sticky;
+  top: 2.7rem;
+  background: var(--background);
+  border-bottom: 1px solid var(--light-gray);
+}
+
+.text__main-title:before{
+  content: '';
+  position: absolute;
+  background: var(--background);
+  top: 0;
+  bottom: 0;
+  left: -2rem;
+  right: -2rem;
+  z-index: -1;
 }
 
 hr{
@@ -27,7 +55,19 @@ main{
   width: 900px;
   max-width: 100%;
   margin: auto;
+  margin-top: 3rem;
   padding: 1rem;
+}
+
+nav{
+  position: fixed;
+  background: var(--success);
+  right: 0;
+  left: 0;
+  top: 0;
+  padding: 0.25rem 1rem;
+  z-index: 10;
+  box-shadow: 0.1rem 0.1rem 0.5rem 0rem var(--light-gray);
 }
 
 .card{
@@ -73,4 +113,25 @@ main{
 
 .card__timeline--goal-alwayTeam:after{
   background: white url(../img/icons/ball-failure.svg);
+}
+
+.grid{
+  display: flex;
+}
+
+.grid > *{
+  flex: 1 1 0;
+}
+
+.list--no-style li{
+  list-style: none;
+}
+
+@media (max-width: 800px){
+  h1{
+    font-size: 1.2rem;
+  }
+  .hidden-mobile{
+    display: none;
+  }
 }
