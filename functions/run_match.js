@@ -46,7 +46,7 @@ exports.handler = (event, context, callback) => {
 
     let theGame = [];
 
-    while (turn <= 5) {
+    while (turn <= 7) {
       switch (turn) {
         case 0:
           if(gameStats.ballPossession.homeTeam > gameStats.ballPossession.alwayTeam) {
@@ -77,6 +77,20 @@ exports.handler = (event, context, callback) => {
           break;
         case 5:
           if(basicTeamsStats.homeTeam.pricePoints > basicTeamsStats.alwayTeam.pricePoints){
+            theGame = [...theGame, getTurn('homeTeam', 'alwayTeam', data, basicTeamsStats, gameStats)]
+          } else {
+            theGame = [...theGame, getTurn('alwayTeam', 'homeTeam', data, basicTeamsStats, gameStats)]
+          }
+          break;
+        case 6:
+          if(basicTeamsStats.homeTeam.pricePoints > basicTeamsStats.alwayTeam.pricePoints){
+            theGame = [...theGame, getTurn('homeTeam', 'alwayTeam', data, basicTeamsStats, gameStats)]
+          } else {
+            theGame = [...theGame, getTurn('alwayTeam', 'homeTeam', data, basicTeamsStats, gameStats)]
+          }
+          break;
+        case 7:
+          if(gameStats.ballPossession.homeTeam > gameStats.ballPossession.alwayTeam) {
             theGame = [...theGame, getTurn('homeTeam', 'alwayTeam', data, basicTeamsStats, gameStats)]
           } else {
             theGame = [...theGame, getTurn('alwayTeam', 'homeTeam', data, basicTeamsStats, gameStats)]
@@ -379,20 +393,27 @@ function playerSelection(team, area){
 
 function calculatePossession(basicTeamsStats){
   const random = Math.random() * (10 - 5) - 2.5;
-  let homeTeam = 0.25;
-  let alwayTeam = -0.25;
+  let homeTeam = 0;
+  let alwayTeam = 0;
 
   basicTeamsStats.homeTeam.pricePoints >= basicTeamsStats.alwayTeam.pricePoints ? homeTeam ++ : alwayTeam ++;
+
   basicTeamsStats.homeTeam.defPoints >= basicTeamsStats.alwayTeam.atkPoints ? homeTeam ++ : alwayTeam ++;
-  basicTeamsStats.homeTeam.atkPoints >= basicTeamsStats.alwayTeam.atkPoints ? homeTeam ++ : alwayTeam ++;
+  basicTeamsStats.alwayTeam.atkPoints >= basicTeamsStats.homeTeam.defPoints ? alwayTeam ++ : homeTeam ++;
+
   basicTeamsStats.homeTeam.defPoints >= basicTeamsStats.alwayTeam.defPoints ? homeTeam ++ : alwayTeam ++;
-  basicTeamsStats.alwayTeam.defPoints >= basicTeamsStats.homeTeam.atkPoints ? alwayTeam ++ : homeTeam ++;
+
+  basicTeamsStats.homeTeam.atkPoints >= basicTeamsStats.alwayTeam.atkPoints ? homeTeam ++ : alwayTeam ++;
+  
   basicTeamsStats.homeTeam.pricePoints + basicTeamsStats.homeTeam.defPoints + basicTeamsStats.homeTeam.atkPoints >= basicTeamsStats.alwayTeam.pricePoints + basicTeamsStats.alwayTeam.defPoints + basicTeamsStats.alwayTeam.atkPoints ? homeTeam ++ : alwayTeam ++;
+  basicTeamsStats.alwayTeam.pricePoints + basicTeamsStats.alwayTeam.defPoints + basicTeamsStats.alwayTeam.atkPoints >= basicTeamsStats.homeTeam.pricePoints + basicTeamsStats.homeTeam.defPoints + basicTeamsStats.homeTeam.atkPoints ? alwayTeam ++ : homeTeam ++;
+
   (basicTeamsStats.homeTeam.pricePoints * basicTeamsStats.homeTeam.atkPoints) / basicTeamsStats.alwayTeam.defPoints >= (basicTeamsStats.alwayTeam.pricePoints * basicTeamsStats.alwayTeam.atkPoints) / basicTeamsStats.homeTeam.defPoints ? homeTeam ++ : alwayTeam ++;
+  (basicTeamsStats.alwayTeam.pricePoints * basicTeamsStats.alwayTeam.atkPoints) / basicTeamsStats.homeTeam.defPoints >= (basicTeamsStats.homeTeam.pricePoints * basicTeamsStats.homeTeam.atkPoints) / basicTeamsStats.alwayTeam.defPoints ? alwayTeam ++ : homeTeam ++;
 
   return {
-    homeTeam: (((homeTeam + 1) * 100) / 9) - (random),
-    alwayTeam: (((alwayTeam + 1) * 100) / 9) + (random),
+    homeTeam: ((((homeTeam -1) + 6) * 100) / 19) - (random),
+    alwayTeam: ((((alwayTeam -1) + 6) * 100) / 19) + (random),
   }
 
 }
