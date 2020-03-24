@@ -446,7 +446,7 @@ function calculateDefensePoints(theTeam, data){
     case 'all-atk':
       return ((points.stamina * 0.75) + ((points.marking + points.interceptions) * 1.75) + points.pass)
     case 'all-def':
-      return ((points.stamina * 1.25) + ((points.marking + points.interceptions) * 2.75) + (points.pass * 1.25))
+      return ((points.stamina * 1.25) + ((points.marking + points.interceptions) * 3) + (points.pass * 1.25))
     default:
       return (points.stamina + ((points.marking + points.interceptions) * 2.5) + points.pass)
   }
@@ -478,7 +478,7 @@ function calculateAttackPoints(theTeam, data){
     case 'counter-atk':
       return ((points.agility * 1.25 ) + ((points.pass + points.crossing) * 0.75) + ((points.finishing + points.dribbling + points.vision) * 1.75))
     case 'all-atk':
-      return (points.agility + (points.pass + points.crossing) + ((points.finishing + points.dribbling + points.vision) * 2))
+      return (points.agility + (points.pass + points.crossing) + ((points.finishing + points.dribbling + points.vision) * 2.5))
     case 'all-def':
       return (points.agility + ((points.pass + points.crossing) * 0.25) + ((points.finishing + points.dribbling + points.vision) * 1.5))
     default:
