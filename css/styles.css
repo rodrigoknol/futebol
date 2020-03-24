@@ -32,6 +32,7 @@ h1{
   top: 2.7rem;
   background: var(--background);
   border-bottom: 1px solid var(--light-gray);
+  z-index: 9;
 }
 
 .text__main-title:before{

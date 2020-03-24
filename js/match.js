@@ -49,14 +49,67 @@ document.getElementById('btn').addEventListener('click', ()=>{callBackEnd()});
 function callBackEnd(){
   post('/.netlify/functions/run_match', matchData)
   .then((data) => {
-    print(data)
+    control(data)
   });
+}
+
+function control(data){
+  createsummary(data)
+  print(data)
+}
+
+
+function createsummary(data){
+  const dom = {
+    homeTeam: document.getElementById('dashboardHome'),
+    alwayTeam: document.getElementById('dashboardAlway'),
+  }
+  const {gameStats} = data;
+  const dashboard = {
+    homeTeam: createDashTable(gameStats, 'homeTeam'),
+    alwayTeam: createDashTable(gameStats, 'alwayTeam'),
+  }
+
+  dom.homeTeam.innerHTML = dashboard.homeTeam;
+  dom.alwayTeam.innerHTML = dashboard.alwayTeam;
+}
+
+function createDashTable(gameStats, team){
+  let intensity = 'Normal';
+  switch (gameStats.intensity[team]) {
+    case 'counter-atk':
+      intensity = 'Contra-ataque'
+      break;
+    case 'all-atk':
+      intensity = 'Ataque Total'
+      break;
+    case 'all-def':
+      intensity = 'Retranca'
+      break;
+    default:
+      break;
+  }
+
+  let atkStyle = 'Misto'
+  switch (gameStats.atkStyle[team]) {
+    case 'wing':
+      atkStyle = 'Pelas laterais'
+      break;
+    case 'middle':
+      atkStyle = 'Pelo meio'
+      break;
+  }
+
+  return   '<ul class="list--no-style">'+
+    '<li>Estilo de jogo: <strong>' + intensity + '</strong></li>'+
+    '<li>Prioridade de ataques: <strong>' + atkStyle + '</strong></li>'+
+    '<li>Posse de bola: <strong>' + gameStats.ballPossession[team].toFixed(1)  + '%</strong></li>'+
+    '</ul>';
 }
 
 function print(data){
   const gameData = data;
   const canvas = document.getElementById('content');
-
   const screen = '';
 
   canvas.innerHTML = screen;
