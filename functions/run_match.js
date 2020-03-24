@@ -39,8 +39,8 @@ exports.handler = (event, context, callback) => {
         alwayTeam: data.teamData.alwayTeam.gameMode,
       },
       atkStyle: {
-        homeTeam: data.teamData.homeTeam.atackStyle,
-        alwayTeam: data.teamData.alwayTeam.atackStyle,
+        homeTeam: data.teamData.homeTeam.attackStyle,
+        alwayTeam: data.teamData.alwayTeam.attackStyle,
       }
     }
 
@@ -141,7 +141,7 @@ function getTurn(attackTeam, defenseTeam, data, basicTeamsStats, gameStats){
 function attackStyle(atk, def, gameStats, attackTeam){
   const possibilities = {
     mixed: ['wing', 'attack', 'middle', 'corner', 'wing', 'middle'],
-    lateral: ['wing', 'wing', 'atack', 'corner', 'wing', 'middle', 'wing', 'wing'],
+    lateral: ['wing', 'wing', 'attack', 'corner', 'wing', 'middle', 'wing', 'wing'],
     middle: ['wing', 'attack', 'middle', 'corner', 'middle', 'middle', 'middle', 'middle'],
   }
 
@@ -151,14 +151,14 @@ function attackStyle(atk, def, gameStats, attackTeam){
     case 'lateral':
       return attackCreation(atk, def, possibilities.lateral[getRandomInt(possibilities.lateral.length)], attackTeam)
     case 'middle':
-      return attackCreation(atk, def, possibilities.middle[getRandomInt(possibilities.middle.lengt)], attackTeam)
+      return attackCreation(atk, def, possibilities.middle[getRandomInt(possibilities.middle.length)], attackTeam)
     default:
       return {
         attackingTeam: attackTeam,
         result: 'failed',
         turn,
         info: {
-          lastStep: 'atack_didnt_happen',
+          lastStep: 'attack_didnt_happen',
         }
       }
   }
@@ -280,7 +280,7 @@ function attackCreation(team, defTeam, area, attackTeam){
 }
 
 function finishesTurn(player, defensor, attackTeam, team, keeper, area){
-  const options = ['midfielder', 'wing', 'self', 'attack'];
+  const options = ['midfielder', 'wing', 'self', 'attack', 'attack', 'midfielder', 'attack'];
   const selected = options[getRandomInt(options.length)];
   let finisher = player;
   let goalSuccessRate = 0;
@@ -290,7 +290,7 @@ function finishesTurn(player, defensor, attackTeam, team, keeper, area){
   }
 
   if (selected !== 'self'){
-    finisher = playerSelection(team, 'selected')
+    finisher = playerSelection(team, selected)
   }
 
   switch (finisher.stats.attack.finishing) {

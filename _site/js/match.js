@@ -1,24 +1,24 @@
 const matchData = {
   homeTeam: {
     gameMode: 'normal',
-    atackStyle: 'mixed',
+    attackStyle: 'mixed',
     players: [
       {goalkeeper: 'Cássio'},
       {left_wing_back: 'Carlos Augusto'},
       {right_wing_back: 'Fagner'},
-      {center_back: 'Pedro Henrique'},
+      {center_back: 'Gil'},
       {center_back: 'Bruno Méndez'},
       {midfielder: 'Camacho'},
       {midfielder: 'Gabriel'},
-      {midfielder: 'Mateus Vital'},
-      {winger: 'Pedrinho'},
+      {midfielder: 'Luan'},
       {winger: 'Janderson'},
+      {winger: 'Pedrinho'},
       {stricker: 'Vagner Love'}
     ],
   },
   alwayTeam: {
     gameMode: 'normal',
-    atackStyle: 'mixed',
+    attackStyle: 'lateral',
     players: [
       {goalkeeper: 'Cássio'},
       {left_wing_back: 'Lucas Piton'},
@@ -64,49 +64,62 @@ function print(data){
     alwayTeam: alwayPlays.filter(play => play.result === 'success').length,
   }
 
-  const screen = `<h1>Time da casa ${score.homeTeam} v ${score.alwayTeam} Time visitante</h1> <p>Posse de bola do time da casa: ${gameData.gameStats.ballPossession.homeTeam}% </p>`
+  const screen = `<h1 class="text--centered">Time da casa ${score.homeTeam} v ${score.alwayTeam} Time visitante</h1>`
 
   canvas.innerHTML = screen;
 
   gameData.theGame.forEach(element => {
 
-    console.log(element)
-
-    let theTeam = '<strong>da casa</strong>';
+    let theTeam = '<strong>time da casa</strong>';
     if(element.attackingTeam === 'alwayTeam'){
-      theTeam = '<strong>visitante</strong>'
+      theTeam = '<strong>time visitante</strong>'
+    }
+
+    const area = ()=>{
+      switch (element.info.area) {
+        case 'wing':
+          return 'canto'
+        case 'attack':
+          return 'campo de ataque'
+        case 'corner':
+          return 'escanteio'
+        case 'middle':
+          return 'meio de campo'
+        default:
+          return element.info.area
+      }
     }
 
     if('info' in element){
       switch (element.info.lastStep) {
         case 'goal':
           canvas.innerHTML = canvas.innerHTML + 
-            '<p>Jogada do time ' + theTeam + '</p>' +
-            '<p><strong>GOOOOL!</strong> Lindo gol de ' + element.info.kicker + '. A jogada começou com ' + element.info.player + ', ' + element.info.defensor + ' tentou impedir, mas já era tarde.</p></br>';
+            '<div class="card card__timeline card__timeline--goal card__timeline--goal-' + element.attackingTeam + '"><p>Jogada do ' + theTeam + '</p><hr>' +
+            '<p><strong>GOOOOL!</strong> Lindo gol de ' + element.info.kicker + '. A jogada começou com ' + element.info.player + ', pelo ' + area() + '. ' + element.info.defensor + ' tentou impedir, mas já era tarde.</p></div>';
           break;
         case 'kick':
           canvas.innerHTML = canvas.innerHTML + 
-            '<p>Jogada do time ' + theTeam + '</p>' +
-            '<p><strong>Ufa, foi por pouco</strong> ' + element.info.kicker + ' da um belo chute, mas ' + element.info.keeper + ' faz a defesa.</p></br>';
+            '<div class="card card__timeline"><p>Jogada do ' + theTeam + '</p><hr>' +
+            '<p><strong>Ufa, foi por pouco</strong> ' + element.info.kicker + ' da um belo chute, mas ' + element.info.keeper + ' faz uma bela defesa.</p></div>';
             break;
         case 'defensor':
           canvas.innerHTML = canvas.innerHTML + 
-            '<p>Jogada do time ' + theTeam + '</p>' +
-            '<p>Bonita <strong>roubada de bola</strong> do ' + element.info.defensor + '!</p></br>';
+            '<div class="card card__timeline"><p>Jogada do ' + theTeam + '</p><hr>' +
+            '<p>Bonita <strong>roubada de bola</strong> do ' + element.info.defensor + ' pelo ' + area() + '!</p></div>';
             break;
         case 'startedAtk':
           canvas.innerHTML = canvas.innerHTML + 
-            '<p>Jogada do time ' + theTeam + '</p>' +
-            '<p>' + element.info.player + ' tenta começar um ataque, mas ' + element.info.stealer + ' estava forte na marcação e impediu o ataque!</p></br>';
+            '<div class="card card__timeline"><p>Jogada do ' + theTeam + '</p><hr>' +
+            '<p>' + element.info.player + ' tenta começar um ataque, mas ' + element.info.stealer + ' estava forte na marcação e impediu o ataque!</p></div>';
           break;
         default:
           canvas.innerHTML = canvas.innerHTML + 
-            '<p>Ihh, o jogo está difícil para o time ' + theTeam + ', não estão conseguindo controlar a bola e pensar uma jogada...</p></br>';
+            '<div class="card card__timeline"><p>Ihh, o jogo está difícil para o time ' + theTeam + ', não estão conseguindo controlar a bola e pensar uma jogada...</p></div>';
           break;
       }
     } else {
       canvas.innerHTML = canvas.innerHTML + 
-        '<p>Ihh, o jogo está difícil para o time ' + theTeam + ', não estão conseguindo controlar a bola e pensar uma jogada...</p></br>';
+        '<div class="card card__timeline"><p>Ihh, o jogo está difícil para o time ' + theTeam + ', não estão conseguindo controlar a bola e pensar uma jogada...</p></div>';
     }
     
     
