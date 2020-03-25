@@ -29,7 +29,7 @@ h1{
 
 .text__main-title{
   position: sticky;
-  top: 2.7rem;
+  top: 2.6rem;
   background: var(--background);
   border-bottom: 1px solid var(--light-gray);
   z-index: 9;

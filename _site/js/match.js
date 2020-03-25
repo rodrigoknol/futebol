@@ -60,8 +60,7 @@ class callBackEnd {
     summary.createContent()
   
     const timeline = new createTimeline(data)
-
-    print(data)
+    timeline.organizeTimeline()
   }
 }
 
@@ -116,25 +115,42 @@ class createSummary{
 
 class createTimeline{
   constructor(data){
+    this.domTimeline = document.getElementById('content');
+    this.matchMoments = data.theGame;
+    this.matchStats = data.gameStats;
+    this.cardsList = [];
   }
-}
 
-function print(data){
-  const gameData = data;
-  const canvas = document.getElementById('content');
-  const screen = '';
+  organizeTimeline(){
+    this.createArray()
+    this.printArray()
+  }
 
-  canvas.innerHTML = screen;
+  createArray(){
+    this.matchMoments.forEach(timelineEntry => {
+      this.cardsList.push(this.formatData(timelineEntry))
+    })
+  }
 
-  gameData.theGame.forEach(element => {
+  printArray(){
+    this.cardsList.forEach(timeLineElement => {
+      this.domTimeline.innerHTML = this.domTimeline.innerHTML + timeLineElement;
+    })
+  }
 
+  formatData(timelineEntry){
     let theTeam = '<strong>time da casa</strong>';
-    if(element.attackingTeam === 'alwayTeam'){
+    if(timelineEntry.attackingTeam === 'alwayTeam'){
       theTeam = '<strong>time visitante</strong>'
     }
+    let content = this.createsContent(timelineEntry);
 
+    return this.createCard(timelineEntry.attackingTeam, theTeam, timelineEntry.result, content)
+  }
+
+  createsContent(matchData){
     const area = ()=>{
-      switch (element.info.area) {
+      switch (matchData.area) {
         case 'wing':
           return 'canto'
         case 'attack':
@@ -144,43 +160,32 @@ function print(data){
         case 'middle':
           return 'meio de campo'
         default:
-          return element.info.area
+          return matchData.area
       }
     }
 
-    if('info' in element){
-      switch (element.info.lastStep) {
+    if('info' in matchData){
+      switch (matchData.info.lastStep) {
         case 'goal':
-          canvas.innerHTML = canvas.innerHTML + 
-            '<div class="card card__timeline card__timeline--goal card__timeline--goal-' + element.attackingTeam + '"><p>Jogada do ' + theTeam + '</p><hr>' +
-            '<p><strong>GOOOOL!</strong> Lindo gol de ' + element.info.kicker + '. A jogada começou com ' + element.info.player + ', pelo ' + area() + '. ' + element.info.defensor + ' tentou impedir, mas já era tarde.</p></div>';
-          break;
+          return '<strong>GOOOOL!</strong> Lindo gol de ' + matchData.info.kicker + '. A jogada começou com ' + matchData.info.player + ', pelo ' + area() + '. ' + matchData.info.defensor + ' tentou impedir, mas já era tarde.';
         case 'kick':
-          canvas.innerHTML = canvas.innerHTML + 
-            '<div class="card card__timeline"><p>Jogada do ' + theTeam + '</p><hr>' +
-            '<p><strong>Ufa, foi por pouco</strong> ' + element.info.kicker + ' da um belo chute, mas ' + element.info.keeper + ' faz uma bela defesa.</p></div>';
-            break;
+          return '<strong>Ufa, foi por pouco</strong> ' + matchData.info.kicker + ' da um belo chute, mas ' + matchData.info.keeper + ' faz uma bela defesa.';
         case 'defensor':
-          canvas.innerHTML = canvas.innerHTML + 
-            '<div class="card card__timeline"><p>Jogada do ' + theTeam + '</p><hr>' +
-            '<p>Bonita <strong>roubada de bola</strong> do ' + element.info.defensor + ' pelo ' + area() + '!</p></div>';
-            break;
+          return 'Bonita <strong>roubada de bola</strong> do ' + matchData.info.defensor + ' pelo ' + area() + '!';
         case 'startedAtk':
-          canvas.innerHTML = canvas.innerHTML + 
-            '<div class="card card__timeline"><p>Jogada do ' + theTeam + '</p><hr>' +
-            '<p>' + element.info.player + ' tenta começar um ataque, mas ' + element.info.stealer + ' estava forte na marcação e impediu o ataque!</p></div>';
-          break;
+          return matchData.info.player + ' tenta começar um ataque, mas ' + matchData.info.stealer + ' estava forte na marcação e impediu o ataque!';
         default:
-          canvas.innerHTML = canvas.innerHTML + 
-            '<div class="card card__timeline"><p>Ihh, o jogo está difícil para o time ' + theTeam + ', não estão conseguindo controlar a bola e pensar uma jogada...</p></div>';
-          break;
+          return 'Ihh, o jogo está difícil para o time ' + theTeam + ', não estão conseguindo controlar a bola e pensar uma jogada...'
       }
     } else {
-      canvas.innerHTML = canvas.innerHTML + 
-        '<div class="card card__timeline"><p>Ihh, o jogo está difícil para o time ' + theTeam + ', não estão conseguindo controlar a bola e pensar uma jogada...</p></div>';
+      return 'Ihh, o jogo está difícil para o time ' + theTeam + ', não estão conseguindo controlar a bola e pensar uma jogada...';
     }
-    
-    
-  });
-}
+  }
 
+  createCard(attackingTeam, teamName, result, content){
+    if(result === 'success'){
+      return `<div class="card card__timeline card__timeline--goal card__timeline--goal-${attackingTeam}"><p>Jogada do ${teamName}</p><hr><p>${content}</p></div>`
+    }
+    return `<div class="card card__timeline"><p>Jogada do ${teamName}</p><hr><p>${content}</p></div>`
+  }
+}
