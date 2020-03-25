@@ -41,8 +41,8 @@ h1{
   background: var(--background);
   top: 0;
   bottom: 0;
-  left: -2rem;
-  right: -2rem;
+  left: -1rem;
+  right: -1rem;
   z-index: -1;
 }
 
