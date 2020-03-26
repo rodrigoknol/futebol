@@ -44,6 +44,10 @@ async function post(url = '', data = {}) {
   return await response.json();
 }
 
+function getRandomInt(max){
+  return Math.floor(Math.random() * Math.floor(max))
+}
+
 class callBackEnd {
   fetch(){
     const dummyData = '{"gameStats":{"ballPossession":{"homeTeam":28.672705034084352,"alwayTeam":71.32729496591566},"intensity":{"homeTeam":"normal","alwayTeam":"normal"},"atkStyle":{"homeTeam":"mixed","alwayTeam":"lateral"}},"theGame":[{"attackingTeam":"alwayTeam","result":"failed","turn":0,"info":{"lastStep":"kick","kicker":"Cantillo","keeper":"Cássio","area":"middle"}},{"attackingTeam":"alwayTeam","result":"failed","turn":1,"info":{"lastStep":"kick","kicker":"Ramiro","keeper":"Cássio","area":"middle"}},{"attackingTeam":"homeTeam","result":"failed","turn":2,"info":{"lastStep":"kick","kicker":"Pedrinho","keeper":"Cássio","area":"wing"}},{"attackingTeam":"homeTeam","result":"failed","turn":3,"info":{"lastStep":"startedAtk","player":"Carlos Augusto","stealer":"Pedro Henrique","area":"wing"}},{"attackingTeam":"alwayTeam","result":"failed","turn":4,"info":{"lastStep":"startedAtk","player":"Cantillo","stealer":"Gil","area":"corner"}},{"attackingTeam":"alwayTeam","result":"success","turn":5,"info":{"lastStep":"goal","kicker":"Pedrinho","player":"Pedrinho","defensor":"Bruno Méndez","keeper":"Cássio","area":"attack"}},{"attackingTeam":"alwayTeam","result":"failed","turn":6,"info":{"lastStep":"kick","kicker":"Ramiro","keeper":"Cássio","area":"wing"}},{"attackingTeam":"alwayTeam","result":"success","turn":7,"info":{"lastStep":"goal","kicker":"Mauro Boselli","player":"Pedrinho","defensor":"Fagner","keeper":"Cássio","area":"wing"}}]}'
@@ -119,6 +123,7 @@ class createTimeline{
     this.matchMoments = data.theGame;
     this.matchStats = data.gameStats;
     this.cardsList = [];
+    this.printedItens = 0;
   }
 
   organizeTimeline(){
@@ -150,7 +155,7 @@ class createTimeline{
 
   createsContent(matchData){
     const area = ()=>{
-      switch (matchData.area) {
+      switch (matchData.info.area) {
         case 'wing':
           return 'canto'
         case 'attack':
@@ -160,20 +165,34 @@ class createTimeline{
         case 'middle':
           return 'meio de campo'
         default:
-          return matchData.area
+          return matchData.info.area
       }
     }
+    const possibilities ={
+      goal:['<strong>GOOOOL!</strong> Lindo gol de ' + matchData.info.kicker + '. A jogada começou com ' + matchData.info.player + ', pelo ' + area() + '. ' + matchData.info.defensor + ' tentou impedir, mas já era tarde.',
+      '<strong>LINDO GOL!</strong> Grande chute do ' + matchData.info.kicker + '. A jogada começou pelo ' + area() + ', nos pés do  ' + matchData.info.player + '. Uma grande pintura!',
+      '<strong>GOL! JOGADA PRECISA!</strong> E foi '+ matchData.info.kicker +' quem deu esse belo chute. A jogada começou pelo ' + area() +' e a bola terminou no fundo das redes!'],
+      kick:['<strong>Ufa, foi por pouco</strong> ' + matchData.info.kicker + ' da um belo chute, mas ' + matchData.info.keeper + ' faz uma bela defesa.',
+      '<strong>O que que é isso?</strong> ' + matchData.info.kicker + ' manda a bola para as alturas!',
+      '<strong>Quaase...</strong> Uma grande jogada. ' + matchData.info.kicker + ' recebeu um passe fantástico, era ele e o goleiro, chutou e... Um chute horrível, saiu LONGE do alvo...',
+      '<strong>Por centímetros!</strong> A estrela do ' + matchData.info.kicker + ' parece estar brilhando, um chute de primeira que BATE NO TRAVESSÃO!'],
+      defensor:['Bonita <strong>roubada de bola</strong> do ' + matchData.info.defensor + ' pelo ' + area() + '!',
+      'O time atacante não está com nada! Boa <strong>roubada de bola</strong> pelo ' + matchData.info.defensor],
+      startedAtk:[matchData.info.player + ' tenta começar um ataque, mas ' + matchData.info.stealer + ' estava forte na marcação e impediu o ataque!',
+      matchData.info.player + ' parece perdido em campo... Ele tenta começar um ataque, mas ' + matchData.info.stealer + ' não deixou a jogada continuar...',
+      matchData.info.stealer + ' está impossível hoje! Mesmo que ' + matchData.info.player + ' tenha começado uma joaga pelo ' + area() + ', nenhuma bola passa pelo ' + matchData.info.stealer + ' hoje!'],
+    };
 
     if('info' in matchData){
       switch (matchData.info.lastStep) {
         case 'goal':
-          return '<strong>GOOOOL!</strong> Lindo gol de ' + matchData.info.kicker + '. A jogada começou com ' + matchData.info.player + ', pelo ' + area() + '. ' + matchData.info.defensor + ' tentou impedir, mas já era tarde.';
+          return possibilities.goal[getRandomInt(possibilities.goal.length)];
         case 'kick':
-          return '<strong>Ufa, foi por pouco</strong> ' + matchData.info.kicker + ' da um belo chute, mas ' + matchData.info.keeper + ' faz uma bela defesa.';
+          return possibilities.kick[getRandomInt(possibilities.kick.length)];
         case 'defensor':
-          return 'Bonita <strong>roubada de bola</strong> do ' + matchData.info.defensor + ' pelo ' + area() + '!';
+          return possibilities.defensor[getRandomInt(possibilities.defensor.length)];
         case 'startedAtk':
-          return matchData.info.player + ' tenta começar um ataque, mas ' + matchData.info.stealer + ' estava forte na marcação e impediu o ataque!';
+          return possibilities.startedAtk[getRandomInt(possibilities.startedAtk.length)];
         default:
           return 'Ihh, o jogo está difícil para o time ' + theTeam + ', não estão conseguindo controlar a bola e pensar uma jogada...'
       }
@@ -184,8 +203,8 @@ class createTimeline{
 
   createCard(attackingTeam, teamName, result, content){
     if(result === 'success'){
-      return `<div class="card card__timeline card__timeline--goal card__timeline--goal-${attackingTeam}"><p>Jogada do ${teamName}</p><hr><p>${content}</p></div>`
+      return `<div class="card card__timeline card__timeline--goal card__timeline--goal-${attackingTeam}"><p>Um gol do ${teamName}</p><hr><p>${content}</p></div>`
     }
-    return `<div class="card card__timeline"><p>Jogada do ${teamName}</p><hr><p>${content}</p></div>`
+    return `<div class="card card__timeline"><p>Uma jogada do ${teamName}</p><hr><p>${content}</p></div>`
   }
 }
