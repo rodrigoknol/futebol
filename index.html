@@ -14,11 +14,11 @@ layout: simple_base.html
         <option value="3-5-2">3-5-2</option>
       </select>
       <!-- Field drawing -->
-      <table class="field">
+      <table id="playersTable" class="field">
         <!-- Row A -->
         <tr>
-          <td>a1</td>
-          <td>a2</td>
+          <td class="field__item">a1</td>
+          <td class="field__item field__item--selected">a2</td>
           <td>a3</td>
           <td>a4</td>
           <td>a5</td>
@@ -82,6 +82,14 @@ layout: simple_base.html
         <option value="middle">Meio Campistas</option>
         <option value="attack">Atacantes</option>
       </select>
+      <p>Arraste os jogadores que quiser em seu time titular para o campo.</p>
+      <div id="playersListDOM">
+        <div class="card">
+          <h3>Cássio</h3>
+          <p>Posição: <strong>Goleiro</strong></p>
+          <p>★★★</p>
+        </div>
+      </div>
     </div>
   </section>
   <hr />
@@ -105,3 +113,4 @@ layout: simple_base.html
   <button class="btn" >Salvar o time</button>
   <a class="btn" disabled href="/match">Rodar uma partida</a>
 </main>
+<script src="js/manageTeam.js"></script>
