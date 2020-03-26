@@ -65,11 +65,9 @@ class callBackEnd {
   
     const timeline = new createTimeline(data)
     timeline.organizeTimeline()
+    timeline.printsScore()
   }
 }
-
-const backEnd = new callBackEnd();
-document.getElementById('btn').addEventListener('click', ()=>{backEnd.fetch()});
 
 class createSummary{
   constructor(data){
@@ -120,6 +118,8 @@ class createSummary{
 class createTimeline{
   constructor(data){
     this.domTimeline = document.getElementById('content');
+    this.domScoreHomeTeam = document.getElementById('scoreHomeTeam');
+    this.domScoreAlwayTeam = document.getElementById('scoreAlwayTeam');
     this.matchMoments = data.theGame;
     this.matchStats = data.gameStats;
     this.cardsList = [];
@@ -141,6 +141,16 @@ class createTimeline{
     this.cardsList.forEach(timeLineElement => {
       this.domTimeline.innerHTML = this.domTimeline.innerHTML + timeLineElement;
     })
+  }
+
+  printsScore(){
+    const homeTeam = this.matchMoments.filter(element => element.attackingTeam === 'homeTeam');
+    const alwayTeam = this.matchMoments.filter(element => element.attackingTeam === 'alwayTeam');
+    const homeScore = homeTeam.reduce((acc, play) => acc + (play.result === 'success'), 0);
+    const alwayScore = alwayTeam.reduce((acc, play) => acc + (play.result === 'success'), 0);
+
+    this.domScoreHomeTeam.innerHTML = homeScore;
+    this.domScoreAlwayTeam.innerHTML = alwayScore;
   }
 
   formatData(timelineEntry){
@@ -168,19 +178,22 @@ class createTimeline{
           return matchData.info.area
       }
     }
+
     const possibilities ={
-      goal:['<strong>GOOOOL!</strong> Lindo gol de ' + matchData.info.kicker + '. A jogada começou com ' + matchData.info.player + ', pelo ' + area() + '. ' + matchData.info.defensor + ' tentou impedir, mas já era tarde.',
+      goal:['<strong>GOOOOL!!!</strong> Lindo gol de ' + matchData.info.kicker + '. A jogada começou com ' + matchData.info.player + ', pelo ' + area() + '. ' + matchData.info.defensor + ' tentou impedir, mas já era tarde.',
       '<strong>LINDO GOL!</strong> Grande chute do ' + matchData.info.kicker + '. A jogada começou pelo ' + area() + ', nos pés do  ' + matchData.info.player + '. Uma grande pintura!',
-      '<strong>GOL! JOGADA PRECISA!</strong> E foi '+ matchData.info.kicker +' quem deu esse belo chute. A jogada começou pelo ' + area() +' e a bola terminou no fundo das redes!'],
+      '<strong>GOL! JOGADA PRECISA!</strong> E foi '+ matchData.info.kicker +' quem deu esse belo chute. A jogada começou pelo ' + area() +' e a bola terminou no fundo das redes!',
+      '<strong>GOL, GOL, GOL, GOOOOOOL!</strong> Uma pintura do '+ matchData.info.kicker  + ', o ' + matchData.info.defensor + ', que era para estar na marcação, nem viu o que aconteceu. A jogada começou pelo ' + area() +', nos pés do ' + matchData.info.player ],
       kick:['<strong>Ufa, foi por pouco</strong> ' + matchData.info.kicker + ' da um belo chute, mas ' + matchData.info.keeper + ' faz uma bela defesa.',
       '<strong>O que que é isso?</strong> ' + matchData.info.kicker + ' manda a bola para as alturas!',
-      '<strong>Quaase...</strong> Uma grande jogada. ' + matchData.info.kicker + ' recebeu um passe fantástico, era ele e o goleiro, chutou e... Um chute horrível, saiu LONGE do alvo...',
-      '<strong>Por centímetros!</strong> A estrela do ' + matchData.info.kicker + ' parece estar brilhando, um chute de primeira que BATE NO TRAVESSÃO!'],
+      '<strong>Quaase... </strong>' + matchData.info.kicker + ' recebeu um passe fantástico, era ele e o goleiro, chutou e... Um chute horrível, saiu LONGE do alvo...',
+      '<strong>Por centímetros!</strong> A estrela do ' + matchData.info.kicker + ' parece estar brilhando, um chute de primeira que BATE NO TRAVESSÃO!',
+      '<strong>Bela defesa!</strong> ' + matchData.info.keeper + ' faz um pequeno milagre, defende a bomba chutada por ' + matchData.info.kicker],
       defensor:['Bonita <strong>roubada de bola</strong> do ' + matchData.info.defensor + ' pelo ' + area() + '!',
-      'O time atacante não está com nada! Boa <strong>roubada de bola</strong> pelo ' + matchData.info.defensor],
+      'O time atacante não está com nada! Gerande <strong>roubada de bola</strong> feita pelo ' + matchData.info.defensor],
       startedAtk:[matchData.info.player + ' tenta começar um ataque, mas ' + matchData.info.stealer + ' estava forte na marcação e impediu o ataque!',
       matchData.info.player + ' parece perdido em campo... Ele tenta começar um ataque, mas ' + matchData.info.stealer + ' não deixou a jogada continuar...',
-      matchData.info.stealer + ' está impossível hoje! Mesmo que ' + matchData.info.player + ' tenha começado uma joaga pelo ' + area() + ', nenhuma bola passa pelo ' + matchData.info.stealer + ' hoje!'],
+      matchData.info.stealer + ' está impossível hoje! Mesmo que ' + matchData.info.player + ' tenha começado uma jogada pelo ' + area() + ', nenhuma bola passa pelo ' + matchData.info.stealer + ' hoje!'],
     };
 
     if('info' in matchData){
@@ -208,3 +221,6 @@ class createTimeline{
     return `<div class="card card__timeline"><p>Uma jogada do ${teamName}</p><hr><p>${content}</p></div>`
   }
 }
+
+const backEnd = new callBackEnd();
+backEnd.fetch()

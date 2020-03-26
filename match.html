@@ -1,0 +1,28 @@
+---
+layout: simple_base.html
+---
+<main>
+  <h1 class="text--centered text__main-title">Time da casa <span id="scoreHomeTeam">0</span> x <span id="scoreAlwayTeam">0</span> Time visitante</h1>
+  <!-- Teams details -->
+  <h2 class="hidden-mobile">Detalhes dos times</h2>
+  <section class="grid hidden-mobile">
+    <div>
+      <h3>Time da casa</h3>
+      <ul id="dashboardHome" class="list--no-style">
+      </ul>
+    </div>
+    <div>
+      <h3>Time visitante</h3>
+      <ul id="dashboardAlway" class="list--no-style">
+      </ul>
+    </div>
+  </section>
+  <hr class="hidden-mobile" />
+
+  <!-- Game details -->
+  <article>
+    <h2>Jogo lance-a-lance</h2>
+    <div id="content"></div>
+  </article>
+</main>
+<script src="/js/match.js"></script>
