@@ -103,8 +103,8 @@ class createSummary{
     }
   
     return   '<ul class="list--no-style">'+
-      '<li>Estilo de jogo: <strong>' + intensity + '</strong></li>'+
-      '<li>Prioridade de ataques: <strong>' + atkStyle + '</strong></li>'+
+      '<li>Modo de jogo: <strong>' + intensity + '</strong></li>'+
+      '<li>Estilo de ataques: <strong>' + atkStyle + '</strong></li>'+
       '<li>Posse de bola: <strong>' + this.gameStats.ballPossession[team].toFixed(1)  + '%</strong></li>'+
       '</ul>';
   }

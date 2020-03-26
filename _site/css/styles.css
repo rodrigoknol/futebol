@@ -46,7 +46,7 @@ label{
   font-weight: 500;
 }
 
-main{
+main, footer{
   width: 55rem;
   max-width: 100%;
   margin: auto;
