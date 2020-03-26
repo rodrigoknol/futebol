@@ -3,5 +3,105 @@ layout: simple_base.html
 ---
 <main>
   <h1 class="text--centered text__main-title">Monte o seu time</h1>
-  <a class="btn" href="/match">Rodar uma partida</a>
+  <h2>Escolha o elenco</h2>
+  <section class="grid">
+    <div>
+      <label for="formation">Formação</label>
+      <select id="formation">
+        <option value="4-3-3">4-3-3</option>
+        <option value="4-1-4-1">4-1-4-1</option>
+        <option value="4-4-2">4-4-2</option>
+        <option value="3-5-2">3-5-2</option>
+      </select>
+      <!-- Field drawing -->
+      <table class="field">
+        <!-- Row A -->
+        <tr>
+          <td>a1</td>
+          <td>a2</td>
+          <td>a3</td>
+          <td>a4</td>
+          <td>a5</td>
+        </tr>
+        <!-- Row B -->
+        <tr>
+          <td>b1</td>
+          <td>b2</td>
+          <td>b3</td>
+          <td>b4</td>
+          <td>b5</td>
+        </tr>
+        <!-- Row C -->
+        <tr>
+          <td>c1</td>
+          <td>c2</td>
+          <td>c3</td>
+          <td>c4</td>
+          <td>c5</td>
+        </tr>
+        <!-- Row D -->
+        <tr>
+          <td>d1</td>
+          <td>d2</td>
+          <td>d3</td>
+          <td>d4</td>
+          <td>d5</td>
+        </tr>
+        <!-- Row E -->
+        <tr>
+          <td>e1</td>
+          <td>-/-</td>
+          <td>e3</td>
+          <td>-/-</td>
+          <td>e5</td>
+        </tr>
+        <!-- Row F -->
+        <tr>
+          <td>-/-</td>
+          <td>f2</td>
+          <td>-/-</td>
+          <td>f4</td>
+          <td>-/-</td>
+        </tr>
+        <!-- Goalkeeper -->
+        <tr>
+          <td>-/-</td>
+          <td>-/-</td>
+          <td>Goleiro</td>
+          <td>-/-</td>
+          <td>-/-</td>
+        </tr>
+      </table>
+    </div>
+    <div>
+      <label for="position">Jogador por posição</label>
+      <select id="position">
+        <option value="goalkeeper">Goleiro</option>
+        <option value="wing-back">Laterais</option>
+        <option value="defensors">Zagueiros</option>
+        <option value="middle">Meio Campistas</option>
+        <option value="attack">Atacantes</option>
+      </select>
+    </div>
+  </section>
+  <hr />
+  <h2>Estilos e táticas</h2>
+  <form>
+    <label for="formGameMode">Modo de jogo</label>
+    <select id="formGameMode">
+      <option value="normal">Equilibrado</option>
+      <option value="counter-atk">Contra-ataque</option>
+      <option value="all-atk">Ataque total</option>
+      <option value="all-def">Retranca</option>
+    </select>
+    <label for="formAttackStyle">Estilo de ataque</label>
+    <select id="formAttackStyle">
+      <option value="mixed">Misto</option>
+      <option value="lateral">Pelas laterais</option>
+      <option value="middle">Pelo meio</option>
+    </select>
+  </form>
+  <hr />
+  <button class="btn" >Salvar o time</button>
+  <a class="btn" disabled href="/match">Rodar uma partida</a>
 </main>

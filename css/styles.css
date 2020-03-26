@@ -8,6 +8,11 @@
 }
 
 /* Main elements */
+a{
+  cursor: pointer;
+  color: var(--clickable);
+}
+
 body{
   font-size: 18px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -31,13 +36,14 @@ hr{
   margin: 1rem 0;
 }
 
-a{
-  cursor: pointer;
-  color: var(--clickable);
+label{
+  margin-top: 0.25rem;
+  display: block;
+  font-weight: 500;
 }
 
 main{
-  width: 900px;
+  width: 55rem;
   max-width: 100%;
   margin: auto;
   margin-top: 3rem;
@@ -55,8 +61,16 @@ nav{
   box-shadow: 0.1rem 0.1rem 0.5rem 0rem var(--light-gray);
 }
 
+select{
+  width: 100%;
+  font-size: 1em;
+  line-height: 1;
+  margin-bottom: 1em;
+  padding: 0.5em;
+}
+
 /* Other elements - Alphabetical order */
-.btn{
+.btn, button.btn{
   font-weight: bold;
   text-decoration: none;
   cursor: pointer;
@@ -65,6 +79,16 @@ nav{
   border-radius: 0.25rem;
   padding: 0.75rem 1.25rem;
   margin: 1rem 0;
+  border: 0;
+  display: inline-block;
+}
+
+.btn:disabled,
+.btn[disabled],
+button.btn:disabled,
+button.btn[disabled]{
+  pointer-events: none;
+  background: var(--light-gray);
 }
 
 .card{
@@ -112,12 +136,34 @@ nav{
   background: white url(../img/icons/ball-failure.svg);
 }
 
+.field{
+  background: var(--success) url(../img/textures/grass.jpg);
+  background-size: cover;
+  color: white;
+  font-weight: 500;
+  text-align: center;
+  width: 100%;
+}
+
+.field td{
+  height: 4.5em;
+  width: 4.5em;
+}
+
 .grid{
   display: flex;
 }
 
 .grid > *{
   flex: 1 1 0;
+}
+
+.grid > *:nth-child(even){
+  margin-left: 0.5rem;
+}
+
+.grid > *:nth-child(odd){
+  margin-right: 0.5rem;
 }
 
 .list--no-style li{
@@ -147,10 +193,18 @@ nav{
   z-index: -1;
 }
 
+/* Media querie, elements in alphabetical order */
 @media (max-width: 800px){
-  .btn{
+  .btn, button.btn{
     display: block;
     text-align: center;
+    width: 100%;
+  }
+  .grid{
+    flex-direction: column;
+  }
+  .grid > *:nth-child(even), .grid > *:nth-child(odd){
+    margin: 0;
   }
   h1{
     font-size: 1.2rem;
