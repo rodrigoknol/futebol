@@ -156,6 +156,11 @@ button.btn[disabled]{
 
 .field__item{
   position: relative;
+  transition: 0.3s;
+}
+
+.field__item:hover{
+  transform: scale(1.1);
 }
 
 .field__item:before{
