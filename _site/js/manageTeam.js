@@ -2,74 +2,75 @@ const teamPlayersList = {
   goalkeeper: [
     {position: 'goalkeeper',
      name: 'Cássio',
-     points: 0}
+     points: 4}
   ],
   wing_back: [
     {position: 'left_wing_back',
      name: 'Carlos Augusto',
-     points: 0},
+     points: 2},
     {position: 'left_wing_back',
      name: 'Lucas Piton',
-     points: 0},
+     points: 2},
     {position: 'right_wing_back',
      name: 'Fagner',
-     points: 0}
+     points: 4}
   ],
   defensor: [
     {position: 'center_back',
      name: 'Gil',
-     points: 0},
+     points: 4},
     {position: 'center_back',
      name: 'Bruno Méndez',
-     points: 0},
+     points: 2},
     {position: 'center_back',
      name: 'Pedro Henrique',
-     points: 0},
+     points: 3},
   ],
   midfielder: [
     {position: 'midfielder',
      name: 'Camacho',
-     points: 0},
+     points: 3},
     {position: 'midfielder',
      name: 'Cantillo',
-     points: 0},
+     points: 5},
     {position: 'midfielder',
      name: 'Gabriel',
-     points: 0},
+     points: 2},
      {position: 'midfielder',
      name: 'Ramiro',
-     points: 0},
+     points: 4},
      {position: 'midfielder',
      name: 'Mateus Vital',
-     points: 0},
+     points: 3},
      {position: 'midfielder',
      name: 'Luan',
-     points: 0},
+     points: 4},
   ],
   attackers: [
-    {position: 'stricker ',
+    {position: 'stricker',
      name: 'Mauro Boselli',
-     points: 0},
+     points: 4},
      {position: 'stricker',
      name: 'Vagner Love',
-     points: 0},
+     points: 3},
      {position: 'winger',
      name: 'Janderson',
-     points: 0},
+     points: 2},
      {position: 'winger',
      name: 'Pedrinho',
-     points: 0},
+     points: 5},
   ],
 }
 
 class manageTeam{
-  constructor(tableDOM, formationSelect, playersListDOM, positionSelect){
+  constructor(tableDOM, formationSelect, playersListDOM, positionSelect, teamPlayersList){
     this.tableDOM = document.getElementById(tableDOM);
     this.playersListDOM = document.getElementById(playersListDOM);
     this.formationElement = document.getElementById(formationSelect);
     this.formation = document.getElementById(formationSelect).value;
     this.positionElement = document.getElementById(positionSelect);
     this.position = document.getElementById(positionSelect).value;
+    this.allPlayers = teamPlayersList;
     this.selectedPlayers = []
   }
 
@@ -152,10 +153,41 @@ class manageTeam{
   }
 
   createPlayerList(){
+    this.allPlayers[this.position].forEach(player => {
+      this.playersListDOM.innerHTML = this.playersListDOM.innerHTML + this.createCard(player)
+    })
+  }
 
+  createCard(playerStats){
+    const star = '★';
+    const positions = {
+      goalkeeper: 'Goleiro',
+      left_wing_back: 'Lateral Esquerdo',
+      right_wing_back: 'Lateral Direito',
+      center_back: 'Zagueiro',
+      midfielder: 'Meio Campista',
+      stricker: 'Centro-Avante',
+      winger: 'Ponta'
+    }
+
+    return `<div class="card"><div class="card__flex"><img class="img__icon" src="/img/icons/positions/${playerStats.position}.svg" /><div><h3>${playerStats.name}</h3><p>Posição: <strong>${positions[playerStats.position]}</strong></p></div></div><hr /><p class="text--gold-color">${star.repeat(playerStats.points)}</p></div>`
+  }
+
+  updatesPosition(){
+    this.positionElement.addEventListener('change', ()=>{this.changesPosition()})
+  }
+
+  changesPosition(){
+    console.log(this.positionElement.value)
+    this.position = this.positionElement.value;
+    this.playersListDOM.innerHTML = '';
+    this.createPlayerList()
   }
 }
 
-const createFormation = new manageTeam('playersTable', 'formation', 'playersListDOM', 'position');
+const createFormation = new manageTeam('playersTable', 'formation', 'playersListDOM', 'position', teamPlayersList);
 createFormation.createField()
+createFormation.createPlayerList()
+
 createFormation.updatesFormation()
+createFormation.updatesPosition()

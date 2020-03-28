@@ -5,6 +5,7 @@
   --success: rgb(100,200,100);
   --error: rgb(250,50,75);
   --clickable: rgb(80,120,200);
+  --gold: rgb(220,180,30);
 }
 
 /* Main elements */
@@ -140,6 +141,15 @@ button.btn[disabled]{
   background: white url(../img/icons/ball-failure.svg);
 }
 
+.card__flex{
+  display: flex;
+  align-items: center;
+}
+
+.card__flex > * {
+  margin: 0 0.5rem;
+}
+
 .field{
   background: var(--success) url(../img/textures/grass.jpg);
   background-size: cover;
@@ -176,11 +186,6 @@ button.btn[disabled]{
   right: 15%;
 }
 
-.field__item--selected:before{
-  filter: brightness(1);
-  opacity: 1;
-}
-
 .grid{
   display: flex;
 }
@@ -195,6 +200,12 @@ button.btn[disabled]{
 
 .grid > *:nth-child(odd){
   margin-right: 0.5rem;
+}
+
+.img__icon{
+  height: 4.5rem;
+  width: 4.5rem;
+  object-fit: contain;
 }
 
 .list--no-style li{
@@ -222,6 +233,10 @@ button.btn[disabled]{
   left: -1rem;
   right: -1rem;
   z-index: -1;
+}
+
+.text--gold-color{
+  color: var(--gold);
 }
 
 /* Media querie, elements in alphabetical order */
