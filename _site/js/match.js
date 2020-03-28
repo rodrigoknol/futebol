@@ -2,6 +2,8 @@ const matchData = {
   homeTeam: {
     gameMode: 'normal',
     attackStyle: 'mixed',
+    player: '',
+    team: '',
     players: [
       {goalkeeper: 'Cássio'},
       {left_wing_back: 'Carlos Augusto'},
@@ -19,6 +21,8 @@ const matchData = {
   alwayTeam: {
     gameMode: 'normal',
     attackStyle: 'lateral',
+    player: '',
+    team: '',
     players: [
       {goalkeeper: 'Cássio'},
       {left_wing_back: 'Lucas Piton'},

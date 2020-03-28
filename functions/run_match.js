@@ -21,11 +21,15 @@ exports.handler = (event, context, callback) => {
   function matchLogic(data) {
     const basicTeamsStats ={
       homeTeam: {
+        player: '',
+        team: '',
         pricePoints: calculateTeamTotalPrice('homeTeam', data),
         atkPoints: calculateAttackPoints('homeTeam', data),
         defPoints: calculateDefensePoints('homeTeam', data),
       },
       alwayTeam: {
+        player: '',
+        team: '',
         pricePoints: calculateTeamTotalPrice('alwayTeam', data),
         atkPoints: calculateAttackPoints('alwayTeam', data),
         defPoints: calculateDefensePoints('alwayTeam', data),

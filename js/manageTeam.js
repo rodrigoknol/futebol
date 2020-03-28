@@ -64,11 +64,15 @@ const teamPlayersList = {
 
 const matchData = {
   homeTeam: {
+    player: '',
+    team: '',
     gameMode: 'normal',
     attackStyle: 'mixed',
     players: [],
   },
   alwayTeam: {
+    player: '',
+    team: '',
     gameMode: 'normal',
     attackStyle: 'lateral',
     players: [
@@ -175,6 +179,10 @@ class manageTeam{
     matchData.homeTeam.players = [];
     this.formation = this.formationElement.value;
     this.tableDOM.innerHTML = '';
+    Array.from(this.playersListDOM.children).forEach(element => {
+      element.classList.remove('card--clicked')
+      element.classList.add('card--clickable')
+    })
     this.createField()
   }
 
@@ -293,3 +301,27 @@ createFormation.createPlayerList()
 
 createFormation.updatesFormation()
 createFormation.updatesPosition()
+
+function saveTeamData(){
+  if(matchData.homeTeam.players.length !== 11) return alert('O seu time ainda não está completo')
+
+  async function post(url = '', data = {}) {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: data
+    });
+    return await response.json();
+  }
+
+  post('/.netlify/functions/save_pre_match_data', JSON.stringify(matchData))
+    .then((data) => {
+      getsReadyToPlay(data['@ref'].id)
+    });
+
+  function getsReadyToPlay(theId){
+    const runButton = document.getElementById('runMatch');
+    runButton.removeAttribute("disabled");
+    runButton.href = `/match?id=${theId}`
+  }
+}
