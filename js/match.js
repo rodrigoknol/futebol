@@ -1,44 +1,3 @@
-const matchData = {
-  homeTeam: {
-    gameMode: 'normal',
-    attackStyle: 'mixed',
-    player: '',
-    team: '',
-    players: [
-      {goalkeeper: 'Cássio'},
-      {left_wing_back: 'Carlos Augusto'},
-      {right_wing_back: 'Fagner'},
-      {center_back: 'Gil'},
-      {center_back: 'Bruno Méndez'},
-      {midfielder: 'Camacho'},
-      {midfielder: 'Gabriel'},
-      {midfielder: 'Luan'},
-      {winger: 'Janderson'},
-      {winger: 'Pedrinho'},
-      {stricker: 'Vagner Love'}
-    ],
-  },
-  alwayTeam: {
-    gameMode: 'normal',
-    attackStyle: 'lateral',
-    player: '',
-    team: '',
-    players: [
-      {goalkeeper: 'Cássio'},
-      {left_wing_back: 'Lucas Piton'},
-      {right_wing_back: 'Fagner'},
-      {center_back: 'Pedro Henrique'},
-      {center_back: 'Gil'},
-      {midfielder: 'Camacho'},
-      {midfielder: 'Cantillo'},
-      {midfielder: 'Ramiro'},
-      {midfielder: 'Luan'},
-      {winger: 'Pedrinho'},
-      {stricker: 'Mauro Boselli'}
-    ],
-  }
-}
-
 async function post(url = '', data = {}) {
   const response = await fetch(url, {
     method: 'POST',
@@ -53,14 +12,14 @@ function getRandomInt(max){
 }
 
 class callBackEnd {
-  fetch(){
+  fetch(data){
     const dummyData = '{"gameStats":{"ballPossession":{"homeTeam":28.672705034084352,"alwayTeam":71.32729496591566},"intensity":{"homeTeam":"normal","alwayTeam":"normal"},"atkStyle":{"homeTeam":"mixed","alwayTeam":"lateral"}},"theGame":[{"attackingTeam":"alwayTeam","result":"failed","turn":0,"info":{"lastStep":"kick","kicker":"Cantillo","keeper":"Cássio","area":"middle"}},{"attackingTeam":"alwayTeam","result":"failed","turn":1,"info":{"lastStep":"kick","kicker":"Ramiro","keeper":"Cássio","area":"middle"}},{"attackingTeam":"homeTeam","result":"failed","turn":2,"info":{"lastStep":"kick","kicker":"Pedrinho","keeper":"Cássio","area":"wing"}},{"attackingTeam":"homeTeam","result":"failed","turn":3,"info":{"lastStep":"startedAtk","player":"Carlos Augusto","stealer":"Pedro Henrique","area":"wing"}},{"attackingTeam":"alwayTeam","result":"failed","turn":4,"info":{"lastStep":"startedAtk","player":"Cantillo","stealer":"Gil","area":"corner"}},{"attackingTeam":"alwayTeam","result":"success","turn":5,"info":{"lastStep":"goal","kicker":"Pedrinho","player":"Pedrinho","defensor":"Bruno Méndez","keeper":"Cássio","area":"attack"}},{"attackingTeam":"alwayTeam","result":"failed","turn":6,"info":{"lastStep":"kick","kicker":"Ramiro","keeper":"Cássio","area":"wing"}},{"attackingTeam":"alwayTeam","result":"success","turn":7,"info":{"lastStep":"goal","kicker":"Mauro Boselli","player":"Pedrinho","defensor":"Fagner","keeper":"Cássio","area":"wing"}}]}'
-    this.control(JSON.parse(dummyData))
+    this.control(JSON.parse(data))
 
-    // post('/.netlify/functions/run_match', matchData)
-    // .then((data) => {
-    //   control(data)
-    // });
+    post('/.netlify/functions/run_match', matchData)
+    .then((data) => {
+      control(data)
+    });
   }
 
   control(data){
@@ -227,4 +186,11 @@ class createTimeline{
 }
 
 const backEnd = new callBackEnd();
-backEnd.fetch()
+
+const wholeId = document.location.search;
+const id = wholeId.split('=')[1];
+
+post('/.netlify/functions/get_match_data', id)
+    .then((data) => {
+      backEnd.fetch(data)
+    });
