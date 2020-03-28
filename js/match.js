@@ -15,7 +15,7 @@ class callBackEnd {
   fetch(matchBaseData){
     post('/.netlify/functions/run_match', matchBaseData)
     .then((data) => {
-      this.control(JSON.parse(data))
+      this.control(data)
     });
   }
 
