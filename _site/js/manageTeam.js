@@ -62,6 +62,30 @@ const teamPlayersList = {
   ],
 }
 
+const matchData = {
+  homeTeam: {
+    gameMode: document.getElementById('formGameMode').value,
+    attackStyle: document.getElementById('formAttackStyle').value,
+    players: [],
+  },
+  alwayTeam: {
+    gameMode: 'normal',
+    attackStyle: 'lateral',
+    players: [
+      {goalkeeper: 'Cássio'},
+      {left_wing_back: 'Lucas Piton'},
+      {right_wing_back: 'Fagner'},
+      {center_back: 'Pedro Henrique'},
+      {center_back: 'Gil'},
+      {midfielder: 'Camacho'},
+      {midfielder: 'Cantillo'},
+      {midfielder: 'Ramiro'},
+      {midfielder: 'Luan'},
+      {winger: 'Pedrinho'},
+      {stricker: 'Mauro Boselli'}
+    ],
+  }
+}
 class manageTeam{
   constructor(tableDOM, formationSelect, playersListDOM, positionSelect, teamPlayersList){
     this.tableDOM = document.getElementById(tableDOM);
@@ -84,6 +108,7 @@ class manageTeam{
       f: this.createRow(),
       keeper: this.createRow()
     }
+    
     const formations = {
       '4-3-3':{
         a: [false, false, true, false, false],
@@ -115,8 +140,8 @@ class manageTeam{
       '3-5-2':{
         a: [false, true, false, true, false],
         b: [false, false, false, false, false],
-        c: [false, true, false, true, false],
-        d: [true, false, true, false, true],
+        c: [false, true, true, true, false],
+        d: [true, false, false, false, true],
         e: [false, false, true, false, false],
         f: [false, true, false, true, false],
         keeper: [false, false, true, false, false],
@@ -147,6 +172,7 @@ class manageTeam{
   }
 
   changesFormation(){
+    matchData.homeTeam.players = [];
     this.formation = this.formationElement.value;
     this.tableDOM.innerHTML = '';
     this.createField()
@@ -170,7 +196,7 @@ class manageTeam{
       winger: 'Ponta'
     }
 
-    return `<div class="card"><div class="card__flex"><img class="img__icon" src="/img/icons/positions/${playerStats.position}.svg" /><div><h3>${playerStats.name}</h3><p>Posição: <strong>${positions[playerStats.position]}</strong></p></div></div><hr /><p class="text--gold-color">${star.repeat(playerStats.points)}</p></div>`
+    return `<div onClick="createFormation.selectsPlayer('${playerStats.name}', '${playerStats.position}')" class="card card--clickable"><div class="card__flex"><img class="img__icon" src="/img/icons/positions/${playerStats.position}.svg" /><div><h3>${playerStats.name}</h3><p>Posição: <strong>${positions[playerStats.position]}</strong></p></div></div><hr /><p class="text--gold-color">${star.repeat(playerStats.points)}</p></div>`
   }
 
   updatesPosition(){
@@ -178,10 +204,76 @@ class manageTeam{
   }
 
   changesPosition(){
-    console.log(this.positionElement.value)
     this.position = this.positionElement.value;
     this.playersListDOM.innerHTML = '';
     this.createPlayerList()
+  }
+
+  selectsPlayer(name, position){
+    let finalData = new Object;
+    finalData[name] = position;
+
+    const maxedPlayersNumbers = matchData.homeTeam.players.length === 11;
+    if(maxedPlayersNumbers) return alert('O seu time já está completo');
+
+    const possibleSpots = this.checkPossibleSpots(position)
+    if(possibleSpots.length === 0) return alert ('Você já passou o limite de jogadores para essa posição')
+
+    const playerAlreadyOnTeam = matchData.homeTeam.players.filter(element => { return Object.keys(element)[0] === name})
+    if(playerAlreadyOnTeam.length > 0) return alert ('Esse jogador já está no seu time')
+
+    possibleSpots[0].classList.remove('field__item')
+    possibleSpots[0].classList.add(`field__item-${position}`)
+
+    return matchData.homeTeam.players.push(finalData)
+  }
+
+  checkPossibleSpots(position){
+    function filter(number){
+      return Array.from(tableRowsList.item(number).children).filter(element => {return element.classList.contains('field__item')})
+    }
+
+    const tableRowsList = document.querySelectorAll('tr');
+    const tableRows = {
+      a: filter(0),
+      b: filter(1),
+      c: filter(2),
+      d: filter(3),
+      e: filter(4),
+      f: filter(5),
+      keeper:filter(6)
+    }
+
+    switch (position) {
+      case 'goalkeeper':
+        return tableRows.keeper
+      case 'left_wing_back':
+        if(this.formation === '3-5-2'){
+          return tableRows.d
+        }
+        return tableRows.e
+      case 'right_wing_back':
+        if(this.formation === '3-5-2'){
+          return tableRows.d
+        }
+        return tableRows.e
+      case 'center_back':
+        if(this.formation === '3-5-2'){
+          return tableRows.e
+        }
+        return tableRows.f
+      case 'midfielder':
+        if(this.formation === '3-5-2'){
+          return tableRows.c
+        }
+        return [...tableRows.d, ...tableRows.c]
+      case 'winger':
+        return [...tableRows.a, ...tableRows.b]
+      case 'stricker':
+        return tableRows.a
+      default:
+        return []
+    }
   }
 }
 

@@ -102,6 +102,7 @@ button.btn[disabled]{
   background: white;
   border-radius: 0.3rem;
   box-shadow: 0.1rem 0.1rem 0.5rem 0rem var(--light-gray);
+  transition: 0.3s;
 }
 
 .card__timeline{
@@ -150,6 +151,14 @@ button.btn[disabled]{
   margin: 0 0.5rem;
 }
 
+.card--clickable{
+  cursor: pointer;
+}
+
+.card--clickable:hover{
+  transform: scale(1.025);
+}
+
 .field{
   background: var(--success) url(../img/textures/grass.jpg);
   background-size: cover;
@@ -184,6 +193,41 @@ button.btn[disabled]{
   opacity: 0.5;
   top: 0.5rem;
   right: 15%;
+}
+
+.field__item-center_back{
+  background: url(../img/icons/positions/center_back.svg) no-repeat center;
+  background-size: 70%;
+}
+
+.field__item-goalkeeper{
+  background: url(../img/icons/positions/goalkeeper.svg) no-repeat center;
+  background-size: 70%;
+}
+
+.field__item-left_wing_back{
+  background: url(../img/icons/positions/left_wing_back.svg) no-repeat center;
+  background-size: 70%;
+}
+
+.field__item-midfielder{
+  background: url(../img/icons/positions/midfielder.svg) no-repeat center;
+  background-size: 70%;
+}
+
+.field__item-right_wing_back{
+  background: url(../img/icons/positions/right_wing_back.svg) no-repeat center;
+  background-size: 70%;
+}
+
+.field__item-stricker{
+  background: url(../img/icons/positions/stricker.svg) no-repeat center;
+  background-size: 70%;
+}
+
+.field__item-winger{
+  background: url(../img/icons/positions/winger.svg) no-repeat center;
+  background-size: 70%;
 }
 
 .grid{
