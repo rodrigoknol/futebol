@@ -12,13 +12,10 @@ function getRandomInt(max){
 }
 
 class callBackEnd {
-  fetch(data){
-    const dummyData = '{"gameStats":{"ballPossession":{"homeTeam":28.672705034084352,"alwayTeam":71.32729496591566},"intensity":{"homeTeam":"normal","alwayTeam":"normal"},"atkStyle":{"homeTeam":"mixed","alwayTeam":"lateral"}},"theGame":[{"attackingTeam":"alwayTeam","result":"failed","turn":0,"info":{"lastStep":"kick","kicker":"Cantillo","keeper":"Cássio","area":"middle"}},{"attackingTeam":"alwayTeam","result":"failed","turn":1,"info":{"lastStep":"kick","kicker":"Ramiro","keeper":"Cássio","area":"middle"}},{"attackingTeam":"homeTeam","result":"failed","turn":2,"info":{"lastStep":"kick","kicker":"Pedrinho","keeper":"Cássio","area":"wing"}},{"attackingTeam":"homeTeam","result":"failed","turn":3,"info":{"lastStep":"startedAtk","player":"Carlos Augusto","stealer":"Pedro Henrique","area":"wing"}},{"attackingTeam":"alwayTeam","result":"failed","turn":4,"info":{"lastStep":"startedAtk","player":"Cantillo","stealer":"Gil","area":"corner"}},{"attackingTeam":"alwayTeam","result":"success","turn":5,"info":{"lastStep":"goal","kicker":"Pedrinho","player":"Pedrinho","defensor":"Bruno Méndez","keeper":"Cássio","area":"attack"}},{"attackingTeam":"alwayTeam","result":"failed","turn":6,"info":{"lastStep":"kick","kicker":"Ramiro","keeper":"Cássio","area":"wing"}},{"attackingTeam":"alwayTeam","result":"success","turn":7,"info":{"lastStep":"goal","kicker":"Mauro Boselli","player":"Pedrinho","defensor":"Fagner","keeper":"Cássio","area":"wing"}}]}'
-    this.control(JSON.parse(data))
-
-    post('/.netlify/functions/run_match', matchData)
+  fetch(matchBaseData){
+    post('/.netlify/functions/run_match', matchBaseData)
     .then((data) => {
-      control(data)
+      this.control(JSON.parse(data))
     });
   }
 
@@ -189,8 +186,9 @@ const backEnd = new callBackEnd();
 
 const wholeId = document.location.search;
 const id = wholeId.split('=')[1];
+console.log('id: ',id)
 
 post('/.netlify/functions/get_match_data', id)
-    .then((data) => {
-      backEnd.fetch(data)
+    .then((response) => {
+      backEnd.fetch(response.data)
     });
