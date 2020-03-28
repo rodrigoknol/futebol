@@ -221,7 +221,7 @@ class manageTeam{
 
   selectsPlayer(name, position){
     let finalData = new Object;
-    position = finalData[name];
+    finalData[position] = name;
 
     const maxedPlayersNumbers = matchData.homeTeam.players.length === 11;
     if(maxedPlayersNumbers) return alert('O seu time já está completo');
