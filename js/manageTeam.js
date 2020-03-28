@@ -81,10 +81,10 @@ const matchData = {
       {right_wing_back: 'Fagner'},
       {center_back: 'Pedro Henrique'},
       {center_back: 'Gil'},
-      {midfielder: 'Camacho'},
-      {midfielder: 'Cantillo'},
       {midfielder: 'Ramiro'},
+      {midfielder: 'Cantillo'},
       {midfielder: 'Luan'},
+      {winger: 'Janderson'},
       {winger: 'Pedrinho'},
       {stricker: 'Mauro Boselli'}
     ],
