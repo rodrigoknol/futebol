@@ -138,8 +138,8 @@ class manageTeam{
       },
       '4-1-4-1':{
         a: [false, false, true, false, false],
-        b: [false, true, false, true, false],
-        c: [true, false, false, false, true],
+        b: [false, false, false, false, false],
+        c: [true, true, false, true, true],
         d: [false, false, true, false, false],
         e: [true, false, false, false, true],
         f: [false, true, false, true, false],
