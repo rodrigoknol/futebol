@@ -64,8 +64,8 @@ const teamPlayersList = {
 
 const matchData = {
   homeTeam: {
-    gameMode: document.getElementById('formGameMode').value,
-    attackStyle: document.getElementById('formAttackStyle').value,
+    gameMode: 'normal',
+    attackStyle: 'mixed',
     players: [],
   },
   alwayTeam: {
@@ -195,6 +195,8 @@ class manageTeam{
       stricker: 'Centro-Avante',
       winger: 'Ponta'
     }
+    const playerAlreadyOnTeam = matchData.homeTeam.players.filter(element => { return Object.keys(element)[0] === playerStats.name})
+    if(playerAlreadyOnTeam.length > 0) return `<div class="card card--clicked"><div class="card__flex"><img class="img__icon" src="/img/icons/positions/${playerStats.position}.svg" /><div><h3>${playerStats.name}</h3><p>Posição: <strong>${positions[playerStats.position]}</strong></p></div></div><hr /><p class="text--gold-color">${star.repeat(playerStats.points)}</p></div>`
 
     return `<div onClick="createFormation.selectsPlayer('${playerStats.name}', '${playerStats.position}')" class="card card--clickable"><div class="card__flex"><img class="img__icon" src="/img/icons/positions/${playerStats.position}.svg" /><div><h3>${playerStats.name}</h3><p>Posição: <strong>${positions[playerStats.position]}</strong></p></div></div><hr /><p class="text--gold-color">${star.repeat(playerStats.points)}</p></div>`
   }
@@ -224,6 +226,8 @@ class manageTeam{
 
     possibleSpots[0].classList.remove('field__item')
     possibleSpots[0].classList.add(`field__item-${position}`)
+
+    this.signsCardAsMarked(name)
 
     return matchData.homeTeam.players.push(finalData)
   }
@@ -274,6 +278,12 @@ class manageTeam{
       default:
         return []
     }
+  }
+
+  signsCardAsMarked(name){
+    const elementCard = Array.from(this.playersListDOM.children).filter(element => element.children[0].children[1].children[0].innerHTML === name)
+    elementCard[0].classList.remove('card--clickable')
+    elementCard[0].classList.add('card--clicked')
   }
 }
 

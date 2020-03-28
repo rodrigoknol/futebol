@@ -36,14 +36,14 @@ layout: simple_base.html
   <h2>Estilos e táticas</h2>
   <form>
     <label for="formGameMode">Modo de jogo</label>
-    <select id="formGameMode">
+    <select onchange="matchData.homeTeam.gameMode = this.value" id="formGameMode">
       <option value="normal">Equilibrado</option>
       <option value="counter-atk">Contra-ataque</option>
       <option value="all-atk">Ataque total</option>
       <option value="all-def">Retranca</option>
     </select>
     <label for="formAttackStyle">Estilo de ataque</label>
-    <select id="formAttackStyle">
+    <select onchange="matchData.homeTeam.attackStyle = this.value" id="formAttackStyle">
       <option value="mixed">Misto</option>
       <option value="lateral">Pelas laterais</option>
       <option value="middle">Pelo meio</option>

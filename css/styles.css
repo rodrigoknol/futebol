@@ -159,6 +159,11 @@ button.btn[disabled]{
   transform: scale(1.025);
 }
 
+.card--clicked{
+  pointer-events: none;
+  filter: grayscale(1);
+}
+
 .field{
   background: var(--success) url(../img/textures/grass.jpg);
   background-size: cover;
