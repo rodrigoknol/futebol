@@ -74,6 +74,10 @@ select{
   padding: 0.5em;
 }
 
+.util__hidden{
+  display: none!important;
+}
+
 /* Other elements - Alphabetical order */
 .btn, button.btn{
   font-weight: bold;
@@ -261,6 +265,34 @@ button.btn[disabled]{
   list-style: none;
 }
 
+.loading{
+  overflow: hidden;
+}
+
+.loading:before{
+  content: '';
+  position: absolute;
+  background: rgba(80,80,100, 0.3);
+  top: -5rem;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 15;
+}
+
+.loading:after{
+  content: "";
+  position: fixed;
+  top: 48vh;
+  right: 48%;
+  height: 4rem;
+  width: 4rem;
+  background: url(../img/icons/ball-success.svg);
+  filter:brightness(3);
+  animation: rotateFull 2s linear infinite;
+  z-index: 16;
+}
+
 .text--centered{
   text-align: center;
 }
@@ -288,6 +320,32 @@ button.btn[disabled]{
   color: var(--gold);
 }
 
+.toast{
+  background: white;
+  max-width: 30rem;
+  position: fixed;
+  left: 1rem;
+  bottom: 1rem;
+  padding: 1.25rem;
+  border-radius: 0.3rem;
+  box-shadow: 0.1rem 0.1rem 0.5rem 0rem var(--light-gray);
+}
+
+.toast--success{
+  background: var(--success);
+  color: white;
+  font-weight: 500;
+}
+
+@keyframes rotateFull {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 /* Media querie, elements in alphabetical order */
 @media (max-width: 800px){
   .btn, button.btn{
@@ -306,5 +364,13 @@ button.btn[disabled]{
   }
   .hidden-mobile{
     display: none;
+  }
+  .toast{
+    bottom: 0;
+    right: 0;
+    left: 0;
+    max-width: initial;
+    border-radius: 0;
+    text-align: center;
   }
 }

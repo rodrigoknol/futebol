@@ -90,6 +90,19 @@ const matchData = {
     ],
   }
 }
+
+function success(){
+  const successToast = document.createElement("div");
+  successToast.classList.add('toast')
+  successToast.classList.add('toast--success')
+  successToast.innerHTML = '<p><strong>Muito bom!</strong><br>Atividade executada com sucesso!</p>'
+  document.body.append(successToast)
+
+  setTimeout(() => {
+    successToast.classList.add('util__hidden')
+  }, 2000);
+}
+
 class manageTeam{
   constructor(tableDOM, formationSelect, playersListDOM, positionSelect, teamPlayersList){
     this.tableDOM = document.getElementById(tableDOM);
@@ -314,6 +327,8 @@ function saveTeamData(){
     return await response.json();
   }
 
+  document.body.classList.add('loading')
+
   post('/.netlify/functions/save_pre_match_data', JSON.stringify(matchData))
     .then((data) => {
       getsReadyToPlay(data['@ref'].id)
@@ -323,5 +338,8 @@ function saveTeamData(){
     const runButton = document.getElementById('runMatch');
     runButton.removeAttribute("disabled");
     runButton.href = `/match?id=${theId}`
+
+    document.body.classList.remove('loading')
+    success()
   }
 }
