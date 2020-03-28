@@ -20,6 +20,8 @@ class callBackEnd {
   }
 
   control(data){
+    document.body.classList.remove('loading')
+
     const summary = new createSummary(data)
     summary.createContent()
   
@@ -183,6 +185,8 @@ class createTimeline{
 }
 
 const backEnd = new callBackEnd();
+
+document.body.classList.add('loading')
 
 const wholeId = document.location.search;
 const id = wholeId.split('=')[1];
