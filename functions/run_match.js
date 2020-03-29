@@ -1,8 +1,7 @@
 const fetch = require("node-fetch");
 
-let turn = 0;
-
 exports.handler = (event, context, callback) => {
+  let turn = 0;
 
   async function post(url = '', data = {}) {
     const response = await fetch(url, {
