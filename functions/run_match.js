@@ -684,8 +684,8 @@ exports.handler = (event, context, callback) => {
         : homeTeam++;
 
       return {
-        homeTeam: ((homeTeam - 1 + 6) * 100) / 19 - random,
-        alwayTeam: ((alwayTeam - 1 + 6) * 100) / 19 + random
+        homeTeam: ((homeTeam + 6) * 100) / 21 - random,
+        alwayTeam: ((alwayTeam  + 6) * 100) / 21 + random
       };
     }
 
