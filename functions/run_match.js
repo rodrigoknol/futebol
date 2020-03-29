@@ -19,6 +19,7 @@ exports.handler = (event, context, callback) => {
     });
 
   function matchLogic(data) {
+    console.log(data)
     const basicTeamsStats ={
       homeTeam: {
         player: '',
