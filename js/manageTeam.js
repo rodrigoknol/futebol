@@ -1,110 +1,81 @@
 const teamPlayersList = {
-  goalkeeper: [
-    {position: 'goalkeeper',
-     name: 'Cássio',
-     points: 4}
-  ],
+  goalkeeper: [{ position: "goalkeeper", name: "Cássio", points: 4 }],
   wing_back: [
-    {position: 'left_wing_back',
-     name: 'Carlos Augusto',
-     points: 2},
-    {position: 'left_wing_back',
-     name: 'Lucas Piton',
-     points: 2},
-    {position: 'right_wing_back',
-     name: 'Fagner',
-     points: 4}
+    { position: "left_wing_back", name: "Carlos Augusto", points: 2 },
+    { position: "left_wing_back", name: "Lucas Piton", points: 2 },
+    { position: "right_wing_back", name: "Fagner", points: 4 }
   ],
   defensor: [
-    {position: 'center_back',
-     name: 'Gil',
-     points: 4},
-    {position: 'center_back',
-     name: 'Bruno Méndez',
-     points: 2},
-    {position: 'center_back',
-     name: 'Pedro Henrique',
-     points: 3},
+    { position: "center_back", name: "Gil", points: 4 },
+    { position: "center_back", name: "Bruno Méndez", points: 2 },
+    { position: "center_back", name: "Pedro Henrique", points: 3 }
   ],
   midfielder: [
-    {position: 'midfielder',
-     name: 'Camacho',
-     points: 3},
-    {position: 'midfielder',
-     name: 'Cantillo',
-     points: 5},
-    {position: 'midfielder',
-     name: 'Gabriel',
-     points: 2},
-     {position: 'midfielder',
-     name: 'Ramiro',
-     points: 4},
-     {position: 'midfielder',
-     name: 'Mateus Vital',
-     points: 3},
-     {position: 'midfielder',
-     name: 'Luan',
-     points: 4},
+    { position: "midfielder", name: "Camacho", points: 3 },
+    { position: "midfielder", name: "Cantillo", points: 5 },
+    { position: "midfielder", name: "Gabriel", points: 2 },
+    { position: "midfielder", name: "Ramiro", points: 4 },
+    { position: "midfielder", name: "Mateus Vital", points: 3 },
+    { position: "midfielder", name: "Luan", points: 4 }
   ],
   attackers: [
-    {position: 'stricker',
-     name: 'Mauro Boselli',
-     points: 4},
-     {position: 'stricker',
-     name: 'Vagner Love',
-     points: 3},
-     {position: 'winger',
-     name: 'Janderson',
-     points: 2},
-     {position: 'winger',
-     name: 'Pedrinho',
-     points: 5},
-  ],
-}
+    { position: "stricker", name: "Mauro Boselli", points: 4 },
+    { position: "stricker", name: "Vagner Love", points: 3 },
+    { position: "winger", name: "Janderson", points: 2 },
+    { position: "winger", name: "Pedrinho", points: 5 }
+  ]
+};
 
 const matchData = {
   homeTeam: {
-    player: '',
-    team: '',
-    gameMode: 'normal',
-    attackStyle: 'mixed',
-    players: [],
+    player: "",
+    team: "",
+    gameMode: "normal",
+    attackStyle: "mixed",
+    players: []
   },
   alwayTeam: {
-    player: '',
-    team: '',
-    gameMode: 'normal',
-    attackStyle: 'lateral',
+    player: "",
+    team: "",
+    gameMode: "normal",
+    attackStyle: "lateral",
     players: [
-      {goalkeeper: 'Cássio'},
-      {left_wing_back: 'Lucas Piton'},
-      {right_wing_back: 'Fagner'},
-      {center_back: 'Pedro Henrique'},
-      {center_back: 'Gil'},
-      {midfielder: 'Ramiro'},
-      {midfielder: 'Cantillo'},
-      {midfielder: 'Luan'},
-      {winger: 'Janderson'},
-      {winger: 'Pedrinho'},
-      {stricker: 'Mauro Boselli'}
-    ],
+      { goalkeeper: "Cássio" },
+      { left_wing_back: "Lucas Piton" },
+      { right_wing_back: "Fagner" },
+      { center_back: "Pedro Henrique" },
+      { center_back: "Gil" },
+      { midfielder: "Ramiro" },
+      { midfielder: "Cantillo" },
+      { midfielder: "Luan" },
+      { winger: "Janderson" },
+      { winger: "Pedrinho" },
+      { stricker: "Mauro Boselli" }
+    ]
   }
-}
+};
 
-function success(){
+function success() {
   const successToast = document.createElement("div");
-  successToast.classList.add('toast')
-  successToast.classList.add('toast--success')
-  successToast.innerHTML = '<p><strong>Muito bom!</strong><br>Atividade executada com sucesso!</p>'
-  document.body.append(successToast)
+  successToast.classList.add("toast");
+  successToast.classList.add("toast--success");
+  successToast.innerHTML =
+    "<p><strong>Muito bom!</strong><br>Atividade executada com sucesso!</p>";
+  document.body.append(successToast);
 
   setTimeout(() => {
-    successToast.classList.add('util__hidden')
+    successToast.classList.add("util__hidden");
   }, 2000);
 }
 
-class manageTeam{
-  constructor(tableDOM, formationSelect, playersListDOM, positionSelect, teamPlayersList){
+class manageTeam {
+  constructor(
+    tableDOM,
+    formationSelect,
+    playersListDOM,
+    positionSelect,
+    teamPlayersList
+  ) {
     this.tableDOM = document.getElementById(tableDOM);
     this.playersListDOM = document.getElementById(playersListDOM);
     this.formationElement = document.getElementById(formationSelect);
@@ -112,10 +83,10 @@ class manageTeam{
     this.positionElement = document.getElementById(positionSelect);
     this.position = document.getElementById(positionSelect).value;
     this.allPlayers = teamPlayersList;
-    this.selectedPlayers = []
+    this.selectedPlayers = [];
   }
 
-  createField(){  
+  createField() {
     const rows = {
       a: this.createRow(),
       b: this.createRow(),
@@ -124,141 +95,171 @@ class manageTeam{
       e: this.createRow(),
       f: this.createRow(),
       keeper: this.createRow()
-    }
-    
+    };
+
     const formations = {
-      '4-3-3':{
+      "4-3-3": {
         a: [false, false, true, false, false],
         b: [true, false, false, false, true],
         c: [false, false, true, false, false],
         d: [false, true, false, true, false],
         e: [true, false, false, false, true],
         f: [false, true, false, true, false],
-        keeper: [false, false, true, false, false],
+        keeper: [false, false, true, false, false]
       },
-      '4-1-4-1':{
+      "4-1-4-1": {
         a: [false, false, true, false, false],
         b: [false, false, false, false, false],
         c: [true, true, false, true, true],
         d: [false, false, true, false, false],
         e: [true, false, false, false, true],
         f: [false, true, false, true, false],
-        keeper: [false, false, true, false, false],
+        keeper: [false, false, true, false, false]
       },
-      '4-4-2':{
+      "4-4-2": {
         a: [false, true, false, true, false],
         b: [false, false, false, false, false],
         c: [false, true, false, true, false],
         d: [false, true, false, true, false],
         e: [true, false, false, false, true],
         f: [false, true, false, true, false],
-        keeper: [false, false, true, false, false],
+        keeper: [false, false, true, false, false]
       },
-      '3-5-2':{
+      "3-5-2": {
         a: [false, true, false, true, false],
         b: [false, false, false, false, false],
         c: [false, true, true, true, false],
         d: [true, false, false, false, true],
         e: [false, false, true, false, false],
         f: [false, true, false, true, false],
-        keeper: [false, false, true, false, false],
+        keeper: [false, false, true, false, false]
       }
-    }
-    const rowList = ['a','b','c','d','e','f','keeper'];
+    };
+    const rowList = ["a", "b", "c", "d", "e", "f", "keeper"];
 
-    rowList.forEach(rowLetter =>{
+    rowList.forEach(rowLetter => {
       formations[this.formation][rowLetter].forEach(element => {
-        this.createCell(rows[rowLetter], element)
+        this.createCell(rows[rowLetter], element);
       });
-    })
+    });
   }
 
-  createRow(){
-    return this.tableDOM.insertRow()
+  createRow() {
+    return this.tableDOM.insertRow();
   }
 
-  createCell(row, actionable = false){
-    const cell = row.insertCell()
-    if(actionable){
-      cell.classList.add('field__item')
+  createCell(row, actionable = false) {
+    const cell = row.insertCell();
+    if (actionable) {
+      cell.classList.add("field__item");
     }
   }
 
-  updatesFormation(){
-    this.formationElement.addEventListener('change', ()=>{this.changesFormation()})
+  updatesFormation() {
+    this.formationElement.addEventListener("change", () => {
+      this.changesFormation();
+    });
   }
 
-  changesFormation(){
+  changesFormation() {
     matchData.homeTeam.players = [];
     this.formation = this.formationElement.value;
-    this.tableDOM.innerHTML = '';
+    this.tableDOM.innerHTML = "";
     Array.from(this.playersListDOM.children).forEach(element => {
-      element.classList.remove('card--clicked')
-      element.classList.add('card--clickable')
-    })
-    this.createField()
+      element.classList.remove("card--clicked");
+      element.classList.add("card--clickable");
+    });
+    this.createField();
   }
 
-  createPlayerList(){
+  createPlayerList() {
     this.allPlayers[this.position].forEach(player => {
-      this.playersListDOM.innerHTML = this.playersListDOM.innerHTML + this.createCard(player)
-    })
+      this.playersListDOM.innerHTML =
+        this.playersListDOM.innerHTML + this.createCard(player);
+    });
   }
 
-  createCard(playerStats){
-    const star = '★';
+  createCard(playerStats) {
+    const star = "★";
     const positions = {
-      goalkeeper: 'Goleiro',
-      left_wing_back: 'Lateral Esquerdo',
-      right_wing_back: 'Lateral Direito',
-      center_back: 'Zagueiro',
-      midfielder: 'Meio Campista',
-      stricker: 'Centro-Avante',
-      winger: 'Ponta'
-    }
-    const playerAlreadyOnTeam = matchData.homeTeam.players.filter(element => { return Object.keys(element)[0] === playerStats.name})
-    if(playerAlreadyOnTeam.length > 0) return `<div class="card card--clicked"><div class="card__flex"><img class="img__icon" src="/img/icons/positions/${playerStats.position}.svg" /><div><h3>${playerStats.name}</h3><p>Posição: <strong>${positions[playerStats.position]}</strong></p></div></div><hr /><p class="text--gold-color">${star.repeat(playerStats.points)}</p></div>`
+      goalkeeper: "Goleiro",
+      left_wing_back: "Lateral Esquerdo",
+      right_wing_back: "Lateral Direito",
+      center_back: "Zagueiro",
+      midfielder: "Meio Campista",
+      stricker: "Centro-Avante",
+      winger: "Ponta"
+    };
+    const playerAlreadyOnTeam = matchData.homeTeam.players.filter(element => {
+      return Object.keys(element)[0] === playerStats.name;
+    });
+    if (playerAlreadyOnTeam.length > 0)
+      return `<div class="card card--clicked"><div class="card__flex"><img class="img__icon" src="/img/icons/positions/${
+        playerStats.position
+      }.svg" /><div><h3>${playerStats.name}</h3><p>Posição: <strong>${
+        positions[playerStats.position]
+      }</strong></p></div></div><hr /><p class="text--gold-color">${star.repeat(
+        playerStats.points
+      )}</p></div>`;
 
-    return `<div onClick="createFormation.selectsPlayer('${playerStats.name}', '${playerStats.position}')" class="card card--clickable"><div class="card__flex"><img class="img__icon" src="/img/icons/positions/${playerStats.position}.svg" /><div><h3>${playerStats.name}</h3><p>Posição: <strong>${positions[playerStats.position]}</strong></p></div></div><hr /><p class="text--gold-color">${star.repeat(playerStats.points)}</p></div>`
+    return `<div onClick="createFormation.selectsPlayer('${
+      playerStats.name
+    }', '${
+      playerStats.position
+    }')" class="card card--clickable"><div class="card__flex"><img class="img__icon" src="/img/icons/positions/${
+      playerStats.position
+    }.svg" /><div><h3>${playerStats.name}</h3><p>Posição: <strong>${
+      positions[playerStats.position]
+    }</strong></p></div></div><hr /><p class="text--gold-color">${star.repeat(
+      playerStats.points
+    )}</p></div>`;
   }
 
-  updatesPosition(){
-    this.positionElement.addEventListener('change', ()=>{this.changesPosition()})
+  updatesPosition() {
+    this.positionElement.addEventListener("change", () => {
+      this.changesPosition();
+    });
   }
 
-  changesPosition(){
+  changesPosition() {
     this.position = this.positionElement.value;
-    this.playersListDOM.innerHTML = '';
-    this.createPlayerList()
+    this.playersListDOM.innerHTML = "";
+    this.createPlayerList();
   }
 
-  selectsPlayer(name, position){
-    let finalData = new Object;
+  selectsPlayer(name, position) {
+    let finalData = new Object();
     finalData[position] = name;
 
     const maxedPlayersNumbers = matchData.homeTeam.players.length === 11;
-    if(maxedPlayersNumbers) return alert('O seu time já está completo');
+    if (maxedPlayersNumbers) return alert("O seu time já está completo");
 
-    const possibleSpots = this.checkPossibleSpots(position)
-    if(possibleSpots.length === 0) return alert ('Você já passou o limite de jogadores para essa posição')
+    const possibleSpots = this.checkPossibleSpots(position);
+    if (possibleSpots.length === 0)
+      return alert("Você já passou o limite de jogadores para essa posição");
 
-    const playerAlreadyOnTeam = matchData.homeTeam.players.filter(element => { return Object.keys(element)[0] === name})
-    if(playerAlreadyOnTeam.length > 0) return alert ('Esse jogador já está no seu time')
+    const playerAlreadyOnTeam = matchData.homeTeam.players.filter(element => {
+      return Object.keys(element)[0] === name;
+    });
+    if (playerAlreadyOnTeam.length > 0)
+      return alert("Esse jogador já está no seu time");
 
-    possibleSpots[0].classList.remove('field__item')
-    possibleSpots[0].classList.add(`field__item-${position}`)
+    possibleSpots[0].classList.remove("field__item");
+    possibleSpots[0].classList.add(`field__item-${position}`);
 
-    this.signsCardAsMarked(name)
+    this.signsCardAsMarked(name);
 
-    return matchData.homeTeam.players.push(finalData)
+    return matchData.homeTeam.players.push(finalData);
   }
 
-  checkPossibleSpots(position){
-    function filter(number){
-      return Array.from(tableRowsList.item(number).children).filter(element => {return element.classList.contains('field__item')})
+  checkPossibleSpots(position) {
+    function filter(number) {
+      return Array.from(tableRowsList.item(number).children).filter(element => {
+        return element.classList.contains("field__item");
+      });
     }
 
-    const tableRowsList = document.querySelectorAll('tr');
+    const tableRowsList = document.querySelectorAll("tr");
     const tableRows = {
       a: filter(0),
       b: filter(1),
@@ -266,80 +267,91 @@ class manageTeam{
       d: filter(3),
       e: filter(4),
       f: filter(5),
-      keeper:filter(6)
-    }
+      keeper: filter(6)
+    };
 
     switch (position) {
-      case 'goalkeeper':
-        return tableRows.keeper
-      case 'left_wing_back':
-        if(this.formation === '3-5-2'){
-          return tableRows.d
+      case "goalkeeper":
+        return tableRows.keeper;
+      case "left_wing_back":
+        if (this.formation === "3-5-2") {
+          return tableRows.d;
         }
-        return tableRows.e
-      case 'right_wing_back':
-        if(this.formation === '3-5-2'){
-          return tableRows.d
+        return tableRows.e;
+      case "right_wing_back":
+        if (this.formation === "3-5-2") {
+          return tableRows.d;
         }
-        return tableRows.e
-      case 'center_back':
-        if(this.formation === '3-5-2'){
-          return tableRows.e
+        return tableRows.e;
+      case "center_back":
+        if (this.formation === "3-5-2") {
+          return tableRows.e;
         }
-        return tableRows.f
-      case 'midfielder':
-        if(this.formation === '3-5-2'){
-          return tableRows.c
+        return tableRows.f;
+      case "midfielder":
+        if (this.formation === "3-5-2") {
+          return tableRows.c;
         }
-        return [...tableRows.d, ...tableRows.c]
-      case 'winger':
-        return [...tableRows.a, ...tableRows.b]
-      case 'stricker':
-        return tableRows.a
+        return [...tableRows.d, ...tableRows.c];
+      case "winger":
+        return [...tableRows.a, ...tableRows.b];
+      case "stricker":
+        return tableRows.a;
       default:
-        return []
+        return [];
     }
   }
 
-  signsCardAsMarked(name){
-    const elementCard = Array.from(this.playersListDOM.children).filter(element => element.children[0].children[1].children[0].innerHTML === name)
-    elementCard[0].classList.remove('card--clickable')
-    elementCard[0].classList.add('card--clicked')
+  signsCardAsMarked(name) {
+    const elementCard = Array.from(this.playersListDOM.children).filter(
+      element => element.children[0].children[1].children[0].innerHTML === name
+    );
+    elementCard[0].classList.remove("card--clickable");
+    elementCard[0].classList.add("card--clicked");
   }
 }
 
-const createFormation = new manageTeam('playersTable', 'formation', 'playersListDOM', 'position', teamPlayersList);
-createFormation.createField()
-createFormation.createPlayerList()
+const createFormation = new manageTeam(
+  "playersTable",
+  "formation",
+  "playersListDOM",
+  "position",
+  teamPlayersList
+);
+createFormation.createField();
+createFormation.createPlayerList();
 
-createFormation.updatesFormation()
-createFormation.updatesPosition()
+createFormation.updatesFormation();
+createFormation.updatesPosition();
 
-function saveTeamData(){
-  if(matchData.homeTeam.players.length !== 11) return alert('O seu time ainda não está completo')
+function saveTeamData() {
+  if (matchData.homeTeam.players.length !== 11)
+    return alert("O seu time ainda não está completo");
 
-  async function post(url = '', data = {}) {
+  async function post(url = "", data = {}) {
     const response = await fetch(url, {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: data
     });
     return await response.json();
   }
 
-  document.body.classList.add('loading')
+  document.body.classList.add("loading");
 
-  post('/.netlify/functions/save_pre_match_data', JSON.stringify(matchData))
-    .then((data) => {
-      getsReadyToPlay(data['@ref'].id)
-    });
+  post(
+    "/.netlify/functions/save_pre_match_data",
+    JSON.stringify(matchData)
+  ).then(data => {
+    getsReadyToPlay(data["@ref"].id);
+  });
 
-  function getsReadyToPlay(theId){
-    const runButton = document.getElementById('runMatch');
+  function getsReadyToPlay(theId) {
+    const runButton = document.getElementById("runMatch");
     runButton.removeAttribute("disabled");
-    runButton.href = `/match?id=${theId}`
+    runButton.href = `/match?id=${theId}`;
 
-    document.body.classList.remove('loading')
-    success()
+    document.body.classList.remove("loading");
+    success();
   }
 }

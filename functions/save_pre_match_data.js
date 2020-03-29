@@ -1,24 +1,21 @@
-const faunadb = require('faunadb');
+const faunadb = require("faunadb");
 
 exports.handler = (event, context, callback) => {
-  const data = JSON.parse(event.body)
+  const data = JSON.parse(event.body);
 
-  const q = faunadb.query
+  const q = faunadb.query;
   const client = new faunadb.Client({
     secret: "fnADnfe6LqACCb_PlAgsLJsY1rnDPykAMFTbLrFs"
-  })
+  });
 
-  return client.query(
-    q.Create(
-      q.Collection('preMatchData'),
-      {data}
-    ))
-  .then((response) => {
-    console.log("success", response)
+  return client
+    .query(q.Create(q.Collection("preMatchData"), { data }))
+    .then(response => {
+      console.log("success", response);
 
-    return callback(null, {
-      statusCode: 200,
-      body: JSON.stringify(response.ref)
-    })
-  })
-}
+      return callback(null, {
+        statusCode: 200,
+        body: JSON.stringify(response.ref)
+      });
+    });
+};
