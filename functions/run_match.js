@@ -428,6 +428,7 @@ function calculatePossession(basicTeamsStats){
 }
 
 function calculateTeamTotalPrice(theTeam, data){
+  console.log(data)
   return data.thePlayers[theTeam].reduce((acc, player) => acc + player.price, 0)
 }
 
