@@ -1,7 +1,6 @@
 const fetch = require("node-fetch");
 
 exports.handler = (event, context, callback) => {
-  let turn = 0;
 
   async function post(url = '', data = {}) {
     const response = await fetch(url, {
@@ -47,6 +46,7 @@ exports.handler = (event, context, callback) => {
       }
     }
 
+    let turn = 0;
     let theGame = [];
 
     while (turn <= 7) {
