@@ -7,7 +7,7 @@ const client = new faunadb.Client({
 
 exports.handler = (event, context, callback) => {
   const data = JSON.parse(event.body)
-
+  
   return client.query(
     q.Get(
       q.Ref(

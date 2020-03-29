@@ -113,6 +113,8 @@ exports.handler = (event, context, callback) => {
       theGame,
     }
 
+    console.log(finalData)
+
     return callback(null, {
       statusCode: 200,
       body: JSON.stringify(finalData),

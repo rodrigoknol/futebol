@@ -56,7 +56,7 @@ class createSummary{
   
     let atkStyle = 'Misto'
     switch (this.gameStats.atkStyle[team]) {
-      case 'wing':
+      case 'lateral':
         atkStyle = 'Pelas laterais'
         break;
       case 'middle':
@@ -190,7 +190,6 @@ document.body.classList.add('loading')
 
 const wholeId = document.location.search;
 const id = wholeId.split('=')[1];
-console.log('id: ',id)
 
 post('/.netlify/functions/get_match_data', id)
     .then((response) => {
