@@ -19,7 +19,6 @@ exports.handler = (event, context, callback) => {
     });
 
   function matchLogic(data) {
-    console.log(data)
     const basicTeamsStats ={
       homeTeam: {
         player: '',
@@ -107,19 +106,20 @@ exports.handler = (event, context, callback) => {
       }
 
       turn ++
+
     }
 
-    const finalData = {
-      gameStats,
-      theGame,
+    if(turn === 7){
+      const finalData = {
+        gameStats,
+        theGame,
+      }
+
+      return callback(null, {
+        statusCode: 200,
+        body: JSON.stringify(finalData),
+      })
     }
-
-    console.log(finalData)
-
-    return callback(null, {
-      statusCode: 200,
-      body: JSON.stringify(finalData),
-    })
   }
 }
 
