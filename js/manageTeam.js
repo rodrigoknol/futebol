@@ -12,6 +12,8 @@ const teamPlayersList = {
   defensor: [
     { position: "center_back", name: "Gil", points: 4 },
     { position: "center_back", name: "Bruno Méndez", points: 2 },
+    { position: "center_back", name: "Felipe Melo", points: 2 },
+    { position: "center_back", name: "Emerson Santos", points: 1 },
     { position: "center_back", name: "Pedro Henrique", points: 3 }
   ],
   midfielder: [
@@ -28,8 +30,9 @@ const teamPlayersList = {
   attackers: [
     { position: "stricker", name: "Mauro Boselli", points: 4 },
     { position: "stricker", name: "Vagner Love", points: 3 },
-    { position: "winger", name: "Janderson", points: 2 },
+    { position: "winger", name: "Janderson", points: 1 },
     { position: "winger", name: "Dudu", points: 5 },
+    { position: "winger", name: "Wilian Bigode", points: 4 },
     { position: "winger", name: "Pedrinho", points: 5 }
   ]
 };
@@ -56,9 +59,9 @@ const matchData = {
       { midfielder: "Ramiro" },
       { midfielder: "Cantillo" },
       { midfielder: "Luan" },
-      { winger: "Janderson" },
+      { midfielder: "Camacho" },
+      { midfielder: "Mateus Vital" },
       { winger: "Pedrinho" },
-      { stricker: "Mauro Boselli" }
     ]
   }
 };
