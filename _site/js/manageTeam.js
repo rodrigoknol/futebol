@@ -1,27 +1,38 @@
 const teamPlayersList = {
-  goalkeeper: [{ position: "goalkeeper", name: "Cássio", points: 4 }],
+  goalkeeper: [
+    { position: "goalkeeper", name: "Cássio", points: 4 },
+    { position: "goalkeeper", name: "Weverton", points: 4 },
+  ],
   wing_back: [
     { position: "left_wing_back", name: "Carlos Augusto", points: 2 },
     { position: "left_wing_back", name: "Lucas Piton", points: 2 },
-    { position: "right_wing_back", name: "Fagner", points: 4 }
+    { position: "right_wing_back", name: "Fagner", points: 4 },
+    { position: "right_wing_back", name: "Marcos Rocha", points: 2 }
   ],
   defensor: [
     { position: "center_back", name: "Gil", points: 4 },
     { position: "center_back", name: "Bruno Méndez", points: 2 },
+    { position: "center_back", name: "Felipe Melo", points: 2 },
+    { position: "center_back", name: "Emerson Santos", points: 1 },
     { position: "center_back", name: "Pedro Henrique", points: 3 }
   ],
   midfielder: [
     { position: "midfielder", name: "Camacho", points: 3 },
+    { position: "midfielder", name: "Lucas Lima", points: 4 },
+    { position: "midfielder", name: "Ramires", points: 2 },
     { position: "midfielder", name: "Cantillo", points: 5 },
     { position: "midfielder", name: "Gabriel", points: 2 },
-    { position: "midfielder", name: "Ramiro", points: 4 },
+    { position: "midfielder", name: "Ramiro", points: 3 },
     { position: "midfielder", name: "Mateus Vital", points: 3 },
-    { position: "midfielder", name: "Luan", points: 4 }
+    { position: "midfielder", name: "Luan", points: 4 },
+    { position: "midfielder", name: "Patrick de Paula", points: 3 },
   ],
   attackers: [
     { position: "stricker", name: "Mauro Boselli", points: 4 },
     { position: "stricker", name: "Vagner Love", points: 3 },
-    { position: "winger", name: "Janderson", points: 2 },
+    { position: "winger", name: "Janderson", points: 1 },
+    { position: "winger", name: "Dudu", points: 5 },
+    { position: "winger", name: "Wilian Bigode", points: 4 },
     { position: "winger", name: "Pedrinho", points: 5 }
   ]
 };
@@ -48,9 +59,9 @@ const matchData = {
       { midfielder: "Ramiro" },
       { midfielder: "Cantillo" },
       { midfielder: "Luan" },
-      { winger: "Janderson" },
+      { midfielder: "Camacho" },
+      { midfielder: "Mateus Vital" },
       { winger: "Pedrinho" },
-      { stricker: "Mauro Boselli" }
     ]
   }
 };
@@ -60,7 +71,7 @@ function success() {
   successToast.classList.add("toast");
   successToast.classList.add("toast--success");
   successToast.innerHTML =
-    "<p><strong>Muito bom!</strong><br>Atividade executada com sucesso!</p>";
+    "<p><strong>Muito bom!</strong><br>Os dados foram salvos!</p>";
   document.body.append(successToast);
 
   setTimeout(() => {

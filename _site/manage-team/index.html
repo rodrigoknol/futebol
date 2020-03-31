@@ -33,31 +33,58 @@
     <a href="/"><img src="/img/icons/ball-success.svg" style="filter:brightness(3)" height="36" /></a>
   </nav>
   <main>
-  <h1 class="text--centered text__main-title">Time da casa <span id="scoreHomeTeam">0</span> x <span
-      id="scoreAlwayTeam">0</span> Time visitante</h1>
-  <!-- Teams details -->
-  <h2 class="hidden-mobile">Detalhes dos times</h2>
-  <section class="grid hidden-mobile">
+  <h1 class="text--centered text__main-title">Monte o seu time</h1>
+  <h2>Escolha o elenco</h2>
+  <section class="grid">
     <div>
-      <h3>Time da casa</h3>
-      <ul id="dashboardHome" class="list--no-style">
-      </ul>
+      <label for="formation">Formação</label>
+      <select id="formation">
+        <option value="4-3-3">4-3-3</option>
+        <option value="4-1-4-1">4-1-4-1</option>
+        <option value="4-4-2">4-4-2</option>
+        <option value="3-5-2">3-5-2</option>
+      </select>
+      <!-- Field drawing -->
+      <table id="playersTable" class="field">
+        <!-- JS created -->
+      </table>
     </div>
     <div>
-      <h3>Time visitante</h3>
-      <ul id="dashboardAlway" class="list--no-style">
-      </ul>
+      <label for="position">Jogador por posição</label>
+      <select id="position">
+        <option value="goalkeeper">Goleiro</option>
+        <option value="wing_back">Lateral</option>
+        <option value="defensor">Zagueiro</option>
+        <option value="midfielder">Meio Campista</option>
+        <option value="attackers">Atacante</option>
+      </select>
+      <div id="playersListDOM">
+      </div>
+      <a class="btn" onclick="createFormation.changesFormation()">Resetar jogadores</a>
     </div>
   </section>
-  <hr class="hidden-mobile" />
-
-  <!-- Game details -->
-  <article>
-    <h2>Jogo lance-a-lance</h2>
-    <div id="content"></div>
-  </article>
+  <hr />
+  <h2>Estilos e táticas</h2>
+  <form>
+    <label for="formGameMode">Modo de jogo</label>
+    <select onchange="matchData.homeTeam.gameMode = this.value" id="formGameMode">
+      <option value="normal">Equilibrado</option>
+      <option value="counter-atk">Contra-ataque</option>
+      <option value="all-atk">Ataque total</option>
+      <option value="all-def">Retranca</option>
+    </select>
+    <label for="formAttackStyle">Estilo de ataque</label>
+    <select onchange="matchData.homeTeam.attackStyle = this.value" id="formAttackStyle">
+      <option value="mixed">Misto</option>
+      <option value="lateral">Pelas laterais</option>
+      <option value="middle">Pelo meio</option>
+    </select>
+  </form>
+  <hr />
+  <button onclick="saveTeamData()" class="btn">Salvar o time</button>
+  <a class="btn" id="runMatch" disabled href="">Rodar uma partida</a>
 </main>
-<script src="/js/match.js"></script>
+<script src="js/manageTeam.js"></script>
   <footer class="text--centered">
     <hr />
     <p>Versão <a href="/changelog" >0.0.1</a></p>
