@@ -148,7 +148,9 @@ class createTimeline {
   }
 
   createsContent(matchData) {
-    const area = () => {
+
+    if ("info" in matchData) {
+      const area = () => {
       switch (matchData.info.area) {
         case "wing":
           return "canto";
@@ -200,7 +202,7 @@ class createTimeline {
           matchData.info.kicker +
           " da um belo chute, mas " +
           matchData.info.keeper +
-          " faz uma bela defesa.",
+          " faz uma grande defesa.",
         "<strong>O que que é isso?</strong> " +
           matchData.info.kicker +
           " manda a bola para as alturas!",
@@ -221,8 +223,10 @@ class createTimeline {
           " pelo " +
           area() +
           "!",
-        "O time atacante não está com nada! Gerande <strong>roubada de bola</strong> feita pelo " +
-          matchData.info.defensor
+        "Ótima <strong>roubada de bola</strong> feita pelo " +
+          matchData.info.defensor +
+          "Pelo campo de" +
+          area()
       ],
       startedAtk: [
         matchData.info.player +
@@ -232,19 +236,16 @@ class createTimeline {
         matchData.info.player +
           " parece perdido em campo... Ele tenta começar um ataque, mas " +
           matchData.info.stealer +
-          " não deixou a jogada continuar...",
+          " <strong>não deixou a jogada continuar</strong>...",
         matchData.info.stealer +
           " está impossível hoje! Mesmo que " +
           matchData.info.player +
-          " tenha começado uma jogada pelo " +
+          " tenha tentado começado uma jogada pelo " +
           area() +
-          ", nenhuma bola passa pelo " +
-          matchData.info.stealer +
-          " hoje!"
+          ", <strong>nenhuma bola passa</strong> pelo " + matchData.info.stealer +" hoje!"
       ]
     };
 
-    if ("info" in matchData) {
       switch (matchData.info.lastStep) {
         case "goal":
           return possibilities.goal[getRandomInt(possibilities.goal.length)];
@@ -267,9 +268,7 @@ class createTimeline {
       }
     } else {
       return (
-        "Ihh, o jogo está difícil para o time " +
-        theTeam +
-        ", não estão conseguindo controlar a bola e pensar uma jogada..."
+        "Ihh, o <strong>jogo está difícil ein</strong>... Não estão conseguindo controlar a bola e nem pensar uma jogada..."
       );
     }
   }

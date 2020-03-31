@@ -49,7 +49,7 @@ const matchData = {
     player: "",
     team: "",
     gameMode: "normal",
-    attackStyle: "lateral",
+    attackStyle: "mixed",
     players: [
       { goalkeeper: "Cássio" },
       { left_wing_back: "Lucas Piton" },
