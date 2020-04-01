@@ -1,4 +1,5 @@
 const {OAuth2Client} = require('google-auth-library');
+const fetch = require("node-fetch");
 
 exports.handler = (event, context, callback) => {
   const data = JSON.parse(event.body);
@@ -14,6 +15,7 @@ exports.handler = (event, context, callback) => {
     const payload = ticket.getPayload();
     const userid = payload['sub'];
   }
+
   verify().catch(error => {
     const bodyResponse = {
       status: 'error',
@@ -25,13 +27,34 @@ exports.handler = (event, context, callback) => {
     });
   });
 
-  const bodyResponse = {
-    status: 'success',
-    message: 'user registered'
+  async function post(url = "", data = {}) {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: data
+    });
+    return await response.json();
   }
 
-  return callback(null, {
-    statusCode: 200,
-    body: JSON.stringify(bodyResponse)
+  post(
+    "https://123gol.com.br/.netlify/functions/create_user.js",
+    event.body
+  ).then(responseData => {
+    theResponse(responseData)
   });
+
+  function theResponse(responseData){
+    const bodyResponse = {
+      status: 'success',
+      message: 'user registered'
+    }
+
+    console.log('createUserResponse: ', responseData)
+  
+    return callback(null, {
+      statusCode: 200,
+      body: JSON.stringify(bodyResponse)
+    });
+  }
+
 }
