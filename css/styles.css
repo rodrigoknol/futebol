@@ -68,6 +68,15 @@ nav{
   padding: 0.25rem 1rem;
   z-index: 10;
   box-shadow: 0.1rem 0.1rem 0.5rem 0rem var(--light-gray);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+nav a{
+  color: white;
+  font-weight: 500;
 }
 
 select{
@@ -80,6 +89,35 @@ select{
 
 .util__hidden{
   display: none!important;
+}
+
+.login__page{
+  background: linear-gradient(316deg, var(--success), var(--clickable), var(--success), var(--gold), var(--success));
+  background-size: 1000% 1000%;
+  -webkit-animation: background-login 30s ease infinite;
+  animation: background-login 30s ease infinite;
+  color:white;
+}
+
+.login__page main{
+  padding-top: 18vh;
+}
+
+.login__page--logo img{
+  filter:brightness(3);
+  height: 15rem;
+  max-height: 30vh;
+  margin: auto;
+}
+
+.login__page--logo h1{
+  margin-top: 0;
+  font-size: 4rem;
+  font-weight: 300;
+}
+
+.login__page .abcRioButton{
+  margin: 2rem auto;
 }
 
 /* Other elements - Alphabetical order */
@@ -301,8 +339,7 @@ button.btn[disabled]{
 .nav__logo{
   display: flex;
   align-items: center;
-  font-weight: 700;
-  color: white;
+  font-weight: 300;
   text-decoration: none;
   padding: 0.25rem 0;
 }
@@ -363,6 +400,17 @@ button.btn[disabled]{
   100% {
     transform: rotate(360deg);
   }
+}
+
+@-webkit-keyframes background-login {
+  0%{background-position:93% 0%}
+  50%{background-position:0% 100%}
+  100%{background-position:93% 0%}
+}
+@keyframes background-login { 
+  0%{background-position:93% 0%}
+  50%{background-position:0% 100%}
+  100%{background-position:93% 0%}
 }
 
 /* Media querie, elements in alphabetical order */

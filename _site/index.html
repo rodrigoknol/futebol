@@ -21,20 +21,27 @@
   <link rel="manifest" href="/img/favicon/manifest.json">
   <meta name="msapplication-TileImage" content="/img/favicon/ms-icon-144x144.png">
   <meta name="theme-color" content="#ffffff">
+  <!-- Login credentials -->
+  <meta name="google-signin-client_id"
+    content="138187903716-udsrq9f59oo6a6g5ehc6hhnfrioaqsfh.apps.googleusercontent.com">
   <!-- CSS -->
   <link href="/css/reset.css" rel="stylesheet">
   <link href="/css/styles.css" rel="stylesheet">
   <!-- Title -->
-  <title>Jogo de Futebol</title>
+  <title>1, 2, 3 Gol!</title>
 </head>
 
-<body>
-  <main>
-  <h1>Construindo essa tela de login.</h1>
-  <p>Acesse a página para montar seu time <a href="/manage-team">aqui</a></p>
-  <!-- Estudar utilziar isso para fazer o background dessa tela https://www.gradient-animator.com -->
+<body class="login__page">
+  <main class="text--centered">
+  <div class="login__page--logo">
+    <img src="img/icons/ball-success.svg" alt="imagem de uma bola" />
+    <h1>1, 2, 3 <strong>Gol!</strong></h1>
+  </div>
+  <h2>Entre agora e viva a experiência do futebol</h2>
+  <div class="g-signin2" data-onsuccess="onSignIn"></div>
 </main>
-
+<script src="js/login.js" async defer></script>
 </body>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
 
 </html>
