@@ -37,7 +37,7 @@ exports.handler = (event, context, callback) => {
   }
 
   post(
-    "https://123gol.com.br/.netlify/functions/create_user.js",
+    "http://localhost:34567/.netlify/functions/create_user",
     event.body
   ).then(responseData => {
     theResponse(responseData)
@@ -46,10 +46,8 @@ exports.handler = (event, context, callback) => {
   function theResponse(responseData){
     const bodyResponse = {
       status: 'success',
-      message: 'user registered'
+      message: responseData.status
     }
-
-    console.log('createUserResponse: ', responseData)
   
     return callback(null, {
       statusCode: 200,

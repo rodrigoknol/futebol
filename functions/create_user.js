@@ -10,8 +10,12 @@ exports.handler = (event, context, callback) => {
 
   console.log('Create user recieved data: ',data)
 
+  const theResponse = {
+    status: "user registered"
+  }
+
   return callback(null, {
     statusCode: 200,
-    body: 'lalala'
+    body: JSON.stringify(theResponse)
   });
 }

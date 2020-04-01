@@ -1,39 +1,39 @@
 const teamPlayersList = {
   goalkeeper: [
-    { position: "goalkeeper", name: "Cássio", points: 4 },
-    { position: "goalkeeper", name: "Weverton", points: 4 },
+    { position: "goalkeeper", name: "Cássio", score: 4 },
+    { position: "goalkeeper", name: "Weverton", score: 4 },
   ],
   wing_back: [
-    { position: "left_wing_back", name: "Carlos Augusto", points: 3 },
-    { position: "left_wing_back", name: "Lucas Piton", points: 3 },
-    { position: "right_wing_back", name: "Fagner", points: 5 },
-    { position: "right_wing_back", name: "Marcos Rocha", points: 2 }
+    { position: "left_wing_back", name: "Carlos Augusto", score: 3 },
+    { position: "left_wing_back", name: "Lucas Piton", score: 3 },
+    { position: "right_wing_back", name: "Fagner", score: 5 },
+    { position: "right_wing_back", name: "Marcos Rocha", score: 2 }
   ],
   defensor: [
-    { position: "center_back", name: "Gil", points: 4 },
-    { position: "center_back", name: "Bruno Méndez", points: 2 },
-    { position: "center_back", name: "Felipe Melo", points: 2 },
-    { position: "center_back", name: "Emerson Santos", points: 2 },
-    { position: "center_back", name: "Pedro Henrique", points: 2 }
+    { position: "center_back", name: "Gil", score: 4 },
+    { position: "center_back", name: "Bruno Méndez", score: 2 },
+    { position: "center_back", name: "Felipe Melo", score: 2 },
+    { position: "center_back", name: "Emerson Santos", score: 2 },
+    { position: "center_back", name: "Pedro Henrique", score: 2 }
   ],
   midfielder: [
-    { position: "midfielder", name: "Camacho", points: 3 },
-    { position: "midfielder", name: "Lucas Lima", points: 5 },
-    { position: "midfielder", name: "Ramires", points: 1 },
-    { position: "midfielder", name: "Cantillo", points: 5 },
-    { position: "midfielder", name: "Gabriel", points: 2 },
-    { position: "midfielder", name: "Ramiro", points: 4 },
-    { position: "midfielder", name: "Mateus Vital", points: 3 },
-    { position: "midfielder", name: "Luan", points: 5 },
-    { position: "midfielder", name: "Patrick de Paula", points: 3 },
+    { position: "midfielder", name: "Camacho", score: 3 },
+    { position: "midfielder", name: "Lucas Lima", score: 5 },
+    { position: "midfielder", name: "Ramires", score: 1 },
+    { position: "midfielder", name: "Cantillo", score: 5 },
+    { position: "midfielder", name: "Gabriel", score: 2 },
+    { position: "midfielder", name: "Ramiro", score: 4 },
+    { position: "midfielder", name: "Mateus Vital", score: 3 },
+    { position: "midfielder", name: "Luan", score: 5 },
+    { position: "midfielder", name: "Patrick de Paula", score: 3 },
   ],
   attackers: [
-    { position: "stricker", name: "Mauro Boselli", points: 5 },
-    { position: "stricker", name: "Vagner Love", points: 3 },
-    { position: "winger", name: "Janderson", points: 2 },
-    { position: "winger", name: "Dudu", points: 5 },
-    { position: "winger", name: "Wilian Bigode", points: 5 },
-    { position: "winger", name: "Pedrinho", points: 5 }
+    { position: "stricker", name: "Mauro Boselli", score: 5 },
+    { position: "stricker", name: "Vagner Love", score: 3 },
+    { position: "winger", name: "Janderson", score: 2 },
+    { position: "winger", name: "Dudu", score: 5 },
+    { position: "winger", name: "Wilian Bigode", score: 5 },
+    { position: "winger", name: "Pedrinho", score: 5 }
   ]
 };
 
@@ -210,7 +210,7 @@ class manageTeam {
       }.svg" /><div><h3>${playerStats.name}</h3><p>Posição: <strong>${
         positions[playerStats.position]
       }</strong></p></div></div><hr /><p class="text--gold-color">${star.repeat(
-        playerStats.points
+        playerStats.score
       )}</p></div>`;
 
     return `<div onClick="createFormation.selectsPlayer('${
@@ -222,7 +222,7 @@ class manageTeam {
     }.svg" /><div><h3>${playerStats.name}</h3><p>Posição: <strong>${
       positions[playerStats.position]
     }</strong></p></div></div><hr /><p class="text--gold-color">${star.repeat(
-      playerStats.points
+      playerStats.score
     )}</p></div>`;
   }
 
