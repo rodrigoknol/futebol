@@ -872,7 +872,7 @@ exports.handler = (event, context, callback) => {
   }
 
   post(
-    "https://futebol-game.netlify.com/.netlify/functions/get_players_for_match",
+    "https://123gol.com.br/.netlify/functions/get_players_for_match",
     event.body
   ).then(data => {
     theGame.matchLogic(data);
