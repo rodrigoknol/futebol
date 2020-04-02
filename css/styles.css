@@ -432,6 +432,13 @@ button.btn[disabled]{
   .hidden-mobile{
     display: none;
   }
+  .login__page--logo img{
+    max-height: 15vh;
+    margin: auto;
+  }
+  .login__page--logo h1{
+    font-size: 2.5rem;
+  }
   .toast{
     bottom: 0;
     right: 0;
