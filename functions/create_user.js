@@ -12,11 +12,11 @@ exports.handler = (event, context, callback) => {
   client
     .query(q.Exists(q.Match(q.Index("user_by_id"), data.id)))
     .then(result => {
-      nextStep(result);
+      const theResult = result;
+      nextStep(theResult);
     });
 
   function nextStep(result) {
-    console.log(result)
     if (result) {
       const theResponse = {
         status: "user registered"
