@@ -2,13 +2,14 @@
 layout: login.html
 ---
 <main>
-  <h1>Estamos quase lá...<br />Vamos montar o seu time!</h1>
+  <h1>Estamos quase lá...<br /><span id="name"></span>, vamos montar o seu time!</h1>
   <hr />
-  <form>
+  <form id="form" >
     <label for="team">Qual será o nome do seu time?</label>
-    <input type="text" id="team" />
+    <input required type="text" form="form" id="team" />
     <div>
       <button type="submit" class="btn">Continuar</button>
     </div>
   </form>
 </main>
+<script src="/js/register.js"></script>

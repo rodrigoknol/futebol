@@ -3,6 +3,7 @@ const fetch = require("node-fetch");
 
 exports.handler = (event, context, callback) => {
   const data = JSON.parse(event.body);
+  console.log('Data recieved: ', data)
 
   const client_id = '138187903716-udsrq9f59oo6a6g5ehc6hhnfrioaqsfh.apps.googleusercontent.com'
   const client = new OAuth2Client(client_id);

@@ -1,12 +1,3 @@
-async function post(url = "", data = {}) {
-  const response = await fetch(url, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: data
-  });
-  return await response.json();
-}
-
 function signOut() {
   const auth2 = gapi.auth2.getAuthInstance();
   auth2.signOut().then(function () {

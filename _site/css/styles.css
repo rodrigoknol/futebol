@@ -432,6 +432,9 @@ button.btn[disabled]{
   .hidden-mobile{
     display: none;
   }
+  input{
+    width: 100%;
+  }
   .login__page--logo img{
     max-height: 15vh;
     margin: auto;
