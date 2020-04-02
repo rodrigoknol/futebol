@@ -38,7 +38,7 @@ exports.handler = (event, context, callback) => {
   }
 
   post(
-    "http://localhost:34567/.netlify/functions/create_user",
+    "https://123gol.com.br/.netlify/functions/create_user",
     event.body
   ).then(responseData => {
     theResponse(responseData)

@@ -225,7 +225,7 @@ class createTimeline {
           "!",
         "Ótima <strong>roubada de bola</strong> feita pelo " +
           matchData.info.defensor +
-          "Pelo campo de" +
+          "Pelo " +
           area()
       ],
       startedAtk: [

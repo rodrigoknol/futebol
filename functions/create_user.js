@@ -16,7 +16,8 @@ exports.handler = (event, context, callback) => {
     });
 
   function nextStep(result) {
-    if (result === true) {
+    console.log(result)
+    if (result) {
       const theResponse = {
         status: "user registered"
       };
@@ -41,38 +42,38 @@ exports.handler = (event, context, callback) => {
       email: data.email,
       teamName: "",
       playersList: {
-        goalkeeper: [260725846357049865, 261457261895877139],
+        goalkeeper: ["(Collection('players'), 260725846357049865)", "(Collection('players'), 261457261895877139)"],
         wing_back: [
-          260726109934453258,
-          260726226790908417,
-          261457349449875987,
-          260726309938790921
+          "(Collection('players'), 260726109934453258)",
+          "(Collection('players'), 260726226790908417)",
+          "(Collection('players'), 261457349449875987)",
+          "(Collection('players'), 260726309938790921)"
         ],
         defensor: [
-          260726417883398666,
-          261458922600137235,
-          260726546521653761,
-          261459015648676371,
-          260726635126325770
+          "(Collection('players'), 260726417883398666)",
+          "(Collection('players'), 261458922600137235)",
+          "(Collection('players'), 260726546521653761)",
+          "(Collection('players'), 261459015648676371)",
+          "(Collection('players'), 260726635126325770)"
         ],
         midfielder: [
-          260726823220937225,
-          261457451537138195,
-          261457671599686163,
-          261457577717531155,
-          260726940416082433,
-          260727138035958273,
-          260727194875068937,
-          260727270980715018,
-          260727361459192329
+          "(Collection('players'), 260726823220937225)",
+          "(Collection('players'), 261457451537138195)",
+          "(Collection('players'), 261457671599686163)",
+          "(Collection('players'), 261457577717531155)",
+          "(Collection('players'), 260726940416082433)",
+          "(Collection('players'), 260727138035958273)",
+          "(Collection('players'), 260727194875068937)",
+          "(Collection('players'), 260727270980715018)",
+          "(Collection('players'), 260727361459192329)"
         ],
         attackers: [
-          260727510151463425,
-          261457755959722515,
-          260727567122694657,
-          260727688536261130,
-          261459128035050003,
-          260727781041635850
+          "(Collection('players'), 260727510151463425)",
+          "(Collection('players'), 261457755959722515)",
+          "(Collection('players'), 260727567122694657)",
+          "(Collection('players'), 260727688536261130)",
+          "(Collection('players'), 261459128035050003)",
+          "(Collection('players'), 260727781041635850)"
         ]
       },
       startingTeam: {
