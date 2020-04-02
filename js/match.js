@@ -96,8 +96,31 @@ class createTimeline {
   }
 
   organizeTimeline() {
+    this.gameData('startData');
     this.createArray();
+    this.gameData('endData');
     this.printArray();
+  }
+
+  gameData(type){
+    const startPossibilities = [
+      'A bola já está na marca, o arbitro apita e <strong>começa o jogo</strong>!',
+      'Bem amigos do <strong>1, 2, 3 Gol</strong>, mais um lindo jogo começando hoje, muito boa sorte para os dois times!',
+      'Os dois times em posição, o árbitro olha para o relógio e apita. <strong>Inicia mais um grande jogo!</strong>',
+      'Vamos ter mais um grande jogo a frente, e <strong>a bola começa a rolar!</strong>'
+    ];
+    const endPossibilities = [
+      'Um grande duelo chega ao fim agora, os dois times vão agora para o vestiário descansar.',
+      'apiiiita o árbitro, um grande jogo que acaba agora.',
+      'E fim de jogo! Foi um grande duelo, os dois times deram tudo de sí.',
+      'Acaba esse duelo fantástico. Os jogadores dos dois times estão exaustos depois de um jogo desses.'
+    ]
+    const content = {
+      startData: startPossibilities[getRandomInt(startPossibilities.length)],
+      endData: endPossibilities[getRandomInt(endPossibilities.length)]
+    }
+
+    this.cardsList.push(this.createCard('', '', 'statistic', content[type]))
   }
 
   createArray() {
@@ -148,103 +171,104 @@ class createTimeline {
   }
 
   createsContent(matchData) {
-
     if ("info" in matchData) {
       const area = () => {
-      switch (matchData.info.area) {
-        case "wing":
-          return "canto";
-        case "attack":
-          return "campo de ataque";
-        case "corner":
-          return "escanteio";
-        case "middle":
-          return "meio de campo";
-        default:
-          return matchData.info.area;
-      }
-    };
+        switch (matchData.info.area) {
+          case "wing":
+            return "canto";
+          case "attack":
+            return "campo de ataque";
+          case "corner":
+            return "escanteio";
+          case "middle":
+            return "meio de campo";
+          default:
+            return matchData.info.area;
+        }
+      };
 
-    const possibilities = {
-      goal: [
-        "<strong>GOOOOL!!!</strong> Lindo gol de " +
-          matchData.info.kicker +
-          ". A jogada começou com " +
+      const possibilities = {
+        goal: [
+          "<strong>GOOOOL!!!</strong> Lindo gol de " +
+            matchData.info.kicker +
+            ". A jogada começou com " +
+            matchData.info.player +
+            ", pelo " +
+            area() +
+            ". " +
+            matchData.info.defensor +
+            " tentou impedir, mas já era tarde.",
+          "<strong>LINDO GOL!</strong> Grande chute do " +
+            matchData.info.kicker +
+            ". A jogada começou pelo " +
+            area() +
+            ", nos pés do  " +
+            matchData.info.player +
+            ". Uma grande pintura!",
+          "<strong>GOL! JOGADA PRECISA!</strong> E foi " +
+            matchData.info.kicker +
+            " quem deu esse belo chute. A jogada começou pelo " +
+            area() +
+            " e a bola terminou no fundo das redes!",
+          "<strong>GOL, GOL, GOL, GOOOOOOL!</strong> Uma pintura do " +
+            matchData.info.kicker +
+            ", o " +
+            matchData.info.defensor +
+            ", que era para estar na marcação, nem viu o que aconteceu. A jogada começou pelo " +
+            area() +
+            ", nos pés do " +
+            matchData.info.player
+        ],
+        kick: [
+          "<strong>Ufa, foi por pouco</strong> " +
+            matchData.info.kicker +
+            " da um belo chute, mas " +
+            matchData.info.keeper +
+            " faz uma grande defesa.",
+          "<strong>O que que é isso?</strong> " +
+            matchData.info.kicker +
+            " manda a bola para as alturas!",
+          "<strong>Quaase... </strong>" +
+            matchData.info.kicker +
+            " recebeu um passe fantástico, era ele e o goleiro, chutou e... Um chute horrível, saiu LONGE do alvo...",
+          "<strong>Por centímetros!</strong> A estrela do " +
+            matchData.info.kicker +
+            " parece estar brilhando, um chute de primeira que BATE NO TRAVESSÃO!",
+          "<strong>Bela defesa!</strong> " +
+            matchData.info.keeper +
+            " faz um pequeno milagre, defende a bomba chutada por " +
+            matchData.info.kicker
+        ],
+        defensor: [
+          "Bonita <strong>roubada de bola</strong> do " +
+            matchData.info.defensor +
+            " pelo " +
+            area() +
+            "!",
+          "Ótima <strong>roubada de bola</strong> feita pelo " +
+            matchData.info.defensor +
+            "Pelo " +
+            area()
+        ],
+        startedAtk: [
           matchData.info.player +
-          ", pelo " +
-          area() +
-          ". " +
-          matchData.info.defensor +
-          " tentou impedir, mas já era tarde.",
-        "<strong>LINDO GOL!</strong> Grande chute do " +
-          matchData.info.kicker +
-          ". A jogada começou pelo " +
-          area() +
-          ", nos pés do  " +
+            " tenta começar um ataque, mas " +
+            matchData.info.stealer +
+            " estava forte na marcação e impediu o ataque!",
           matchData.info.player +
-          ". Uma grande pintura!",
-        "<strong>GOL! JOGADA PRECISA!</strong> E foi " +
-          matchData.info.kicker +
-          " quem deu esse belo chute. A jogada começou pelo " +
-          area() +
-          " e a bola terminou no fundo das redes!",
-        "<strong>GOL, GOL, GOL, GOOOOOOL!</strong> Uma pintura do " +
-          matchData.info.kicker +
-          ", o " +
-          matchData.info.defensor +
-          ", que era para estar na marcação, nem viu o que aconteceu. A jogada começou pelo " +
-          area() +
-          ", nos pés do " +
-          matchData.info.player
-      ],
-      kick: [
-        "<strong>Ufa, foi por pouco</strong> " +
-          matchData.info.kicker +
-          " da um belo chute, mas " +
-          matchData.info.keeper +
-          " faz uma grande defesa.",
-        "<strong>O que que é isso?</strong> " +
-          matchData.info.kicker +
-          " manda a bola para as alturas!",
-        "<strong>Quaase... </strong>" +
-          matchData.info.kicker +
-          " recebeu um passe fantástico, era ele e o goleiro, chutou e... Um chute horrível, saiu LONGE do alvo...",
-        "<strong>Por centímetros!</strong> A estrela do " +
-          matchData.info.kicker +
-          " parece estar brilhando, um chute de primeira que BATE NO TRAVESSÃO!",
-        "<strong>Bela defesa!</strong> " +
-          matchData.info.keeper +
-          " faz um pequeno milagre, defende a bomba chutada por " +
-          matchData.info.kicker
-      ],
-      defensor: [
-        "Bonita <strong>roubada de bola</strong> do " +
-          matchData.info.defensor +
-          " pelo " +
-          area() +
-          "!",
-        "Ótima <strong>roubada de bola</strong> feita pelo " +
-          matchData.info.defensor +
-          "Pelo " +
-          area()
-      ],
-      startedAtk: [
-        matchData.info.player +
-          " tenta começar um ataque, mas " +
+            " parece perdido em campo... Ele tenta começar um ataque, mas " +
+            matchData.info.stealer +
+            " <strong>não deixou a jogada continuar</strong>...",
           matchData.info.stealer +
-          " estava forte na marcação e impediu o ataque!",
-        matchData.info.player +
-          " parece perdido em campo... Ele tenta começar um ataque, mas " +
-          matchData.info.stealer +
-          " <strong>não deixou a jogada continuar</strong>...",
-        matchData.info.stealer +
-          " está impossível hoje! Mesmo que " +
-          matchData.info.player +
-          " tenha tentado começado uma jogada pelo " +
-          area() +
-          ", <strong>nenhuma bola passa</strong> pelo " + matchData.info.stealer +" hoje!"
-      ]
-    };
+            " está impossível hoje! Mesmo que " +
+            matchData.info.player +
+            " tenha tentado começado uma jogada pelo " +
+            area() +
+            ", <strong>nenhuma bola passa</strong> pelo " +
+            matchData.info.stealer +
+            " hoje!"
+        ]
+      };
 
       switch (matchData.info.lastStep) {
         case "goal":
@@ -267,17 +291,20 @@ class createTimeline {
           );
       }
     } else {
-      return (
-        "Ihh, o <strong>jogo está difícil ein</strong>... Não estão conseguindo controlar a bola e nem pensar uma jogada..."
-      );
+      return "Ihh, o <strong>jogo está difícil ein</strong>... Não estão conseguindo controlar a bola e nem pensar uma jogada...";
     }
   }
 
   createCard(attackingTeam, teamName, result, content) {
-    if (result === "success") {
-      return `<div class="card card__timeline card__timeline--goal card__timeline--goal-${attackingTeam}"><p>Um gol do ${teamName}</p><hr><p>${content}</p></div>`;
+    switch (result) {
+      case 'success':
+        return `<div class="card card__timeline card__timeline--goal card__timeline--goal-${attackingTeam}"><p>Um gol do ${teamName}</p><hr><p>${content}</p></div>`;
+      case 'statistic':
+        return `<div class="card card__timeline"><p>Comentarista</p><hr><p>${content}</p></div>`;
+      default:
+        return `<div class="card card__timeline"><p>Uma jogada do ${teamName}</p><hr><p>${content}</p></div>`;
     }
-    return `<div class="card card__timeline"><p>Uma jogada do ${teamName}</p><hr><p>${content}</p></div>`;
+    
   }
 }
 
