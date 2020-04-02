@@ -5,6 +5,14 @@ function signOut() {
   });
 }
 
+function getLoginId() {
+  const googleAuth = gapi.auth2.getAuthInstance();
+  const user = googleAuth.currentUser.get();
+  const profile = user.getBasicProfile();
+
+  return profile.getId();
+}
+
 function isSignedIn(){
   const auth2 = gapi.auth2.getAuthInstance();
   if(!auth2.isSignedIn.get()){

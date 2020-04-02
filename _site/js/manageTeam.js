@@ -1,3 +1,12 @@
+async function post(url = "", data = {}) {
+  const response = await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: data
+  });
+  return await response.json();
+}
+
 const teamPlayersList = {
   goalkeeper: [
     { position: "goalkeeper", name: "Cássio", score: 4 },
@@ -37,14 +46,7 @@ const teamPlayersList = {
   ]
 };
 
-const matchData = {
-  homeTeam: {
-    player: "",
-    team: "",
-    gameMode: "normal",
-    attackStyle: "mixed",
-    players: []
-  },
+let matchData = {
   alwayTeam: {
     player: "",
     team: "",
@@ -65,6 +67,45 @@ const matchData = {
     ]
   }
 };
+
+function organize(data){
+  formatData(data)
+  document.getElementById('teamName').innerText = matchData.homeTeam.team || 'seu time';
+
+  runGame()
+}
+
+function formatData(data){
+  matchData.homeTeam = {
+    ...data.startingTeam,
+    player: data.id,
+    team: data.teamName
+  }
+
+  post(
+    "/.netlify/functions/get_players_data",
+    JSON.stringify(data.playersList)
+  ).then(theResponse => {
+    console.log(theResponse)
+  });
+}
+
+function runGame(){
+  const createFormation = new manageTeam(
+    "playersTable",
+    "formation",
+    "playersListDOM",
+    "position",
+    teamPlayersList
+  );
+  createFormation.createField();
+  createFormation.createPlayerList();
+  
+  createFormation.updatesFormation();
+  createFormation.updatesPosition();
+
+  document.body.classList.remove("loading");
+}
 
 function success() {
   const successToast = document.createElement("div");
@@ -323,31 +364,9 @@ class manageTeam {
   }
 }
 
-const createFormation = new manageTeam(
-  "playersTable",
-  "formation",
-  "playersListDOM",
-  "position",
-  teamPlayersList
-);
-createFormation.createField();
-createFormation.createPlayerList();
-
-createFormation.updatesFormation();
-createFormation.updatesPosition();
-
 function saveTeamData() {
   if (matchData.homeTeam.players.length !== 11)
     return alert("O seu time ainda não está completo. Veja no campo se ainda existem posições para preencher.");
-
-  async function post(url = "", data = {}) {
-    const response = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: data
-    });
-    return await response.json();
-  }
 
   document.body.classList.add("loading");
 
@@ -367,3 +386,13 @@ function saveTeamData() {
     success();
   }
 }
+
+document.body.classList.add("loading");
+setTimeout(() => {
+  post(
+    "/.netlify/functions/get_team_data",
+    JSON.stringify({id: getLoginId()})
+  ).then(theResponse => {
+    organize(theResponse.data.playerBase)
+  });
+}, 600);
