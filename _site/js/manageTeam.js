@@ -202,8 +202,9 @@ class manageTeam {
       winger: "Ponta"
     };
     const playerAlreadyOnTeam = matchData.homeTeam.players.filter(element => {
-      return Object.keys(element)[0] === playerStats.name;
+      return Object.values(element).includes(playerStats.name);
     });
+
     if (playerAlreadyOnTeam.length > 0)
       return `<div class="card card--clicked"><div class="card__flex"><img class="img__icon" src="/img/icons/positions/${
         playerStats.position
@@ -296,7 +297,7 @@ class manageTeam {
         return tableRows.e;
       case "center_back":
         if (this.formation === "3-5-2") {
-          return tableRows.e;
+          return [...tableRows.e, ...tableRows.f];
         }
         return tableRows.f;
       case "midfielder":
@@ -337,7 +338,7 @@ createFormation.updatesPosition();
 
 function saveTeamData() {
   if (matchData.homeTeam.players.length !== 11)
-    return alert("O seu time ainda não está completo");
+    return alert("O seu time ainda não está completo. Veja no campo se ainda existem posições para preencher.");
 
   async function post(url = "", data = {}) {
     const response = await fetch(url, {
