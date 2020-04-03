@@ -23,10 +23,23 @@ exports.handler = (event, context, callback) => {
     queriesRef.push(q.Get(q.Ref(q.Collection('players'), playerRef)))
   })
 
-  client.query(queriesRef).then(resp =>{ console.log(resp) })
+  client.query(queriesRef).then(resp =>{ organizeResponse(resp) })
 
-  return callback(null, {
-    statusCode: 200,
-    body: JSON.stringify({response: 'success'})
-  });
+  function organizeResponse(resp){
+    const thePlayers = resp.map(e => e.data)
+
+    const finalData = {
+      goalkeeper: thePlayers.filter(player => {return player.position === 'goalkeeper'}),
+      wing_back: thePlayers.filter(player => {return player.position === 'left_wing_back' || player.position === 'right_wing_back' }),
+      defensor: thePlayers.filter(player => {return player.position === 'center_back'}),
+      midfielder: thePlayers.filter(player => {return player.position === 'midfielder'}),
+      attackers: thePlayers.filter(player => {return player.position === 'stricker' || player.position === 'winger'}),
+    }
+
+    return callback(null, {
+      statusCode: 200,
+      body: JSON.stringify(finalData)
+    });
+
+  }
 };
