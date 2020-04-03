@@ -2,7 +2,7 @@ const faunadb = require("faunadb");
 
 exports.handler = (event, context, callback) => {
   const data = JSON.parse(event.body);
-  console.log('Data recieved: ', data)
+  console.log("Data recieved: ", data);
 
   const q = faunadb.query;
   const client = new faunadb.Client({
@@ -42,7 +42,9 @@ exports.handler = (event, context, callback) => {
       email: data.email,
       teamName: "",
       playersList: {
-        goalkeeper: ["260725846357049865", "261457261895877139"],
+        goalkeeper: ["260725846357049865", 
+        "261457261895877139"
+      ],
         wing_back: [
           "260726109934453258",
           "260726226790908417",
