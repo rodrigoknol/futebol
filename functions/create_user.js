@@ -87,7 +87,7 @@ exports.handler = (event, context, callback) => {
     };
 
     client
-      .query(q.Create(q.q.Collection("users"), { data: { playerBase } }))
+      .query(q.Create(q.Collection("users"), { data: { playerBase } }))
       .then(() => {
         return callback(null, {
           statusCode: 200,
