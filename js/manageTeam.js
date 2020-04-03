@@ -41,12 +41,16 @@ function formatData(data){
     team: data.teamName
   }
 
-  post(
-    "/.netlify/functions/get_players_data",
-    JSON.stringify(data.playersList)
-  ).then(theResponse => {
-    runGame(theResponse)
-  });
+  if(localStorage.getItem('user_players')){
+    runGame(JSON.parse(localStorage.getItem('user_players')))
+  } else {
+    post(
+      "/.netlify/functions/get_players_data",
+      JSON.stringify(data.playersList)
+    ).then(theResponse => {
+      runGame(theResponse)
+    });
+  }
 }
 
 function runGame(teamPlayersList){
@@ -357,11 +361,16 @@ function saveTeamData() {
 }
 
 document.body.classList.add("loading");
-setTimeout(() => {
-  post(
-    "/.netlify/functions/get_team_data",
-    JSON.stringify({id: getLoginId()})
-  ).then(theResponse => {
-    prepare(theResponse.data.playerBase)
-  });
-}, 600);
+document.body.classList.add("loading");
+if(localStorage.getItem('user')){
+  prepare(JSON.parse(localStorage.getItem('user')))
+} else {
+  setTimeout(() => {
+    post(
+      "/.netlify/functions/get_team_data",
+      JSON.stringify({id: getLoginData('id')})
+    ).then(theResponse => {
+      prepare(theResponse.data.playerBase)
+    });
+  }, 600);
+}

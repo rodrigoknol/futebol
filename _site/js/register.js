@@ -26,7 +26,7 @@ function submitForm(e) {
     JSON.stringify(thePost)
   ).then(data => {
     if(data.result === 'success'){
-      window.location.replace("/manage-team");
+      window.location.replace("/dashboard");
     } else {
       window.location.replace("/");
     }

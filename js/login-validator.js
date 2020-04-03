@@ -5,12 +5,18 @@ function signOut() {
   });
 }
 
-function getLoginId() {
+function getLoginData(type) {
   const googleAuth = gapi.auth2.getAuthInstance();
   const user = googleAuth.currentUser.get();
   const profile = user.getBasicProfile();
 
-  return profile.getId();
+  switch (type) {
+    case 'id':
+      return profile.getId();
+    default:
+      return profile.getGivenName()
+  }
+  
 }
 
 function isSignedIn(){

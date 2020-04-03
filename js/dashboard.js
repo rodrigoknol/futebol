@@ -1,0 +1,134 @@
+async function post(url = "", data = {}) {
+  const response = await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: data
+  });
+  return await response.json();
+}
+
+class playersList{
+  constructor(domListID, players){
+    this.domList = document.getElementById(domListID)
+    this.players = players
+  }
+
+  createsList(){
+    const formatedplayers = this.formatData()
+    const rows = [];
+    formatedplayers.forEach(player => {rows.push(this.createplayerRow(player))})
+  }
+
+  formatData(){
+    return this.players.map(player => {return {position: this.definePosition(player), name: `<strong>${player.name}</strong>`,  score: this.createStar(player.score), price: `${player.price.toFixed(1)} milhões`}} )
+  }
+
+  createStar(score){
+    const star = "★";
+    return `<span class="text--gold-color">${star.repeat(score)}</span>`
+  }
+
+  definePosition(player){
+    switch (player.position) {
+      case 'stricker':
+        return 'Centro-avante'
+      case 'winger':
+        return 'Ponta'
+      case 'center_back':
+        return 'Zagueiro'
+      case 'goalkeeper':
+        return 'Goleiro'
+      case 'midfielder':
+        return 'Meio Campista'
+      case 'left_wing_back':
+        return 'Lateral Esquerdo'
+      case 'right_wing_back':
+        return 'Lateral Direito'
+      default:
+        return '???'
+    } 
+  }
+
+  createplayerRow(playerData){
+    const theRow = this.domList.insertRow();
+
+    Object.keys(playerData).forEach(element=>{
+      const cell = theRow.insertCell();
+      cell.innerHTML = playerData[element]
+    })
+  }
+}
+
+document.body.classList.add("loading");
+if(localStorage.getItem('user')){
+  prepare(JSON.parse(localStorage.getItem('user')))
+} else {
+  setTimeout(() => {
+    post(
+      "/.netlify/functions/get_team_data",
+      JSON.stringify({id: getLoginData('id')})
+    ).then(theResponse => {
+      prepare(theResponse.data.playerBase)
+    });
+  }, 600);
+}
+
+function prepare(data){
+  savesLocally(data)
+  document.getElementById('teamName').innerText = data.teamName || 'Seu time';
+  document.body.classList.remove("loading");
+  createsDashboard(data)
+}
+
+function savesLocally(data){
+  localStorage.setItem('user', JSON.stringify(data))
+}
+
+function createsDashboard(data){
+  const domElements = {
+    players: document.getElementById('totalPlayers'),
+    teamValue: document.getElementById('teamValue'),
+    bankAccount: document.getElementById('bankAccount'),
+  }
+  
+  let results = {
+    totalPlayers: 0,
+    teamValue: 0,
+    bankAccount: data.bankAccount.toFixed(1),
+  }
+
+  if(localStorage.getItem('user_players')){
+    organize(JSON.parse(localStorage.getItem('user_players')))
+  } else{
+    getPlayers(data.playersList).then(
+      res => {organize(res)}
+    )
+  }
+
+  function organize(res){
+    localStorage.setItem('user_players', JSON.stringify(res))
+    const allPlayers = [...res.attackers, ...res.defensor, ...res.goalkeeper, ...res.midfielder, ...res.wing_back];
+
+    results.totalPlayers = allPlayers.length || 0;
+    results.teamValue = allPlayers.reduce((acc, player) => acc + player.price, 0).toFixed(1) || 0;
+    printResults()
+
+    const theList = new playersList('playersList', allPlayers);
+    theList.createsList()
+  }
+
+  function printResults(){
+    domElements.players.innerText = results.totalPlayers;
+    domElements.teamValue.innerText = results.teamValue;
+    domElements.bankAccount.innerText = results.bankAccount;
+  }
+}
+
+function getPlayers(data){
+  return post(
+    "/.netlify/functions/get_players_data",
+    JSON.stringify(data)
+  ).then(theResponse => {
+    return theResponse
+  });
+}

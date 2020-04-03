@@ -24,19 +24,21 @@ function onSignIn(googleUser) {
 }
 
 function redirectUser(data){
+  localStorage.clear();
+  
   if (data.status === 'error'){
     return signOut()
   }
 
   switch (data.message) {
     case 'user registered':
-      window.location.replace("/manage-team");
+      window.location.replace("/dashboard");
       break;
     case 'new user':
       window.location.replace("/register")
       break;
     default:
-      window.location.replace("/manage-team");
+      window.location.replace("/dashboard");
       break;
   }
 }

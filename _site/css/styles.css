@@ -1,6 +1,7 @@
 :root {
   --dark-gray: rgb(50,50,70);
   --light-gray: rgb(200,200,215);
+  --lighter-gray: rgb(230,230,240);
   --background: rgb(252,252,254);
   --success: rgb(100,200,100);
   --error: rgb(250,50,75);
@@ -348,6 +349,32 @@ button.btn[disabled]{
   margin-right: 0.5rem;
 }
 
+.table--responsive{
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0.5rem 0 1.5rem;
+  position: relative;
+}
+
+.table--responsive td{
+  padding: 1rem;
+}
+
+.table--responsive thead tr{
+  font-weight: 600;
+  font-size: 1.1rem;
+  background: var(--lighter-gray);
+}
+
+.table--responsive thead{
+  position: sticky;
+  top: 7.25rem;
+}
+
+.table--responsive tbody{
+  background: white;
+}
+
 .text--centered{
   text-align: center;
 }
@@ -359,6 +386,9 @@ button.btn[disabled]{
   background: var(--background);
   border-bottom: 1px solid var(--light-gray);
   z-index: 9;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .text__main-title:before{
@@ -441,6 +471,9 @@ button.btn[disabled]{
   }
   .login__page--logo h1{
     font-size: 2.5rem;
+  }
+  .table--responsive thead{
+    position: initial;
   }
   .toast{
     bottom: 0;

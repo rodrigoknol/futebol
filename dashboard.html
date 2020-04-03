@@ -1,0 +1,41 @@
+---
+layout: simple_base.html
+---
+<main>
+  <h1 class="text--centered text__main-title" id="teamName">O seu time</h1>
+  <!-- Dashboard -->
+  <section class="grid text--centered">
+    <div>
+      <h2 id="totalPlayers">-/-</h2>
+      <p>Jogadores no elenco</p>
+    </div>
+    <div>
+      <h2><span id="teamValue">-/-</span> milhões</h2>
+      <p>Valor total do time</p>
+    </div>
+    <div>
+      <h2><span id="bankAccount">-/-</span> milhões</h2>
+      <p>Dinheiro em caixa</p>
+    </div>
+  </section>
+  <!-- Team table -->
+  <h2>O seu time</h2>
+  <table class="table--responsive">
+    <thead>
+      <tr>
+        <td>Posição</td>
+        <td>Nome</td>
+        <td>Qualidade</td>
+        <td>Valor</td>
+      </tr>
+    </thead>
+    <tbody id="playersList">
+      <!-- JS Defined -->
+    </tbody>
+    <tbody>
+
+    </tbody>
+  </table>
+  <a class="btn" href="/manage-team">Organizar o time</a>
+</main>
+<script src="/js/dashboard.js"></script>

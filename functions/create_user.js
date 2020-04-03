@@ -41,6 +41,7 @@ exports.handler = (event, context, callback) => {
       name: data.name,
       email: data.email,
       teamName: "",
+      bankAccount: 0,
       playersList: {
         goalkeeper: ["260725846357049865", 
         "261457261895877139"
