@@ -221,18 +221,20 @@ class manageTeam {
         playerStats.position
       }.svg" /><div><h3>${playerStats.name}</h3><p>Posição: <strong>${
         positions[playerStats.position]
-      }</strong></p></div></div><hr /><p class="text--gold-color">${star.repeat(
+      }</strong></p><span class="text--gold-color">${star.repeat(
         playerStats.score
-      )}</p></div>`;
+      )}</span>
+      </div></div><hr /><span>Time: <strong>${playerStats.team}</strong></span></div>`;
 
     return `<div data-name="${playerStats.name}" data-position="${playerStats.position}" 
     class="card card--clickable"><div class="card__flex"><img class="img__icon" src="/img/icons/positions/${
       playerStats.position
     }.svg" /><div><h3>${playerStats.name}</h3><p>Posição: <strong>${
       positions[playerStats.position]
-    }</strong></p></div></div><hr /><p class="text--gold-color">${star.repeat(
+    }</strong></p><span class="text--gold-color">${star.repeat(
       playerStats.score
-    )}</p></div>`;
+    )}</span>
+    </div></div><hr /><span>Time: <strong>${playerStats.team}</strong></span></div>`;
   }
 
   updatesPosition() {
