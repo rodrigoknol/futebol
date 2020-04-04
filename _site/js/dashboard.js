@@ -162,6 +162,7 @@ class Commerce{
       localStorage.setItem('user', JSON.stringify(response.message.playerBase))
     }
     
+    success()
     initiate()
   }
 }
@@ -199,4 +200,17 @@ function prepare(data){
 
 function savesLocally(data){
   localStorage.setItem('user', JSON.stringify(data))
+}
+
+function success() {
+  const successToast = document.createElement("div");
+  successToast.classList.add("toast");
+  successToast.classList.add("toast--success");
+  successToast.innerHTML =
+    "<p><strong>Muito bom!</strong><br>Os dados foram salvos!</p>";
+  document.body.append(successToast);
+
+  setTimeout(() => {
+    successToast.classList.add("util__hidden");
+  }, 2000);
 }

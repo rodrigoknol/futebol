@@ -203,8 +203,7 @@ button.btn[disabled]{
 }
 
 .card__header {
-  font-size: 0.95rem;
-  opacity: 0.8;
+  opacity: 0.7;
   justify-content: space-between;
 }
 
@@ -377,6 +376,10 @@ button.btn[disabled]{
   background: var(--lighter-gray);
 }
 
+.table--responsive td:last-child{
+  text-align: right;
+}
+
 .table--responsive thead{
   position: sticky;
   top: 7.25rem;
@@ -461,6 +464,9 @@ button.btn[disabled]{
     text-align: center;
     width: 100%;
   }
+  .card__header {
+    font-size: 0.85rem;
+  }
   .grid{
     flex-direction: column;
   }
@@ -491,7 +497,7 @@ button.btn[disabled]{
     position: initial;
   }
   .table--responsive td{
-    min-width: 9rem;
+    min-width: 10rem;
   }
   .toast{
     bottom: 0;

@@ -167,7 +167,7 @@ class createTimeline {
     }
 
     const content = this.createsContent(timelineEntry);
-    const mins = this.cardsList.length * (6 + getRandomInt(5));
+    const mins = (this.cardsList.length * 9.8 + (1.2 * (getRandomInt(9)))).toFixed(0);
 
     return this.createCard(
       timelineEntry.attackingTeam,
