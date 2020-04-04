@@ -69,6 +69,8 @@ function runGame(teamPlayersList){
   createFormation.updatesFormation();
   createFormation.updatesPosition();
 
+  createFormation.resetEventListener();
+
   document.body.classList.remove("loading");
 }
 
@@ -101,6 +103,10 @@ class manageTeam {
     this.position = document.getElementById(positionSelect).value;
     this.allPlayers = teamPlayersList;
     this.selectedPlayers = [];
+  }
+
+  resetEventListener(){
+    document.getElementById('resetBtn').addEventListener('click', ()=>{this.changesFormation()})
   }
 
   createField() {
