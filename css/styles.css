@@ -143,6 +143,10 @@ button.btn[disabled]{
   background: var(--light-gray);
 }
 
+.btn--no-margins{
+  margin: 0;
+}
+
 .card{
   padding: 1rem;
   margin: 1rem 0;

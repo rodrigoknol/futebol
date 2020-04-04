@@ -56,7 +56,59 @@ class playersList{
       const cell = theRow.insertCell();
       cell.innerHTML = playerData[element]
     })
+
+    const commerceCell = theRow.insertCell();
+    commerceCell.innerHTML = `<a class="btn btn--no-margins" onclick="sellPlayer(${playerData.name})">Vender</a>`;
   }
+}
+
+class createsDashboard{
+  constructor(data){
+    this.data = data;
+    this.domElements = {
+      players: document.getElementById('totalPlayers'),
+      teamValue: document.getElementById('teamValue'),
+      bankAccount: document.getElementById('bankAccount'),
+    }
+    this.results = {
+      totalPlayers: 0,
+      teamValue: 0,
+      bankAccount: data.bankAccount.toFixed(1),
+    }
+  }
+
+  getData(){
+    if(localStorage.getItem('user_players')){
+      this.organize(JSON.parse(localStorage.getItem('user_players')))
+    } else{
+      getPlayers(data.playersList).then(
+        res => {this.organize(res)}
+      )
+    }
+  }
+  
+  organize(res){
+    localStorage.setItem('user_players', JSON.stringify(res))
+    const allPlayers = [...res.attackers, ...res.defensor, ...res.goalkeeper, ...res.midfielder, ...res.wing_back];
+
+    this.results.totalPlayers = allPlayers.length || 0;
+    this.results.teamValue = allPlayers.reduce((acc, player) => acc + player.price, 0).toFixed(1) || 0;
+    this.printResults()
+
+    const theList = new playersList('playersList', allPlayers);
+    theList.createsList()
+  }
+
+  printResults(){
+    this.domElements.players.innerText = this.results.totalPlayers;
+    this.domElements.teamValue.innerText = this.results.teamValue;
+    this.domElements.bankAccount.innerText = this.results.bankAccount;
+  }
+}
+
+async function getPlayers(data){
+  const theResponse = await post("/.netlify/functions/get_players_data", JSON.stringify(data));
+  return theResponse;
 }
 
 document.body.classList.add("loading");
@@ -77,58 +129,11 @@ function prepare(data){
   savesLocally(data)
   document.getElementById('teamName').innerText = data.teamName || 'Seu time';
   document.body.classList.remove("loading");
-  createsDashboard(data)
+
+  const dashBoardTable = new createsDashboard(data);
+  dashBoardTable.getData()
 }
 
 function savesLocally(data){
   localStorage.setItem('user', JSON.stringify(data))
-}
-
-function createsDashboard(data){
-  const domElements = {
-    players: document.getElementById('totalPlayers'),
-    teamValue: document.getElementById('teamValue'),
-    bankAccount: document.getElementById('bankAccount'),
-  }
-  
-  let results = {
-    totalPlayers: 0,
-    teamValue: 0,
-    bankAccount: data.bankAccount.toFixed(1),
-  }
-
-  if(localStorage.getItem('user_players')){
-    organize(JSON.parse(localStorage.getItem('user_players')))
-  } else{
-    getPlayers(data.playersList).then(
-      res => {organize(res)}
-    )
-  }
-
-  function organize(res){
-    localStorage.setItem('user_players', JSON.stringify(res))
-    const allPlayers = [...res.attackers, ...res.defensor, ...res.goalkeeper, ...res.midfielder, ...res.wing_back];
-
-    results.totalPlayers = allPlayers.length || 0;
-    results.teamValue = allPlayers.reduce((acc, player) => acc + player.price, 0).toFixed(1) || 0;
-    printResults()
-
-    const theList = new playersList('playersList', allPlayers);
-    theList.createsList()
-  }
-
-  function printResults(){
-    domElements.players.innerText = results.totalPlayers;
-    domElements.teamValue.innerText = results.teamValue;
-    domElements.bankAccount.innerText = results.bankAccount;
-  }
-}
-
-function getPlayers(data){
-  return post(
-    "/.netlify/functions/get_players_data",
-    JSON.stringify(data)
-  ).then(theResponse => {
-    return theResponse
-  });
 }
