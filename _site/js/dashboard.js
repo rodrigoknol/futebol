@@ -10,13 +10,23 @@ async function post(url = "", data = {}) {
 class playersList{
   constructor(domListID, players){
     this.domList = document.getElementById(domListID)
-    this.players = players
+    this.players = players;
+    this.trade = new Commerce;
   }
 
-  createsList(){
+  createsList(data){
+    if(data){
+      this.players = data
+    }
     const formatedplayers = this.formatData()
-    const rows = [];
+    let rows = [];
+
     formatedplayers.forEach(player => {rows.push(this.createplayerRow(player))})
+
+    if(Array.from(this.domList.children).length > data.length){
+      this.domList.innerHTML = '';
+      formatedplayers.forEach(player => {rows.push(this.createplayerRow(player))})
+    }
   }
 
   formatData(){
@@ -58,7 +68,8 @@ class playersList{
     })
 
     const commerceCell = theRow.insertCell();
-    commerceCell.innerHTML = `<a class="btn btn--no-margins" onclick="sellPlayer(${playerData.name})">Vender</a>`;
+    commerceCell.innerHTML = `<a class="btn btn--no-margins">Vender</a>`;
+    commerceCell.addEventListener('click', ()=>{this.trade.checkSell(playerData.name)})
   }
 }
 
@@ -75,13 +86,14 @@ class createsDashboard{
       teamValue: 0,
       bankAccount: data.bankAccount.toFixed(1),
     }
+    this.allPlayers = []
   }
 
   getData(){
     if(localStorage.getItem('user_players')){
       this.organize(JSON.parse(localStorage.getItem('user_players')))
     } else{
-      getPlayers(data.playersList).then(
+      getPlayers(this.data.playersList).then(
         res => {this.organize(res)}
       )
     }
@@ -89,14 +101,15 @@ class createsDashboard{
   
   organize(res){
     localStorage.setItem('user_players', JSON.stringify(res))
-    const allPlayers = [...res.attackers, ...res.defensor, ...res.goalkeeper, ...res.midfielder, ...res.wing_back];
 
-    this.results.totalPlayers = allPlayers.length || 0;
-    this.results.teamValue = allPlayers.reduce((acc, player) => acc + player.price, 0).toFixed(1) || 0;
+    this.allPlayers = [...res.attackers, ...res.defensor, ...res.goalkeeper, ...res.midfielder, ...res.wing_back];
+
+    this.results.totalPlayers = this.allPlayers.length || 0;
+    this.results.teamValue = this.allPlayers.reduce((acc, player) => acc + player.price, 0).toFixed(1) || 0;
     this.printResults()
 
-    const theList = new playersList('playersList', allPlayers);
-    theList.createsList()
+    const theList = new playersList('playersList', this.allPlayers);
+    theList.createsList(this.allPlayers)
   }
 
   printResults(){
@@ -106,32 +119,82 @@ class createsDashboard{
   }
 }
 
+class Commerce{
+  constructor(){
+    this.playerName = '';
+    this.userId = JSON.parse(localStorage.getItem('user')).id;
+    this.totalPlayers = document.getElementById('totalPlayers').innerHTML;
+  }
+
+  sellPlayer(unformatedPlayerName){
+    document.body.classList.add("loading");
+    this.formatName(unformatedPlayerName)
+    this.postSell()
+  }
+
+  checkSell(unformatedPlayerName){
+    if(this.totalPlayers <= 15){
+      return alert('Você tem que ter pelo menos 15 jogadores no seu elenco')
+    }
+    this.sellPlayer(unformatedPlayerName)
+  }
+
+  formatName(unformatedPlayerName){
+    const deleteInitial = unformatedPlayerName.replace('<strong>', '')
+    this.playerName = deleteInitial.replace('</strong>', '')
+  }
+
+  postSell(){
+    post("/.netlify/functions/sell_player", JSON.stringify({thePlayer: this.playerName, theUser: this.userId})).then(data => {
+      this.responseWorker(data)
+    });
+  }
+
+  responseWorker(response){
+    if(response.status === 'failed'){
+      document.body.classList.remove('loading')
+      return alert(response.message)
+    }
+
+    localStorage.clear();
+
+    if(response.message.playerBase){
+      localStorage.setItem('user', JSON.stringify(response.message.playerBase))
+    }
+    
+    initiate()
+  }
+}
+
 async function getPlayers(data){
   const theResponse = await post("/.netlify/functions/get_players_data", JSON.stringify(data));
   return theResponse;
 }
 
 document.body.classList.add("loading");
-if(localStorage.getItem('user')){
-  prepare(JSON.parse(localStorage.getItem('user')))
-} else {
-  setTimeout(() => {
-    post(
-      "/.netlify/functions/get_team_data",
-      JSON.stringify({id: getLoginData('id')})
-    ).then(theResponse => {
-      prepare(theResponse.data.playerBase)
-    });
-  }, 600);
+function initiate(){
+  if(localStorage.getItem('user')){
+    prepare(JSON.parse(localStorage.getItem('user')))
+  } else {
+    setTimeout(() => {
+      post(
+        "/.netlify/functions/get_team_data",
+        JSON.stringify({id: getLoginData('id')})
+      ).then(theResponse => {
+        prepare(theResponse.data.playerBase)
+      });
+    }, 600);
+  }
 }
+initiate()
 
 function prepare(data){
   savesLocally(data)
   document.getElementById('teamName').innerText = data.teamName || 'Seu time';
   document.body.classList.remove("loading");
 
-  const dashBoardTable = new createsDashboard(data);
-  dashBoardTable.getData()
+  const theDashboard = new createsDashboard(data);
+  theDashboard.getData()
 }
 
 function savesLocally(data){
