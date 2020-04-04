@@ -198,6 +198,12 @@ button.btn[disabled]{
   margin: 0 0.5rem;
 }
 
+.card__header {
+  font-size: 0.95rem;
+  opacity: 0.8;
+  justify-content: space-between;
+}
+
 .card--clickable{
   cursor: pointer;
 }

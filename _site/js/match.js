@@ -120,7 +120,12 @@ class createTimeline {
       endData: endPossibilities[getRandomInt(endPossibilities.length)]
     }
 
-    this.cardsList.push(this.createCard('', '', 'statistic', content[type]))
+    const time = {
+      startData: 0,
+      endData: 90,
+    }
+
+    this.cardsList.push(this.createCard('', '', 'statistic', content[type], time[type]))
   }
 
   createArray() {
@@ -160,13 +165,16 @@ class createTimeline {
     if (timelineEntry.attackingTeam === "alwayTeam") {
       theTeam = "<strong>time visitante</strong>";
     }
-    let content = this.createsContent(timelineEntry);
+
+    const content = this.createsContent(timelineEntry);
+    const mins = this.cardsList.length * (6 + getRandomInt(5));
 
     return this.createCard(
       timelineEntry.attackingTeam,
       theTeam,
       timelineEntry.result,
-      content
+      content,
+      mins
     );
   }
 
@@ -295,14 +303,14 @@ class createTimeline {
     }
   }
 
-  createCard(attackingTeam, teamName, result, content) {
+  createCard(attackingTeam, teamName, result, content, time) {
     switch (result) {
       case 'success':
-        return `<div class="card card__timeline card__timeline--goal card__timeline--goal-${attackingTeam}"><p>Um gol do ${teamName}</p><hr><p>${content}</p></div>`;
+        return `<div class="card card__timeline card__timeline--goal card__timeline--goal-${attackingTeam}"><div class="card__header card__flex"><span>Um gol do ${teamName}</span> <strong>${time} mins</strong></div><hr><p>${content}</p></div>`;
       case 'statistic':
-        return `<div class="card card__timeline"><p>Comentarista</p><hr><p>${content}</p></div>`;
+        return `<div class="card card__timeline"><div class="card__header card__flex"><span>Comentarista</span> <strong>${time} mins</strong></div><hr><p>${content}</p></div>`;
       default:
-        return `<div class="card card__timeline"><p>Uma jogada do ${teamName}</p><hr><p>${content}</p></div>`;
+        return `<div class="card card__timeline"><div class="card__header card__flex"><span>Uma jogada do ${teamName}</span> <strong>${time} mins</strong></div><hr><p>${content}</p></div>`;
     }
     
   }
