@@ -363,6 +363,20 @@ button.btn[disabled]{
   z-index: 16;
 }
 
+.mobile-nav{
+  background: white;
+  top: initial;
+  bottom: 0;
+  text-align: center;
+  padding: 1rem;
+  display: none;
+}
+
+.mobile-nav a{
+  color: var(--dark-gray);
+  font-size: 0.9rem;
+}
+
 .nav__logo{
   display: flex;
   align-items: center;
@@ -505,6 +519,10 @@ button.btn[disabled]{
   }
   .login__page--logo h1{
     font-size: 2.5rem;
+  }
+  .mobile-nav{
+    display: flex;
+    flex-direction: initial;
   }
   .table--responsive{
     display: block;
