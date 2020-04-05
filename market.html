@@ -1,0 +1,52 @@
+---
+layout: simple_base.html
+---
+<main>
+  <h1 class="text--centered text__main-title">Mercado da bola</h1>
+  <h2>Você tem <span id="bankAccount">0</span> milhões em caixa</h2>
+  <h3>Opções no mercado</h3>
+  <form>
+    <fieldset>
+      <legend>Filtros</legend>
+      <div class="grid">
+        <div>
+          <label for="position">Por posição</label>
+          <select id="position">
+            <option value="goalkeeper">Goleiro</option>
+            <option value="wing_back">Lateral</option>
+            <option value="defensor">Zagueiro</option>
+            <option value="midfielder">Meio Campista</option>
+            <option value="attackers">Atacante</option>
+          </select>
+        </div>
+        <div>
+          <label for="score">Por qualidade</label>
+          <select id="score">
+            <option value="all">Qualquer qualidade</option>
+            <option value="1">★</option>
+            <option value="2">★★</option>
+            <option value="3">★★★</option>
+            <option value="4">★★★★</option>
+            <option value="5">★★★★★</option>
+          </select>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+  <table class="table--responsive">
+    <thead>
+      <tr>
+        <td>Posição</td>
+        <td>Nome</td>
+        <td>Time</td>
+        <td>Qualidade</td>
+        <td>Valor</td>
+        <td>Comprar</td>
+      </tr>
+    </thead>
+    <tbody id="playersList">
+      <!-- JS Defined -->
+    </tbody>
+  </table>
+</main>
+<script src="/js/market.js"></script>

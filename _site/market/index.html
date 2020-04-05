@@ -47,70 +47,54 @@
     </div>
   </nav>
   <main>
-  <h1 class="text--centered text__main-title">Mudanças e melhorias</h1>
-  <br/>
-  <h2>Versões 0.3 - Compra e venda</h2>
-  <hr />
-  <h3>Versão 0.3.1</h3>
-  <p>Criado o mercado da bola, dentre outras novidades:</p>
-  <ul>
-    <li>Correção da visualização de tabelas em dispositivos móveis iOS;</li>
-    <li>Compra de jogadores no mercado da bola;</li>
-    <li>Opções de navegação pelo menu superior.</li>
-  </ul>
-  <h3>Versão 0.3.0</h3>
-  <p>Adicionada a possibildiade de vender jogadores.</p>
-  <ul>
-    <li>Criadas regras de número mínimo de jogadores no elenco e jogadores por posição;</li>
-    <li>A venda do jogador automaticamente adiciona o valor da venda no caixa do time.</li>
-  </ul>
-  <br />
-  <h2>Versões 0.2 - O painel de instrumentos</h2>
-  <hr />
-  <h3>Versão 0.2.1</h3>
-  <p>Correções de erros e melhorias, os destaques são:</p>
-  <ul>
-    <li>Botão de resetar jogadores voltou a funcionar;</li>
-    <li>Adicionado tempo nas jogadas.</li>
-  </ul>
-  <h3>Versão 0.2.0</h3>
-  <p>Criado um Dashboard como tela principal. Algumas das novidades:</p>
-  <ul>
-    <li>Lista de todos os jogadores do elenco;</li>
-    <li>Dados financeiros do time;</li>
-    <li>Dados acessados de forma muito mais rápida.</li>
-  </ul>
-  <br />
-  <h2>Versões 0.1 - Credenciais</h2>
-  <hr />
-  <h3>Versão 0.1.1</h3>
-  <p>Pequenos ajustes diversos:</p>
-  <ul>
-    <li>Melhoradas algumas das mensagens de alerta;</li>
-    <li>Adicionadas mais comentários durante o jogo;</li>
-    <li>Ajustado erro que permitia adicionar um jogador mais de uma vez no mesmo time;</li>
-    <li>Agora a formação 3-5-2 está funcionando.</li>
-  </ul>
-  <h3>Versão 0.1.0</h3>
-  <p>Adicionado sistema de login e credenciais, com cadastro de usuários pelo Google Sign-in.</p>
-  <br />
-  <h2>Versões 0.0 - O começo</h2>
-  <hr />
-  <h3>Versão 0.0.1</h3>
-  <p>As principais novidades foram:</p>
-  <ul>
-    <li>Escolhido o nome <strong>1,2,3 GOL!</strong>;</li>
-    <li>Adicionados 9 jogadores do elenco do Palmeiras no banco de dados;</li>
-    <li>Novo tipo de jogada possível, onde o time nem consegue dominar a bola e começar um ataque;</li>
-    <li>Automatizadas as notas dos jogadores a partir de um cálculo baseado em suas características;</li>
-    <li>Pequenos ajustes de layout;</li>
-    <li>Criada a página de mudanças e melhorias.</li>
-  </ul>
-  <h3>Versão 0.0.0</h3>
-  <p>Iniciado o desenvolvimento.</p>
-  <p>Criada a primeira versão da Engine de partida, além da área para montar o time para a partida. De início todos os jogos são contra um único time adversário pré-definido.</p>
-  <p>Na primeira versão estão disponíveis 18 jogadores do elenco do Corinthians.</p>
+  <h1 class="text--centered text__main-title">Mercado da bola</h1>
+  <h2>Você tem <span id="bankAccount">0</span> milhões em caixa</h2>
+  <h3>Opções no mercado</h3>
+  <form>
+    <fieldset>
+      <legend>Filtros</legend>
+      <div class="grid">
+        <div>
+          <label for="position">Por posição</label>
+          <select id="position">
+            <option value="goalkeeper">Goleiro</option>
+            <option value="wing_back">Lateral</option>
+            <option value="defensor">Zagueiro</option>
+            <option value="midfielder">Meio Campista</option>
+            <option value="attackers">Atacante</option>
+          </select>
+        </div>
+        <div>
+          <label for="score">Por qualidade</label>
+          <select id="score">
+            <option value="all">Qualquer qualidade</option>
+            <option value="1">★</option>
+            <option value="2">★★</option>
+            <option value="3">★★★</option>
+            <option value="4">★★★★</option>
+            <option value="5">★★★★★</option>
+          </select>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+  <table class="table--responsive">
+    <thead>
+      <tr>
+        <td>Posição</td>
+        <td>Nome</td>
+        <td>Time</td>
+        <td>Qualidade</td>
+        <td>Valor</td>
+        <td>Comprar</td>
+      </tr>
+    </thead>
+    <tbody id="playersList">
+      <!-- JS Defined -->
+    </tbody>
+  </table>
 </main>
+<script src="/js/market.js"></script>
   <footer class="text--centered">
     <hr />
     <p>Versão <a href="/changelog">0.3.1</a></p>

@@ -19,13 +19,12 @@ class playersList{
       this.players = data
     }
     const formatedplayers = this.formatData()
-    let rows = [];
 
-    formatedplayers.forEach(player => {rows.push(this.createplayerRow(player))})
+    formatedplayers.forEach(player => {this.createplayerRow(player)})
 
     if(Array.from(this.domList.children).length > data.length){
       this.domList.innerHTML = '';
-      formatedplayers.forEach(player => {rows.push(this.createplayerRow(player))})
+      formatedplayers.forEach(player => {this.createplayerRow(player)})
     }
   }
 
@@ -68,8 +67,12 @@ class playersList{
     })
 
     const commerceCell = theRow.insertCell();
-    commerceCell.innerHTML = `<a class="btn btn--no-margins">Vender</a>`;
-    commerceCell.addEventListener('click', ()=>{this.trade.checkSell(playerData.name)})
+    if(this.players.length > 15){
+      commerceCell.innerHTML = `<a class="btn btn--no-margins">Vender</a>`;
+      commerceCell.addEventListener('click', ()=>{this.trade.checkSell(playerData.name)})
+    } else {
+      commerceCell.innerHTML = `<a disabled class="btn btn--no-margins">Elenco enchuto</a>`;
+    }
   }
 }
 

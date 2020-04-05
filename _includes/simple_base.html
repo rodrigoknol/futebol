@@ -37,16 +37,22 @@
 
 <body>
   <nav>
-    <a class="nav__logo" href="/dashboard"><img src="/img/icons/ball-success.svg" style="filter:brightness(3)"
-        height="36" /><span>1, 2, 3 <strong>Gol!</strong></span></a>
+    <a class="nav__logo" href="/dashboard"><img src="/img/icons/ball-success.svg"
+        alt="símbolo representando uma bola de futebol" style="filter:brightness(3)" height="36" /><span>1, 2, 3
+        <strong>Gol!</strong></span></a>
     <div>
+      <a class="hidden-mobile" href="/manage-team">Organizar o meu time</a>
+      <a class="hidden-mobile" href="/market">Mercado da bola</a>
       <a onclick="signOut()">Sair</a>
     </div>
   </nav>
   {{content}}
   <footer class="text--centered">
     <hr />
-    <p>Versão <a href="/changelog">0.3.0</a></p>
+    <p>Versão <a href="/changelog">0.3.1</a></p>
+    <span>Desenvolvido por <a target="_blank" href="https://www.linkedin.com/in/rodrigoknolseisen/"
+        rel="noopener">Rodrigo Knolseisen</a></span>
   </footer>
 </body>
+
 </html>

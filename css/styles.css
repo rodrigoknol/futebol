@@ -52,6 +52,17 @@ label{
   font-weight: 500;
 }
 
+fieldset{
+  border: 1px solid var(--lighter-gray);
+  border-radius: 0.25rem;
+  background: white;
+  margin: 1.5rem 0;
+}
+
+legend{
+  font-weight: 300;
+}
+
 main, footer{
   width: 55rem;
   max-width: 100%;
@@ -78,6 +89,12 @@ nav{
 nav a{
   color: white;
   font-weight: 500;
+  text-decoration: none;
+  margin-right: 1.5rem;
+}
+
+nav a:last-of-type{
+  margin-right: 0;
 }
 
 select{
