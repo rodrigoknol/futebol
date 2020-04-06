@@ -368,13 +368,15 @@ button.btn[disabled]{
   top: initial;
   bottom: 0;
   text-align: center;
-  padding: 1rem;
+  padding: 0.75rem;
   display: none;
 }
 
 .mobile-nav a{
   color: var(--dark-gray);
-  font-size: 0.9rem;
+  font-size: 0.8rem;
+  display: flex;
+  flex-direction: column;
 }
 
 .nav__logo{
@@ -397,23 +399,23 @@ button.btn[disabled]{
   overflow: auto;
 }
 
-.table--responsive td{
+.table--responsive td, .table--responsive th{
   padding: 1rem;
 }
 
 .table--responsive thead tr{
   font-weight: 600;
   font-size: 1.1rem;
-  background: var(--lighter-gray);
 }
 
 .table--responsive td:last-child{
   text-align: right;
 }
 
-.table--responsive thead{
+.table--responsive th{
   position: sticky;
   top: 7.25rem;
+  background: var(--lighter-gray);
 }
 
 .table--responsive tbody{
@@ -460,6 +462,7 @@ button.btn[disabled]{
   padding: 1.25rem;
   border-radius: 0.3rem;
   box-shadow: 0.1rem 0.1rem 0.5rem 0rem var(--light-gray);
+  z-index: 15;
 }
 
 .toast--success{
@@ -498,6 +501,23 @@ button.btn[disabled]{
   .card__header {
     font-size: 0.85rem;
   }
+  .field{
+    width: 80%;
+    max-width: 20em;
+    margin: auto;
+  }
+  .field td{
+    height: 3.5em;
+    width: 3.5em;
+  }
+  .field__item:before{
+    height: 3em;
+    width: 3em;
+    right: 8%;
+  }
+  footer{
+    margin-bottom: 4rem;
+  }
   .grid{
     flex-direction: column;
   }
@@ -528,10 +548,10 @@ button.btn[disabled]{
     display: block;
     max-height: 60vh;
   }
-  .table--responsive thead{
-    position: initial;
+  .table--responsive th{
+    top: 0;
   }
-  .table--responsive td{
+  .table--responsive td, .table--responsive th{
     min-width: 10rem;
   }
   .toast{
