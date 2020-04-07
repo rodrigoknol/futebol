@@ -425,7 +425,6 @@ button.btn[disabled]{
 .table--responsive td, .table--responsive th{
   padding: 1rem;
   width: 100%;
-  min-width: 10rem;
   text-align: left;
 }
 
@@ -454,7 +453,7 @@ button.btn[disabled]{
 
 .text__main-title{
   position: sticky;
-  top: 2.7rem;
+  top: 3.25rem;
   padding-top: 0.75rem;
   background: var(--background);
   border-bottom: 1px solid var(--light-gray);
@@ -572,6 +571,9 @@ button.btn[disabled]{
   }
   .table--responsive{
     max-height: 60vh;
+  }
+  .table--responsive td{
+    min-width: 10rem;
   }
   .toast{
     bottom: 0;

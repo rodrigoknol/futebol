@@ -21,6 +21,7 @@
     "@11ty/eleventy": "^0.10.0",
     "faunadb": "^2.13.0",
     "google-auth-library": "^6.0.0",
+    "netlify-cli": "^2.41.0",
     "node-fetch": "^2.6.0"
   }
 }

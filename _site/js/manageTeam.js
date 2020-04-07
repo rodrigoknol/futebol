@@ -41,6 +41,8 @@ function formatData(data){
     team: data.teamName
   }
 
+  document.getElementById('formation').value = matchData.homeTeam.formation;
+
   if(localStorage.getItem('user_players')){
     runGame(JSON.parse(localStorage.getItem('user_players')))
   } else {
@@ -171,6 +173,14 @@ class manageTeam {
         this.createCell(rows[rowLetter], element);
       });
     });
+
+    if(matchData.homeTeam.players.length > 1){
+      matchData.homeTeam.players.forEach(player => {
+        const position = Object.keys(player)[0]
+
+        this.selectsPlayer(player.position, position)
+      })
+    }
   }
 
   createRow() {
@@ -193,6 +203,7 @@ class manageTeam {
   changesFormation() {
     matchData.homeTeam.players = [];
     this.formation = this.formationElement.value;
+    matchData.homeTeam.formation = this.formation;
     this.tableDOM.innerHTML = "";
     Array.from(this.playersListDOM.children).forEach(element => {
       element.classList.remove("card--clicked");
@@ -269,9 +280,6 @@ class manageTeam {
     let finalData = new Object();
     finalData[position] = name;
 
-    const maxedPlayersNumbers = matchData.homeTeam.players.length === 11;
-    if (maxedPlayersNumbers) return alert("O seu time já está completo");
-
     const possibleSpots = this.checkPossibleSpots(position);
     if (possibleSpots.length === 0)
       return alert("Você já passou o limite de jogadores para essa posição");
@@ -344,8 +352,10 @@ class manageTeam {
     const elementCard = Array.from(this.playersListDOM.children).filter(
       element => element.children[0].children[1].children[0].innerHTML === name
     );
-    elementCard[0].classList.remove("card--clickable");
-    elementCard[0].classList.add("card--clicked");
+    if(elementCard.length >= 1){
+      elementCard[0].classList.remove("card--clickable");
+      elementCard[0].classList.add("card--clicked");
+    }
   }
 }
 
@@ -366,23 +376,29 @@ function saveTeamData() {
     const runButton = document.getElementById("runMatch");
     runButton.removeAttribute("disabled");
     runButton.href = `/match?id=${theId}`;
+    localStorage.clear();
 
     document.body.classList.remove("loading");
+    document.getElementById('playersTable').innerHTML = '';
+    document.getElementById('playersListDOM').innerHTML = '';
     success();
+    init();
   }
 }
 
 document.body.classList.add("loading");
-document.body.classList.add("loading");
-if(localStorage.getItem('user')){
-  prepare(JSON.parse(localStorage.getItem('user')))
-} else {
-  setTimeout(() => {
-    post(
-      "/.netlify/functions/get_team_data",
-      JSON.stringify({id: getLoginData('id')})
-    ).then(theResponse => {
-      prepare(theResponse.data.playerBase)
-    });
-  }, 600);
+function init(){
+  if(localStorage.getItem('user')){
+    prepare(JSON.parse(localStorage.getItem('user')))
+  } else {
+    setTimeout(() => {
+      post(
+        "/.netlify/functions/get_team_data",
+        JSON.stringify({id: getLoginData('id')})
+      ).then(theResponse => {
+        prepare(theResponse.data.playerBase)
+      });
+    }, 600);
+  }
 }
+init()

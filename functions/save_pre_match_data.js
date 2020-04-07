@@ -9,14 +9,35 @@ exports.handler = (event, context, callback) => {
     secret: "fnADnfe6LqACCb_PlAgsLJsY1rnDPykAMFTbLrFs"
   });
 
-  return client
+  client
     .query(q.Create(q.Collection("preMatchData"), { data }))
     .then(response => {
-      console.log("success", response);
+      const preMatch = response;
+      console.log("first success", preMatch);
 
-      return callback(null, {
-        statusCode: 200,
-        body: JSON.stringify(response.ref)
-      });
+      client.query(
+        q.Get(
+          q.Match(
+            q.Index("user_by_id"), data.homeTeam.player
+          )
+        )
+      ).then(result => {updateTeam(result.ref)})
+
+      function updateTeam(reference){
+        const startingTeam = data.homeTeam;
+
+        client.query(
+          q.Update(
+            q.Ref(reference),
+            { data: { playerBase: {startingTeam: startingTeam} } },
+          )
+        ).then((updatedUser)=>{
+          console.log('userUpdated: ', updatedUser)
+          return callback(null, {
+            statusCode: 200,
+            body: JSON.stringify(preMatch.ref)
+          });
+        })
+      }      
     });
 };
