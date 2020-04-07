@@ -454,7 +454,7 @@ button.btn[disabled]{
 
 .text__main-title{
   position: sticky;
-  top: 2.6rem;
+  top: 2.7rem;
   padding-top: 0.75rem;
   background: var(--background);
   border-bottom: 1px solid var(--light-gray);
@@ -537,8 +537,8 @@ button.btn[disabled]{
     width: 3.5em;
   }
   .field__item:before{
-    height: 2.75em;
-    width: 2.75em;
+    height: 2.6em;
+    width: 2.6em;
     right: 5%;
   }
   footer{
@@ -551,7 +551,7 @@ button.btn[disabled]{
     margin: 0;
   }
   h1{
-    font-size: 1.2rem;
+    font-size: 1.25rem;
   }
   .hidden-mobile{
     display: none!important;
