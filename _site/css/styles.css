@@ -1,7 +1,7 @@
 :root {
   --dark-gray: rgb(50,50,70);
   --light-gray: rgb(200,200,215);
-  --lighter-gray: rgb(230,230,240);
+  --lighter-gray: rgb(245,245,252);
   --background: rgb(252,252,254);
   --success: rgb(100,200,100);
   --error: rgb(250,50,75);
@@ -77,7 +77,7 @@ nav{
   right: 0;
   left: 0;
   top: 0;
-  padding: 0.25rem 1rem;
+  padding: 0.5rem 1rem;
   z-index: 10;
   box-shadow: 0.1rem 0.1rem 0.5rem 0rem var(--light-gray);
   color: white;
@@ -86,14 +86,30 @@ nav{
   justify-content: space-between;
 }
 
+nav div{
+  display: flex;
+}
+
 nav a{
   color: white;
   font-weight: 500;
   text-decoration: none;
-  margin-right: 1.5rem;
 }
 
-nav a:last-of-type{
+nav .grid a{
+  margin-right: 1.75rem;
+  display: flex;
+  align-items: center;
+  flex: initial;
+}
+
+nav .grid a img{
+  height: 1.25rem;
+  margin-right: 0.25rem;
+  filter: invert(1);
+}
+
+nav .grid a:last-of-type{
   margin-right: 0;
 }
 
@@ -162,6 +178,10 @@ button.btn[disabled]{
 
 .btn--no-margins{
   margin: 0;
+}
+
+.btn--danger{
+  background: var(--error);
 }
 
 .card{
@@ -317,11 +337,11 @@ button.btn[disabled]{
   flex: 1 1 0;
 }
 
-.grid > *:nth-child(even){
+.grid > *:nth-child(even):not(a){
   margin-left: 0.5rem;
 }
 
-.grid > *:nth-child(odd){
+.grid > *:nth-child(odd):not(a){
   margin-right: 0.5rem;
 }
 
@@ -393,14 +413,20 @@ button.btn[disabled]{
 
 .table--responsive{
   width: 100%;
+  display: block;
+  -webkit-overflow-scrolling: auto;
   border-collapse: collapse;
   margin: 0.5rem 0 1.5rem;
-  position: relative;
   overflow: auto;
+  z-index: 0;
+  max-height: 30rem;
 }
 
 .table--responsive td, .table--responsive th{
   padding: 1rem;
+  width: 100%;
+  min-width: 10rem;
+  text-align: left;
 }
 
 .table--responsive thead tr{
@@ -408,13 +434,13 @@ button.btn[disabled]{
   font-size: 1.1rem;
 }
 
-.table--responsive td:last-child{
+.table--responsive th:last-child, .table--responsive td:last-child{
   text-align: right;
 }
 
 .table--responsive th{
   position: sticky;
-  top: 7.25rem;
+  top: 0rem;
   background: var(--lighter-gray);
 }
 
@@ -511,9 +537,9 @@ button.btn[disabled]{
     width: 3.5em;
   }
   .field__item:before{
-    height: 3em;
-    width: 3em;
-    right: 8%;
+    height: 2.75em;
+    width: 2.75em;
+    right: 5%;
   }
   footer{
     margin-bottom: 4rem;
@@ -528,7 +554,7 @@ button.btn[disabled]{
     font-size: 1.2rem;
   }
   .hidden-mobile{
-    display: none;
+    display: none!important;
   }
   input{
     width: 100%;
@@ -545,14 +571,7 @@ button.btn[disabled]{
     flex-direction: initial;
   }
   .table--responsive{
-    display: block;
     max-height: 60vh;
-  }
-  .table--responsive th{
-    top: 0;
-  }
-  .table--responsive td, .table--responsive th{
-    min-width: 10rem;
   }
   .toast{
     bottom: 0;

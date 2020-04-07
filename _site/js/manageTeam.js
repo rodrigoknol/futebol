@@ -106,7 +106,13 @@ class manageTeam {
   }
 
   resetEventListener(){
-    document.getElementById('resetBtn').addEventListener('click', ()=>{this.changesFormation()})
+    document.getElementById('resetBtn').addEventListener('click', ()=>{this.resetPrompt()})
+  }
+
+  resetPrompt(){
+    if (confirm('Você quer mesmo resetar a sua escalação?')) {
+      this.changesFormation()
+    }
   }
 
   createField() {

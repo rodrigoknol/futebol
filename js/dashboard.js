@@ -130,9 +130,12 @@ class Commerce{
   }
 
   sellPlayer(unformatedPlayerName){
-    document.body.classList.add("loading");
     this.formatName(unformatedPlayerName)
-    this.postSell()
+
+    if (confirm(`Você tem certeza que quer vender o ${this.playerName}`)) {
+      document.body.classList.add("loading");
+      this.postSell()
+    }
   }
 
   checkSell(unformatedPlayerName){
