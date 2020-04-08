@@ -92,27 +92,36 @@ exports.handler = (event, context, callback) => {
       });
     }
 
-    if (playerToDelete.playerCode !== 0) {
-      let playersList = {};
-      playersList[playerToDelete.where] = user.data.playerBase.playersList[
-        playerToDelete.where
-      ].filter((element) => {
-        return element !== playerToDelete.playerCode;
-      });
-
-      const data = {
-        playerBase: {
-          bankAccount: user.data.playerBase.bankAccount + player.data.price,
-          playersList,
-        },
-      };
-
-      client.query(q.Update(q.Ref(user.ref), { data })).then((response) => {
-        return callback(null, {
-          statusCode: 200,
-          body: JSON.stringify({ status: "success", message: response.data }),
+    client.query(q.Get(q.Ref(user.ref))).then((theUser) => {
+      if (playerToDelete.playerCode !== 0) {
+        let playersList = {};
+        playersList[playerToDelete.where] = user.data.playerBase.playersList[
+          playerToDelete.where
+        ].filter((element) => {
+          return element !== playerToDelete.playerCode;
         });
-      });
-    }
+
+        const baseTeam = theUser.data.playerBase.startingTeam.players;
+        const players = baseTeam.filter((element) => {
+          const theKey = Object.keys(element)[0];
+          return element[theKey] !== player.data.name;
+        });
+
+        const data = {
+          playerBase: {
+            bankAccount: user.data.playerBase.bankAccount + player.data.price,
+            playersList,
+            startingTeam: {players}
+          },
+        };
+
+        client.query(q.Update(q.Ref(user.ref), { data })).then((response) => {
+          return callback(null, {
+            statusCode: 200,
+            body: JSON.stringify({ status: "success", message: response.data }),
+          });
+        });
+      }
+    });
   }
 };
