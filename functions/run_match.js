@@ -1,6 +1,15 @@
 const fetch = require("node-fetch");
+const faunadb = require("faunadb");
 
 exports.handler = (event, context, callback) => {
+  const dataReceived = JSON.parse(event.body);
+  console.log('Data recieved: ', dataReceived)
+
+  const q = faunadb.query;
+  const client = new faunadb.Client({
+    secret: "fnADnfe6LqACCb_PlAgsLJsY1rnDPykAMFTbLrFs"
+  });
+
   class theMatch {
     constructor() {
       this.turn = 0;
@@ -242,15 +251,22 @@ exports.handler = (event, context, callback) => {
         this.turn++;
       }
 
+      const theMatchId = dataReceived.id;
+
       const finalData = {
         gameStats,
-        theGame
+        theGame,
+        id: theMatchId
       };
 
-      return callback(null, {
-        statusCode: 200,
-        body: JSON.stringify(finalData)
-      });
+      client.query(q.Create(q.Collection("matchData"), {data: finalData} )).then(
+        ()=>{
+          return callback(null, {
+            statusCode: 200,
+            body: JSON.stringify(finalData)
+          });
+        }
+      )
     }
 
     getRandomInt(max) {
@@ -871,10 +887,26 @@ exports.handler = (event, context, callback) => {
     return await response.json();
   }
 
-  post(
-    "https://123gol.com.br/.netlify/functions/get_players_for_match",
-    event.body
-  ).then(data => {
-    theGame.matchLogic(data);
-  });
+  client
+    .query(q.Exists(q.Match(q.Index("match_by_id"), dataReceived.id)))
+    .then((response) => {
+      if(response === true){
+        client.query(q.Get(q.Match(q.Index("match_by_id"), dataReceived.id)))
+          .then(
+            theResult => {
+              return callback(null, {
+                statusCode: 200,
+                body: JSON.stringify(theResult.data)
+              });
+            }
+          )
+      } else {
+        post(
+          "https://123gol.com.br/.netlify/functions/get_players_for_match",
+          event.body
+        ).then(data => {
+          theGame.matchLogic(data);
+        });
+      }
+    });
 };

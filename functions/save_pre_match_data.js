@@ -1,8 +1,9 @@
 const faunadb = require("faunadb");
 
 exports.handler = (event, context, callback) => {
-  const data = JSON.parse(event.body);
+  let data = JSON.parse(event.body);
   console.log('Data recieved: ', data)
+  data.id = Math.floor(Math.random() * Date.now());
 
   const q = faunadb.query;
   const client = new faunadb.Client({

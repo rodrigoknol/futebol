@@ -154,6 +154,14 @@ select{
   margin: 2rem auto;
 }
 
+.login__page input{
+  border: 0;
+  font-size: 1.5rem;
+  padding: 0.25rem 0.75rem;
+  background: rgba(255,255,255,0.75);
+  border-radius: 0.25rem;
+}
+
 /* Other elements - Alphabetical order */
 .btn, button.btn{
   font-weight: bold;
@@ -426,6 +434,11 @@ button.btn[disabled]{
   padding: 1rem;
   width: 100%;
   text-align: left;
+}
+
+.table--responsive td strong{
+  min-width: 10rem;
+  display: block;
 }
 
 .table--responsive thead tr{

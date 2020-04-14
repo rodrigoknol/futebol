@@ -13,6 +13,8 @@ function getRandomInt(max) {
 
 class callBackEnd {
   fetch(matchBaseData) {
+    console.log(matchBaseData)
+    
     post("/.netlify/functions/run_match", matchBaseData).then(data => {
       this.control(data);
     });

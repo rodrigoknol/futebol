@@ -11,6 +11,7 @@ let matchData = {
   alwayTeam: {
     player: "",
     team: "",
+    formation: "4-1-4-1",
     gameMode: "normal",
     attackStyle: "mixed",
     players: [
@@ -295,6 +296,7 @@ class manageTeam {
 
     this.signsCardAsMarked(name);
 
+    if (name === undefined) return null
     return matchData.homeTeam.players.push(finalData);
   }
 
