@@ -1,12 +1,3 @@
-async function post(url = "", data = {}) {
-  const response = await fetch(url, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: data
-  });
-  return await response.json();
-}
-
 class playersList{
   constructor(domListID, players){
     this.domList = document.getElementById(domListID)
@@ -173,50 +164,21 @@ class Commerce{
   }
 }
 
-async function getPlayers(data){
-  const theResponse = await post("/.netlify/functions/get_players_data", JSON.stringify(data));
-  return theResponse;
+class lastGames{
+  constructor(){
+    this.gamesListDom = document.getElementById('lastGames')
+  }
+
+  
 }
 
 document.body.classList.add("loading");
-function initiate(){
-  if(localStorage.getItem('user')){
-    prepare(JSON.parse(localStorage.getItem('user')))
-  } else {
-    setTimeout(() => {
-      post(
-        "/.netlify/functions/get_team_data",
-        JSON.stringify({id: getLoginData('id')})
-      ).then(theResponse => {
-        prepare(theResponse.data.playerBase)
-      });
-    }, 600);
-  }
-}
-initiate()
 
-function prepare(data){
-  savesLocally(data)
+function prepare(){
+  const data = JSON.parse(localStorage.getItem('user'));
   document.getElementById('teamName').innerText = data.teamName || 'Seu time';
   document.body.classList.remove("loading");
 
   const theDashboard = new createsDashboard(data);
   theDashboard.getData()
-}
-
-function savesLocally(data){
-  localStorage.setItem('user', JSON.stringify(data))
-}
-
-function success() {
-  const successToast = document.createElement("div");
-  successToast.classList.add("toast");
-  successToast.classList.add("toast--success");
-  successToast.innerHTML =
-    "<p><strong>Muito bom!</strong><br>Os dados foram salvos!</p>";
-  document.body.append(successToast);
-
-  setTimeout(() => {
-    successToast.classList.add("util__hidden");
-  }, 2000);
 }

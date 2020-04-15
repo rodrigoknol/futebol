@@ -24,6 +24,8 @@ function isSignedIn(){
   if(!auth2.isSignedIn.get()){
     window.location.replace("/");
   }
+
+  validateLocal()
 }
 
 function onLoad() {

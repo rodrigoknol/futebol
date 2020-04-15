@@ -1,63 +1,32 @@
-async function post(url = "", data = {}) {
-  const response = await fetch(url, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: data
-  });
-  return await response.json();
+let playerTeam = {};
+
+function prepare() {
+  formatData(JSON.parse(localStorage.getItem("user")));
+  document.getElementById("teamName").innerText = playerTeam.team || "seu time";
 }
 
-let matchData = {
-  alwayTeam: {
-    player: "",
-    team: "",
-    formation: "4-1-4-1",
-    gameMode: "normal",
-    attackStyle: "mixed",
-    players: [
-      { goalkeeper: "Cássio" },
-      { left_wing_back: "Lucas Piton" },
-      { right_wing_back: "Fagner" },
-      { center_back: "Pedro Henrique" },
-      { center_back: "Gil" },
-      { midfielder: "Ramiro" },
-      { midfielder: "Cantillo" },
-      { midfielder: "Luan" },
-      { midfielder: "Camacho" },
-      { midfielder: "Mateus Vital" },
-      { winger: "Pedrinho" },
-    ]
-  }
-};
-
-function prepare(data){
-  formatData(data)
-  document.getElementById('teamName').innerText = matchData.homeTeam.team || 'seu time';
-}
-
-function formatData(data){
-  matchData.homeTeam = {
+function formatData(data) {
+  playerTeam = {
     ...data.startingTeam,
     player: data.id,
-    team: data.teamName
-  }
+    team: data.teamName,
+  };
 
-  document.getElementById('formation').value = matchData.homeTeam.formation;
+  document.getElementById("formation").value = playerTeam.formation;
 
-  if(localStorage.getItem('user_players')){
-    runGame(JSON.parse(localStorage.getItem('user_players')))
+  if (localStorage.getItem("user_players")) {
+    createPage(JSON.parse(localStorage.getItem("user_players")));
   } else {
     post(
       "/.netlify/functions/get_players_data",
       JSON.stringify(data.playersList)
-    ).then(theResponse => {
-      runGame(theResponse)
+    ).then((theResponse) => {
+      createPage(theResponse);
     });
   }
 }
 
-function runGame(teamPlayersList){
-
+function createPage(teamPlayersList) {
   const createFormation = new manageTeam(
     "playersTable",
     "formation",
@@ -65,29 +34,16 @@ function runGame(teamPlayersList){
     "position",
     teamPlayersList
   );
-  
+
   createFormation.createField();
   createFormation.createPlayerList();
-  
+
   createFormation.updatesFormation();
   createFormation.updatesPosition();
 
   createFormation.resetEventListener();
 
   document.body.classList.remove("loading");
-}
-
-function success() {
-  const successToast = document.createElement("div");
-  successToast.classList.add("toast");
-  successToast.classList.add("toast--success");
-  successToast.innerHTML =
-    "<p><strong>Muito bom!</strong><br>Os dados foram salvos!</p>";
-  document.body.append(successToast);
-
-  setTimeout(() => {
-    successToast.classList.add("util__hidden");
-  }, 2000);
 }
 
 class manageTeam {
@@ -108,13 +64,15 @@ class manageTeam {
     this.selectedPlayers = [];
   }
 
-  resetEventListener(){
-    document.getElementById('resetBtn').addEventListener('click', ()=>{this.resetPrompt()})
+  resetEventListener() {
+    document.getElementById("resetBtn").addEventListener("click", () => {
+      this.resetPrompt();
+    });
   }
 
-  resetPrompt(){
-    if (confirm('Você quer mesmo resetar a sua escalação?')) {
-      this.changesFormation()
+  resetPrompt() {
+    if (confirm("Você quer mesmo resetar a sua escalação?")) {
+      this.changesFormation();
     }
   }
 
@@ -126,7 +84,7 @@ class manageTeam {
       d: this.createRow(),
       e: this.createRow(),
       f: this.createRow(),
-      keeper: this.createRow()
+      keeper: this.createRow(),
     };
 
     const formations = {
@@ -137,7 +95,7 @@ class manageTeam {
         d: [false, true, false, true, false],
         e: [true, false, false, false, true],
         f: [false, true, false, true, false],
-        keeper: [false, false, true, false, false]
+        keeper: [false, false, true, false, false],
       },
       "4-1-4-1": {
         a: [false, false, true, false, false],
@@ -146,7 +104,7 @@ class manageTeam {
         d: [false, false, true, false, false],
         e: [true, false, false, false, true],
         f: [false, true, false, true, false],
-        keeper: [false, false, true, false, false]
+        keeper: [false, false, true, false, false],
       },
       "4-4-2": {
         a: [false, true, false, true, false],
@@ -155,7 +113,7 @@ class manageTeam {
         d: [false, true, false, true, false],
         e: [true, false, false, false, true],
         f: [false, true, false, true, false],
-        keeper: [false, false, true, false, false]
+        keeper: [false, false, true, false, false],
       },
       "3-5-2": {
         a: [false, true, false, true, false],
@@ -164,23 +122,23 @@ class manageTeam {
         d: [true, false, false, false, true],
         e: [false, false, true, false, false],
         f: [false, true, false, true, false],
-        keeper: [false, false, true, false, false]
-      }
+        keeper: [false, false, true, false, false],
+      },
     };
     const rowList = ["a", "b", "c", "d", "e", "f", "keeper"];
 
-    rowList.forEach(rowLetter => {
-      formations[this.formation][rowLetter].forEach(element => {
+    rowList.forEach((rowLetter) => {
+      formations[this.formation][rowLetter].forEach((element) => {
         this.createCell(rows[rowLetter], element);
       });
     });
 
-    if(matchData.homeTeam.players.length > 1){
-      matchData.homeTeam.players.forEach(player => {
-        const position = Object.keys(player)[0]
+    if (playerTeam.players.length > 1) {
+      playerTeam.players.forEach((player) => {
+        const position = Object.keys(player)[0];
 
-        this.selectsPlayer(player.position, position)
-      })
+        this.selectsPlayer(player.position, position);
+      });
     }
   }
 
@@ -202,11 +160,11 @@ class manageTeam {
   }
 
   changesFormation() {
-    matchData.homeTeam.players = [];
+    playerTeam.players = [];
     this.formation = this.formationElement.value;
-    matchData.homeTeam.formation = this.formation;
+    playerTeam.formation = this.formation;
     this.tableDOM.innerHTML = "";
-    Array.from(this.playersListDOM.children).forEach(element => {
+    Array.from(this.playersListDOM.children).forEach((element) => {
       element.classList.remove("card--clicked");
       element.classList.add("card--clickable");
     });
@@ -214,19 +172,20 @@ class manageTeam {
   }
 
   createPlayerList() {
-    this.allPlayers[this.position].forEach(player => {
+    this.allPlayers[this.position].forEach((player) => {
       this.playersListDOM.innerHTML =
         this.playersListDOM.innerHTML + this.createCard(player);
     });
 
-    this.theEventListener()
+    this.theEventListener();
   }
 
-  theEventListener(){
-    Array.from(this.playersListDOM.children)
-    .forEach(element => {
-      element.addEventListener('click', ()=>{this.selectsPlayer(element.dataset.name, element.dataset.position)})
-    })
+  theEventListener() {
+    Array.from(this.playersListDOM.children).forEach((element) => {
+      element.addEventListener("click", () => {
+        this.selectsPlayer(element.dataset.name, element.dataset.position);
+      });
+    });
   }
 
   createCard(playerStats) {
@@ -238,23 +197,29 @@ class manageTeam {
       center_back: "Zagueiro",
       midfielder: "Meio Campista",
       stricker: "Centro-Avante",
-      winger: "Ponta"
+      winger: "Ponta",
     };
-    const playerAlreadyOnTeam = matchData.homeTeam.players.filter(element => {
+    const playerAlreadyOnTeam = playerTeam.players.filter((element) => {
       return Object.values(element).includes(playerStats.name);
     });
 
     if (playerAlreadyOnTeam.length > 0)
-      return `<div class="card card--clicked"><div class="card__flex"><img class="img__icon" src="/img/icons/positions/${
+      return `<div data-name="${playerStats.name}" data-position="${
+        playerStats.position
+      }" class="card card--clicked"><div class="card__flex"><img class="img__icon" src="/img/icons/positions/${
         playerStats.position
       }.svg" /><div><h3>${playerStats.name}</h3><p>Posição: <strong>${
         positions[playerStats.position]
       }</strong></p><span class="text--gold-color">${star.repeat(
         playerStats.score
       )}</span>
-      </div></div><hr /><span>Time: <strong>${playerStats.team}</strong></span></div>`;
+      </div></div><hr /><span>Time: <strong>${
+        playerStats.team
+      }</strong></span></div>`;
 
-    return `<div data-name="${playerStats.name}" data-position="${playerStats.position}" 
+    return `<div data-name="${playerStats.name}" data-position="${
+      playerStats.position
+    }" 
     class="card card--clickable"><div class="card__flex"><img class="img__icon" src="/img/icons/positions/${
       playerStats.position
     }.svg" /><div><h3>${playerStats.name}</h3><p>Posição: <strong>${
@@ -262,7 +227,9 @@ class manageTeam {
     }</strong></p><span class="text--gold-color">${star.repeat(
       playerStats.score
     )}</span>
-    </div></div><hr /><span>Time: <strong>${playerStats.team}</strong></span></div>`;
+    </div></div><hr /><span>Time: <strong>${
+      playerStats.team
+    }</strong></span></div>`;
   }
 
   updatesPosition() {
@@ -285,7 +252,7 @@ class manageTeam {
     if (possibleSpots.length === 0)
       return alert("Você já passou o limite de jogadores para essa posição");
 
-    const playerAlreadyOnTeam = matchData.homeTeam.players.filter(element => {
+    const playerAlreadyOnTeam = playerTeam.players.filter((element) => {
       return Object.keys(element)[0] === name;
     });
     if (playerAlreadyOnTeam.length > 0)
@@ -296,15 +263,17 @@ class manageTeam {
 
     this.signsCardAsMarked(name);
 
-    if (name === undefined) return null
-    return matchData.homeTeam.players.push(finalData);
+    if (name === undefined) return null;
+    return playerTeam.players.push(finalData);
   }
 
   checkPossibleSpots(position) {
     function filter(number) {
-      return Array.from(tableRowsList.item(number).children).filter(element => {
-        return element.classList.contains("field__item");
-      });
+      return Array.from(tableRowsList.item(number).children).filter(
+        (element) => {
+          return element.classList.contains("field__item");
+        }
+      );
     }
 
     const tableRowsList = document.querySelectorAll("tr");
@@ -315,7 +284,7 @@ class manageTeam {
       d: filter(3),
       e: filter(4),
       f: filter(5),
-      keeper: filter(6)
+      keeper: filter(6),
     };
 
     switch (position) {
@@ -352,9 +321,10 @@ class manageTeam {
 
   signsCardAsMarked(name) {
     const elementCard = Array.from(this.playersListDOM.children).filter(
-      element => element.children[0].children[1].children[0].innerHTML === name
+      (element) =>
+        element.children[0].children[1].children[0].innerHTML === name
     );
-    if(elementCard.length >= 1){
+    if (elementCard.length >= 1) {
       elementCard[0].classList.remove("card--clickable");
       elementCard[0].classList.add("card--clicked");
     }
@@ -362,45 +332,27 @@ class manageTeam {
 }
 
 function saveTeamData() {
-  if (matchData.homeTeam.players.length !== 11)
-    return alert("O seu time ainda não está completo. Veja no campo se ainda existem posições para preencher.");
+  if (playerTeam.players.length !== 11)
+    return alert(
+      "O seu time ainda não está completo. Veja no campo se ainda existem posições para preencher."
+    );
 
   document.body.classList.add("loading");
 
   post(
-    "/.netlify/functions/save_pre_match_data",
-    JSON.stringify(matchData)
-  ).then(data => {
-    getsReadyToPlay(data["@ref"].id);
+    "/.netlify/functions/save_starting_team",
+    JSON.stringify(playerTeam)
+  ).then((data) => {
+    dataSaved();
   });
+}
 
-  function getsReadyToPlay(theId) {
-    const runButton = document.getElementById("runMatch");
-    runButton.removeAttribute("disabled");
-    runButton.href = `/match?id=${theId}`;
-    localStorage.clear();
-
-    document.body.classList.remove("loading");
-    document.getElementById('playersTable').innerHTML = '';
-    document.getElementById('playersListDOM').innerHTML = '';
-    success();
-    init();
-  }
+function dataSaved() {
+  document.body.classList.remove("loading");
+  document.getElementById("playersTable").innerHTML = "";
+  document.getElementById("playersListDOM").innerHTML = "";
+  success();
+  prepare();
 }
 
 document.body.classList.add("loading");
-function init(){
-  if(localStorage.getItem('user')){
-    prepare(JSON.parse(localStorage.getItem('user')))
-  } else {
-    setTimeout(() => {
-      post(
-        "/.netlify/functions/get_team_data",
-        JSON.stringify({id: getLoginData('id')})
-      ).then(theResponse => {
-        prepare(theResponse.data.playerBase)
-      });
-    }, 600);
-  }
-}
-init()

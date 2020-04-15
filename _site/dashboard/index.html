@@ -42,7 +42,7 @@
         <strong>Gol!</strong></span></a>
     <div class="grid">
       <a class="hidden-mobile" href="/dashboard"><img alt="símbolo representando uma casa" src="/img/icons/home.svg" />Início</a>
-      <a class="hidden-mobile" href="/manage-team"><img alt="símbolo representando uma bola de futebol" src="/img/icons/team.svg" />Meu time</a>
+      <a class="hidden-mobile" href="/manage-team"><img alt="símbolo representando uma bola de futebol" src="/img/icons/team.svg" />Time Titular</a>
       <a class="hidden-mobile" href="/market"><img alt="duas setas opostas, representando troca / comércio" src="/img/icons/trade.svg" />Mercado</a>
       <a onclick="signOut()">Sair</a>
     </div>
@@ -64,8 +64,35 @@
       <p>Dinheiro em caixa</p>
     </div>
   </section>
+  <hr />
+  <h2>Jogos e campeonatos</h2>
+  <!-- <h3>Próximos compromissos</h3>
+  <br />
+  <span>😐</span>
+  <p>O seu time não tem nenhum jogo marcado no momento...</p> -->
+  <!-- <h3>Últimos jogos</h3>
+  <section class="grid" id="lastGames">
+    <div class="card text--centered">
+      <h4>Corinthians de Pinheiros<br /><span class="text--gold-color">0 x 0</span><br/>Corinthians</h4>
+      <p>Amistoso</p>
+      <a href="" >Veja como foi</a>
+    </div>
+    <div class="card text--centered hidden-mobile">
+      <h4>Corinthians de Pinheiros<br /><span class="text--gold-color">0 x 0</span><br/>Corinthians</h4>
+      <p>Amistoso</p>
+      <a href="" >Veja como foi</a>
+    </div>
+    <div class="card text--centered hidden-mobile">
+      <h4>Corinthians de Pinheiros<br /><span class="text--gold-color">0 x 0</span><br/>Corinthians</h4>
+      <p>Amistoso</p>
+      <a href="" >Veja como foi</a>
+    </div>
+  </section> -->
+  <h3>Partidas Amistosas</h3>
+  <p>Jogue um amistoso para ver como o seu time está se saindo.</p>
+  <a class="btn" onclick="runFriendly(corinthians)">Jogar contra o Corinthians</a>
   <!-- Team table -->
-  <h2>O seu time</h2>
+  <h2>O seu elenco</h2>
   <table class="table--responsive">
     <thead>
       <tr>
@@ -83,17 +110,18 @@
   <a class="btn" href="/market">Mercado da bola</a>
 </main>
 <script src="/js/dashboard.js"></script>
+<script async defer src="/js/friendly.js"></script>
   <footer class="text--centered">
     <hr />
-    <p>Versão <a href="/changelog">0.4.1</a></p>
+    <p>Versão <a href="/changelog">0.4.2</a></p>
     <span>Desenvolvido por <a target="_blank" href="https://www.linkedin.com/in/rodrigoknolseisen/"
         rel="noopener">Rodrigo Knolseisen</a></span>
   </footer>
   <nav class="mobile-nav">
     <a href="/dashboard"><img alt="desenho de uma casa" src="/img/icons/home.svg" height="18" />Início</a>
-    <a href="/manage-team"><img alt="símbolo representando uma bola de futebol" src="/img/icons/team.svg" height="18" />Meu time</a>
+    <a href="/manage-team"><img alt="símbolo representando uma bola de futebol" src="/img/icons/team.svg" height="18" />Time Titular</a>
     <a href="/market"><img alt="duas setas opostas, representando troca / comércio" src="/img/icons/trade.svg" height="18" />Mercado</a>
   </nav>
 </body>
-
+<script src="/js/util.js" async defer></script>
 </html>

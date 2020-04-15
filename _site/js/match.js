@@ -1,21 +1,7 @@
-async function post(url = "", data = {}) {
-  const response = await fetch(url, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data)
-  });
-  return await response.json();
-}
-
-function getRandomInt(max) {
-  return Math.floor(Math.random() * Math.floor(max));
-}
-
 class callBackEnd {
   fetch(matchBaseData) {
-    console.log(matchBaseData)
-    
-    post("/.netlify/functions/run_match", matchBaseData).then(data => {
+    const theData = JSON.stringify(matchBaseData)
+    post("/.netlify/functions/run_match", theData).then(data => {
       this.control(data);
     });
   }
@@ -257,7 +243,7 @@ class createTimeline {
             "!",
           "Ótima <strong>roubada de bola</strong> feita pelo " +
             matchData.info.defensor +
-            "Pelo " +
+            ", pelo " +
             area()
         ],
         startedAtk: [
@@ -322,9 +308,11 @@ const backEnd = new callBackEnd();
 
 document.body.classList.add("loading");
 
-const wholeId = document.location.search;
-const id = wholeId.split("=")[1];
+function prepare(){
+  const wholeId = document.location.search;
+  const idToBeSent = JSON.stringify(wholeId.split("=")[1]);
 
-post("/.netlify/functions/get_match_data", id).then(response => {
-  backEnd.fetch(response.data);
-});
+  post("/.netlify/functions/get_match_data", idToBeSent).then(response => {
+    backEnd.fetch(response.data);
+  });
+}
