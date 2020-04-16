@@ -33,6 +33,18 @@ exports.handler = (event, context, callback) => {
       };
 
       const gameStats = {
+        basicData: {
+          homeTeam: {
+            teamName: data.teamData.homeTeam.team,
+            playerName: data.teamData.homeTeam.player,
+            formation: data.teamData.homeTeam.formation,
+          },
+          alwayTeam: {
+            teamName: data.teamData.alwayTeam.team,
+            playerName: data.teamData.alwayTeam.player,
+            formation: data.teamData.alwayTeam.formation,
+          },
+        },
         ballPossession: this.calculatePossession(basicTeamsStats),
         intensity: {
           homeTeam: data.teamData.homeTeam.gameMode,

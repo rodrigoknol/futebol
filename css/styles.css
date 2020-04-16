@@ -14,6 +14,15 @@
 a{
   cursor: pointer;
   color: var(--clickable);
+  transition: 0.3s;
+}
+
+a:hover, button:hover{
+  filter: brightness(1.2);
+}
+
+button{
+  transition: 0.3s;
 }
 
 body{
@@ -106,10 +115,18 @@ nav a{
 }
 
 nav .grid a{
-  margin-right: 1.75rem;
+  margin-right: 1.25rem;
   display: flex;
   align-items: center;
   flex: initial;
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+  transition: 0.3s;
+}
+
+nav .grid a:hover{
+  background: var(--success);
+  filter: brightness(1.125);
 }
 
 nav .grid a img{
@@ -173,6 +190,10 @@ button.btn[disabled]{
   border-radius: 0.3rem;
   box-shadow: 0.1rem 0.1rem 0.5rem 0rem var(--light-gray);
   transition: 0.3s;
+}
+
+.card:hover{
+  transform: scale(1.025);
 }
 
 .card__timeline{
@@ -438,6 +459,13 @@ button.btn[disabled]{
 
 .text--centered{
   text-align: center;
+}
+
+.text--ellipsis{
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .text__main-title{

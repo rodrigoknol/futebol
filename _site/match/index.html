@@ -48,18 +48,25 @@
     </div>
   </nav>
   <main>
-  <h1 class="text--centered text__main-title">Seu time <span id="scoreHomeTeam">0</span> x <span
-      id="scoreAlwayTeam">0</span> Visitante</h1>
+  <h1 style="flex-direction: initial;" class="text--centered text__main-title grid">
+    <span class="text--ellipsis" id="theHomeTeam">Time da casa </span>
+    <span style="flex: initial;">
+      <span id="scoreHomeTeam">0</span> x <span id="scoreAlwayTeam">0</span> 
+    </span>
+    <span class="text--ellipsis" id="theAlwayTeam"> Visitante</span>
+  </h1>
   <!-- Teams details -->
   <h2 class="hidden-mobile">Detalhes dos times</h2>
   <section class="grid hidden-mobile">
     <div>
       <h3>Time da casa</h3>
+      <br />
       <ul id="dashboardHome" class="list--no-style">
       </ul>
     </div>
     <div>
       <h3>Time visitante</h3>
+      <br />
       <ul id="dashboardAlway" class="list--no-style">
       </ul>
     </div>

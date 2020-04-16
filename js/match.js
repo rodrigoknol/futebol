@@ -13,6 +13,7 @@ class callBackEnd {
     summary.createContent();
 
     const timeline = new createTimeline(data);
+    timeline.printTeamsName();
     timeline.organizeTimeline();
     timeline.printsScore();
   }
@@ -53,6 +54,7 @@ class createSummary {
 
     return (
       '<ul class="list--no-style">' +
+      '<li><h4>' + this.gameStats.basicData[team].teamName  + '</h4></li>' +
       "<li>Modo de jogo: <strong>" +
       intensity +
       "</strong></li>" +
@@ -75,7 +77,9 @@ class createSummary {
 class createTimeline {
   constructor(data) {
     this.domTimeline = document.getElementById("content");
+    this.domHomeTeamName = document.getElementById("theHomeTeam");
     this.domScoreHomeTeam = document.getElementById("scoreHomeTeam");
+    this.domAlwayTeamName = document.getElementById("theAlwayTeam");
     this.domScoreAlwayTeam = document.getElementById("scoreAlwayTeam");
     this.matchMoments = data.theGame;
     this.matchStats = data.gameStats;
@@ -128,6 +132,12 @@ class createTimeline {
     });
   }
 
+  printTeamsName() {
+    console.log(this.matchStats)
+    this.domHomeTeamName.innerText = `${this.matchStats.basicData.homeTeam.teamName} `;
+    this.domAlwayTeamName.innerText = `${ this.matchStats.basicData.alwayTeam.teamName}`;
+  }
+
   printsScore() {
     const homeTeam = this.matchMoments.filter(
       element => element.attackingTeam === "homeTeam"
@@ -144,22 +154,17 @@ class createTimeline {
       0
     );
 
-    this.domScoreHomeTeam.innerHTML = homeScore;
-    this.domScoreAlwayTeam.innerHTML = alwayScore;
+    this.domScoreHomeTeam.innerText = homeScore;
+    this.domScoreAlwayTeam.innerText = alwayScore;
   }
 
   formatData(timelineEntry) {
-    let theTeam = "<strong>time da casa</strong>";
-    if (timelineEntry.attackingTeam === "alwayTeam") {
-      theTeam = "<strong>time visitante</strong>";
-    }
-
     const content = this.createsContent(timelineEntry);
     const mins = (this.cardsList.length * 9.8 + (1.2 * (getRandomInt(9)))).toFixed(0);
 
     return this.createCard(
       timelineEntry.attackingTeam,
-      theTeam,
+      this.matchStats.basicData[timelineEntry.attackingTeam].teamName,
       timelineEntry.result,
       content,
       mins
@@ -298,7 +303,7 @@ class createTimeline {
       case 'statistic':
         return `<div class="card card__timeline"><div class="card__header card__flex"><span>Comentarista</span> <strong>${time} mins</strong></div><hr><p>${content}</p></div>`;
       default:
-        return `<div class="card card__timeline"><div class="card__header card__flex"><span>Uma jogada do ${teamName}</span> <strong>${time} mins</strong></div><hr><p>${content}</p></div>`;
+        return `<div class="card card__timeline"><div class="card__header card__flex"><span class="text--ellipsis">Uma jogada do ${teamName}</span> <strong>${time} mins</strong></div><hr><p>${content}</p></div>`;
     }
     
   }

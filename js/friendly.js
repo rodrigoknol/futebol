@@ -1,5 +1,5 @@
 const corinthians = {
-  player: "Bot",
+  player: "Tiago Nunes",
   team: "Corinthians",
   formation: "4-4-2",
   gameMode: "normal",
@@ -12,9 +12,9 @@ const corinthians = {
     { center_back: "Gil" },
     { midfielder: "Camacho" },
     { midfielder: "Cantillo" },
-    { midfielder: "Ramiro" },
+    { midfielder: "Mateus Vital" },
     { midfielder: "Luan" },
-    { winger: "Pedrinho" },
+    { stricker: "Vagner Love" },
     { stricker: "Mauro Boselli" },
   ],
 };
@@ -33,6 +33,8 @@ function runFriendly(alwayTeam) {
       window.location.replace(`/match?id=${theMatchId}`);
     });
   }
+
+  document.body.classList.add("loading");
 
   if (confirm("Para jogar, você precisa ter um time titular completo escalado.")) {
     window.location.replace(`/manage-team`);

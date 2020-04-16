@@ -348,11 +348,12 @@ function saveTeamData() {
 }
 
 function dataSaved() {
-  document.body.classList.remove("loading");
+  localStorage.clear();
+  success();
   document.getElementById("playersTable").innerHTML = "";
   document.getElementById("playersListDOM").innerHTML = "";
-  success();
-  prepare();
+  document.body.classList.remove("loading");
+  validateLocal()
 }
 
 document.body.classList.add("loading");

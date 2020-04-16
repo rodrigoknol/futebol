@@ -160,7 +160,7 @@ class Commerce{
     }
     
     success()
-    initiate()
+    prepare()
   }
 }
 
@@ -168,8 +168,6 @@ class lastGames{
   constructor(){
     this.gamesListDom = document.getElementById('lastGames')
   }
-
-  
 }
 
 document.body.classList.add("loading");

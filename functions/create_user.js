@@ -78,7 +78,8 @@ exports.handler = (event, context, callback) => {
         gameMode: "normal",
         attackStyle: "mixed",
         players: []
-      }
+      },
+      matchesHistory: []
     };
 
     client
