@@ -1,5 +1,5 @@
 const corinthians = {
-  player: "Tiago Nunes",
+  player: "bot",
   team: "Corinthians",
   formation: "4-4-2",
   gameMode: "normal",

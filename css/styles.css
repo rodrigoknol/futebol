@@ -14,7 +14,7 @@
 a{
   cursor: pointer;
   color: var(--clickable);
-  transition: 0.3s;
+  transition: filter 0.3s;
 }
 
 a:hover, button:hover{
@@ -189,7 +189,7 @@ button.btn[disabled]{
   background: white;
   border-radius: 0.3rem;
   box-shadow: 0.1rem 0.1rem 0.5rem 0rem var(--light-gray);
-  transition: 0.3s;
+  transition: transform 0.3s;
 }
 
 .card:hover{
@@ -199,6 +199,10 @@ button.btn[disabled]{
 .card__timeline{
   position: relative;
   margin-left: 2rem;
+}
+
+.card__timeline:hover{
+  transform: none;
 }
 
 .card__timeline:before{

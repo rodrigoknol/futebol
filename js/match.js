@@ -1,12 +1,13 @@
 class callBackEnd {
   fetch(matchBaseData) {
-    const theData = JSON.stringify(matchBaseData)
-    post("/.netlify/functions/run_match", theData).then(data => {
+    const theData = JSON.stringify(matchBaseData);
+    post("/.netlify/functions/run_match", theData).then((data) => {
       this.control(data);
     });
   }
 
   control(data) {
+    localStorage.removeItem('user')
     document.body.classList.remove("loading");
 
     const summary = new createSummary(data);
@@ -54,7 +55,9 @@ class createSummary {
 
     return (
       '<ul class="list--no-style">' +
-      '<li><h4>' + this.gameStats.basicData[team].teamName  + '</h4></li>' +
+      "<li><h4>" +
+      this.gameStats.basicData[team].teamName +
+      "</h4></li>" +
       "<li>Modo de jogo: <strong>" +
       intensity +
       "</strong></li>" +
@@ -88,62 +91,64 @@ class createTimeline {
   }
 
   organizeTimeline() {
-    this.gameData('startData');
+    this.gameData("startData");
     this.createArray();
-    this.gameData('endData');
+    this.gameData("endData");
     this.printArray();
   }
 
-  gameData(type){
+  gameData(type) {
     const startPossibilities = [
-      'A bola já está na marca, o arbitro apita e <strong>começa o jogo</strong>!',
-      'Bem amigos do <strong>1, 2, 3 Gol</strong>, mais um lindo jogo começando hoje, muito boa sorte para os dois times!',
-      'Os dois times em posição, o árbitro olha para o relógio e apita. <strong>Inicia mais um grande jogo!</strong>',
-      'Vamos ter mais um grande jogo a frente, e <strong>a bola começa a rolar!</strong>'
+      "A bola já está na marca, o arbitro apita e <strong>começa o jogo</strong>!",
+      "Bem amigos do <strong>1, 2, 3 Gol</strong>, mais um lindo jogo começando hoje, muito boa sorte para os dois times!",
+      "Os dois times em posição, o árbitro olha para o relógio e apita. <strong>Inicia mais um grande jogo!</strong>",
+      "Vamos ter mais um grande jogo a frente, e <strong>a bola começa a rolar!</strong>",
     ];
     const endPossibilities = [
-      'Um grande duelo chega ao fim agora, os dois times vão agora para o vestiário descansar.',
-      'apiiiita o árbitro, um grande jogo que acaba agora.',
-      'E fim de jogo! Foi um grande duelo, os dois times deram tudo de sí.',
-      'Acaba esse duelo fantástico. Os jogadores dos dois times estão exaustos depois de um jogo desses.'
-    ]
+      "Um grande duelo chega ao fim agora, os dois times vão agora para o vestiário descansar.",
+      "apiiiita o árbitro, um grande jogo que acaba agora.",
+      "E fim de jogo! Foi um grande duelo, os dois times deram tudo de sí.",
+      "Acaba esse duelo fantástico. Os jogadores dos dois times estão exaustos depois de um jogo desses.",
+    ];
     const content = {
       startData: startPossibilities[getRandomInt(startPossibilities.length)],
-      endData: endPossibilities[getRandomInt(endPossibilities.length)]
-    }
+      endData: endPossibilities[getRandomInt(endPossibilities.length)],
+    };
 
     const time = {
       startData: 0,
       endData: 90,
-    }
+    };
 
-    this.cardsList.push(this.createCard('', '', 'statistic', content[type], time[type]))
+    this.cardsList.push(
+      this.createCard("", "", "statistic", content[type], time[type])
+    );
   }
 
   createArray() {
-    this.matchMoments.forEach(timelineEntry => {
+    this.matchMoments.forEach((timelineEntry) => {
       this.cardsList.push(this.formatData(timelineEntry));
     });
   }
 
   printArray() {
-    this.cardsList.forEach(timeLineElement => {
+    this.cardsList.forEach((timeLineElement) => {
       this.domTimeline.innerHTML = this.domTimeline.innerHTML + timeLineElement;
     });
   }
 
   printTeamsName() {
-    console.log(this.matchStats)
+    console.log(this.matchStats);
     this.domHomeTeamName.innerText = `${this.matchStats.basicData.homeTeam.teamName} `;
-    this.domAlwayTeamName.innerText = `${ this.matchStats.basicData.alwayTeam.teamName}`;
+    this.domAlwayTeamName.innerText = `${this.matchStats.basicData.alwayTeam.teamName}`;
   }
 
   printsScore() {
     const homeTeam = this.matchMoments.filter(
-      element => element.attackingTeam === "homeTeam"
+      (element) => element.attackingTeam === "homeTeam"
     );
     const alwayTeam = this.matchMoments.filter(
-      element => element.attackingTeam === "alwayTeam"
+      (element) => element.attackingTeam === "alwayTeam"
     );
     const homeScore = homeTeam.reduce(
       (acc, play) => acc + (play.result === "success"),
@@ -160,7 +165,9 @@ class createTimeline {
 
   formatData(timelineEntry) {
     const content = this.createsContent(timelineEntry);
-    const mins = (this.cardsList.length * 9.8 + (1.2 * (getRandomInt(9)))).toFixed(0);
+    const mins = (this.cardsList.length * 9.8 + 1.2 * getRandomInt(9)).toFixed(
+      0
+    );
 
     return this.createCard(
       timelineEntry.attackingTeam,
@@ -218,7 +225,7 @@ class createTimeline {
             ", que era para estar na marcação, nem viu o que aconteceu. A jogada começou pelo " +
             area() +
             ", nos pés do " +
-            matchData.info.player
+            matchData.info.player,
         ],
         kick: [
           "<strong>Ufa, foi por pouco</strong> " +
@@ -238,18 +245,19 @@ class createTimeline {
           "<strong>Bela defesa!</strong> " +
             matchData.info.keeper +
             " faz um pequeno milagre, defende a bomba chutada por " +
-            matchData.info.kicker
+            matchData.info.kicker,
         ],
         defensor: [
           "Bonita <strong>roubada de bola</strong> do " +
             matchData.info.defensor +
             " pelo " +
             area() +
-            "!",
+            "! Acabou com o ataque do time atacando...",
           "Ótima <strong>roubada de bola</strong> feita pelo " +
             matchData.info.defensor +
             ", pelo " +
-            area()
+            area() +
+            ". Sem chances para o time que estava atacando!",
         ],
         startedAtk: [
           matchData.info.player +
@@ -267,8 +275,8 @@ class createTimeline {
             area() +
             ", <strong>nenhuma bola passa</strong> pelo " +
             matchData.info.stealer +
-            " hoje!"
-        ]
+            " hoje!",
+        ],
       };
 
       switch (matchData.info.lastStep) {
@@ -298,14 +306,13 @@ class createTimeline {
 
   createCard(attackingTeam, teamName, result, content, time) {
     switch (result) {
-      case 'success':
+      case "success":
         return `<div class="card card__timeline card__timeline--goal card__timeline--goal-${attackingTeam}"><div class="card__header card__flex"><span>Um gol do ${teamName}</span> <strong>${time} mins</strong></div><hr><p>${content}</p></div>`;
-      case 'statistic':
+      case "statistic":
         return `<div class="card card__timeline"><div class="card__header card__flex"><span>Comentarista</span> <strong>${time} mins</strong></div><hr><p>${content}</p></div>`;
       default:
         return `<div class="card card__timeline"><div class="card__header card__flex"><span class="text--ellipsis">Uma jogada do ${teamName}</span> <strong>${time} mins</strong></div><hr><p>${content}</p></div>`;
     }
-    
   }
 }
 
@@ -313,11 +320,20 @@ const backEnd = new callBackEnd();
 
 document.body.classList.add("loading");
 
-function prepare(){
+function prepare() {
   const wholeId = document.location.search;
   const idToBeSent = JSON.stringify(wholeId.split("=")[1]);
 
-  post("/.netlify/functions/get_match_data", idToBeSent).then(response => {
-    backEnd.fetch(response.data);
+  if (wholeId.includes("id")) {
+    return post("/.netlify/functions/get_match_data", idToBeSent).then((response) => {
+      backEnd.fetch(response.data);
+    });
+  }
+
+  post(
+    "/.netlify/functions/get_matches",
+    JSON.stringify([Number(JSON.parse(idToBeSent))])
+  ).then((response) => {
+    backEnd.control(response[0].data);
   });
 }

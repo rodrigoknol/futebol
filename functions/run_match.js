@@ -271,14 +271,55 @@ exports.handler = (event, context, callback) => {
         id: theMatchId
       };
 
-      client.query(q.Create(q.Collection("matchData"), {data: finalData} )).then(
-        ()=>{
-          return callback(null, {
-            statusCode: 200,
-            body: JSON.stringify(finalData)
-          });
+      let teamsIteration = 0;
+
+      // Get player data
+      function getPlayerData(theTeamName){
+        if(finalData.gameStats.basicData[theTeamName].playerName === 'bot'){
+          teamsIteration ++
+          return finalize()
         }
-      )
+        
+        client.query(
+          q.Get(
+            q.Match(
+              q.Index("user_by_id"), dataReceived[theTeamName].player
+            )
+          )
+        ).then(result => {addMatchHistory(result)})
+      }
+
+      // Push match
+      function addMatchHistory(userData){
+        const theMatchesHistory = [...userData.data.playerBase.matchesHistory, theMatchId];
+        const reference = userData.ref;
+        teamsIteration ++
+
+        client.query(
+          q.Update(
+            q.Ref(reference),
+            { data: { playerBase: {matchesHistory: theMatchesHistory} } },
+          )
+        ).then((result=>{finalize()}))
+      }
+
+      // Save data and send it to the user
+      function finalize(){
+        if(teamsIteration === 2){
+          client.query(q.Create(q.Collection("matchData"), {data: finalData} )).then(
+            ()=>{
+              return callback(null, {
+                statusCode: 200,
+                body: JSON.stringify(finalData)
+              });
+            }
+          )
+        }
+        return null
+      }
+
+      getPlayerData('homeTeam')
+      getPlayerData('alwayTeam')
     }
 
     getRandomInt(max) {
