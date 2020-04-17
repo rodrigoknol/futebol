@@ -7,6 +7,8 @@ async function post(url = "", data = {}) {
   return await response.json();
 }
 
+document.documentElement.webkitRequestFullScreen();
+
 function onSignIn(googleUser) {
   const profile = googleUser.getBasicProfile();
   const id_token = googleUser.getAuthResponse().id_token;
