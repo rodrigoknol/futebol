@@ -49,54 +49,36 @@
     </div>
   </nav>
   <main>
-  <h1 class="text--centered text__main-title" id="teamName">O seu time</h1>
-  <!-- Dashboard -->
-  <section class="grid text--centered">
-    <div>
-      <h2 id="totalPlayers">-/-</h2>
-      <p>Jogadores no elenco</p>
-    </div>
-    <div>
-      <h2><span class="text--gold-color" id="teamValue">-/-</span> milhões</h2>
-      <p>Valor total do time</p>
-    </div>
-    <div>
-      <h2><span class="text--gold-color" id="bankAccount">-/-</span> milhões</h2>
-      <p>Dinheiro em caixa</p>
-    </div>
-  </section>
-  <hr />
-  <h2>Jogos e campeonatos</h2>
-  <!-- <h3>Próximos compromissos</h3>
-  <br />
-  <span>😐</span>
-  <p>O seu time não tem nenhum jogo marcado no momento...</p> -->
-  <h3>Últimos jogos</h3>
-  <section class="grid" id="lastGames">
-    <!-- JS Generated -->
-  </section>
-  <h3>Partidas Amistosas</h3>
-  <p>Jogue um amistoso para ver como o seu time está se saindo.</p>
-  <a class="btn" href="/friendly">Jogos amistosos</a>
-  <!-- Team table -->
-  <h2>O seu elenco</h2>
-  <table class="table--responsive">
-    <thead>
-      <tr>
-        <th>Posição</th>
-        <th>Nome</th>
-        <th>Qualidade</th>
-        <th>Valor</th>
-        <th>Vender</th>
-      </tr>
-    </thead>
-    <tbody id="playersList">
-      <!-- JS Defined -->
-    </tbody>
-  </table>
-  <a class="btn" href="/market">Mercado da bola</a>
+  <h1 class="text--centered text__main-title">Partidas amistosas</h1>
+  <h2>Jogue um amistoso para ver como o seu time está se saindo</h2>
+  <h3>Times do mundo real</h3>
+  <div class="card">
+    <h4>Corinthians</h4>
+    <hr />
+    <p>Jogue contra o Corinthians do Paulistão 2020. O time está postado em um 4-4-2, com o Vagner Love e o Mauro Boselli atuando juntos no ataque.</p>
+    <a class="btn" onclick="runFriendly(corinthians)">Jogar contra o Corinthians</a>
+  </div>
+  <div class="card">
+    <h4>Palmeiras</h4>
+    <hr />
+    <p>Depois de um 2019 marcado por muitas compras, o time de 2020 aposta em uma mistura de prata da casa com jogadores consagrados.</p>
+    <a class="btn" onclick="runFriendly(palmeiras)">Jogar contra o Palmeiras</a>
+  </div>
+  <h3>Outros times</h3>
+  <div class="card">
+    <h4>Galáticos do 1, 2, 3 Gol!</h4>
+    <hr />
+    <p>Os principais jogadores do 1, 2, 3 Gol! Juntos em um time estrelar.</p>
+    <a class="btn" onclick="runFriendly(galaticos)">Jogar contra os Galáticos</a>
+  </div>
+  <div class="card">
+    <h4>Pechincha</h4>
+    <hr />
+    <p>Como você se sai contra o time mais barato do 1, 2, 3 Gol!?</p>
+    <a class="btn" onclick="runFriendly(pechincha)">Jogar contra o Pechincha</a>
+  </div>
 </main>
-<script src="/js/dashboard.js"></script>
+<script async defer src="/js/friendly.js"></script>
   <footer class="text--centered">
     <hr />
     <p>Versão <a href="/changelog">0.4.3</a></p>

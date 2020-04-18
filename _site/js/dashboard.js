@@ -199,7 +199,8 @@ class lastGames {
   getMatchesData() {
     const userData = JSON.parse(localStorage.getItem("user"));
     const matches = userData.matchesHistory;
-    const lastMatches = matches.slice(-3);
+    const theLastMatches = matches.slice(-3);
+    const lastMatches = theLastMatches.reverse();
 
     if(lastMatches.length === 0){
       const noMatches = '<div class="card"><h4>Você ainda não jogou nenhuma partida...</h4><br />'+
