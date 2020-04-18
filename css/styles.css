@@ -546,6 +546,7 @@ button.btn[disabled]{
   }
   .grid{
     flex-direction: column;
+    flex: initial;
   }
   .grid > *:not(a){
     margin-right: 0;

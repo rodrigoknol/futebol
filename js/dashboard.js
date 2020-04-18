@@ -203,8 +203,11 @@ class lastGames {
     const lastMatches = theLastMatches.reverse();
 
     if(lastMatches.length === 0){
-      const noMatches = '<div class="card"><h4>Você ainda não jogou nenhuma partida...</h4><br />'+
-      '<p>Ajuste agora o <a href="/manage-team">seu time titular</a> e comece a jogar!</p></div>';
+      const noMatches = '<div class="card grid"><img style="flex: initial;" alt="imagem representando um jogador de futebol" src="/img/icons/friendly.svg" /><div>' +
+      '<h4>Você ainda não jogou nenhuma partida...</h4><hr />'+
+      '<p>Primeiro, ajuste agora o <a href="/manage-team">seu time titular</a>.</p>'+
+      '<p>Então comece a jogar algumas partidas!</p>' +
+      '</div></div>';
 
       return this.gamesListDom.innerHTML = noMatches;
     }
