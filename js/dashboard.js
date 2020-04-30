@@ -202,64 +202,82 @@ class lastGames {
     const theLastMatches = matches.slice(-3);
     const lastMatches = theLastMatches.reverse();
 
-    if(lastMatches.length === 0){
-      const noMatches = '<div class="card grid"><img style="flex: initial;" alt="imagem representando um jogador de futebol" src="/img/icons/friendly.svg" /><div>' +
-      '<h4>Você ainda não jogou nenhuma partida...</h4><hr />'+
-      '<p>Primeiro, ajuste agora o <a href="/manage-team">seu time titular</a>.</p>'+
-      '<p>Então comece a jogar algumas partidas!</p>' +
-      '</div></div>';
+    if (lastMatches.length === 0) {
+      const noMatches =
+        '<div class="card grid"><img style="flex: initial;" alt="imagem representando um jogador de futebol" src="/img/icons/friendly.svg" /><div>' +
+        "<h4>Você ainda não jogou nenhuma partida...</h4><hr />" +
+        '<p>Primeiro, ajuste agora o <a href="/manage-team">seu time titular</a>.</p>' +
+        "<p>Então comece a jogar algumas partidas!</p>" +
+        "</div></div>";
 
-      return this.gamesListDom.innerHTML = noMatches;
+      return (this.gamesListDom.innerHTML = noMatches);
     }
 
-    post(
-      "/.netlify/functions/get_matches",
-      JSON.stringify(lastMatches)
-    ).then((data) => {
-      this.formatMatchesData(data);
-    });
+    post("/.netlify/functions/get_matches", JSON.stringify(lastMatches)).then(
+      (data) => {
+        this.formatMatchesData(data);
+      }
+    );
   }
 
   formatMatchesData(data) {
-    this.matchesArray = data.map(element => {return element.data});
-    this.makeCards()
+    this.matchesArray = data.map((element) => {
+      return element.data;
+    });
+    this.makeCards();
   }
 
-  makeCards(){
-    this.matchesArray.forEach(match => {
-      this.createCard(match)
-    })
+  makeCards() {
+    this.matchesArray.forEach((match) => {
+      this.createCard(match);
+    });
 
-    this.printCards()
+    this.printCards();
   }
 
-  createCard(theMatch){
+  createCard(theMatch) {
     const theScore = {
-      homeTeam: this.calculateScore('homeTeam', theMatch),
-      alwayTeam: this.calculateScore('alwayTeam', theMatch)
-    }
+      homeTeam: this.calculateScore("homeTeam", theMatch),
+      alwayTeam: this.calculateScore("alwayTeam", theMatch),
+    };
 
-    const theCard = '<div class="card text--centered">'+
-    '<h4>'+
-      '<span class="text--ellipsis">' + theMatch.gameStats.basicData.homeTeam.teamName + '</span><br />'+
-      '<span class="text--gold-color">'+ theScore.homeTeam +' x '+ theScore.alwayTeam +'</span><br/>'+
-      '<span class="text--ellipsis">' + theMatch.gameStats.basicData.alwayTeam.teamName + '</span>'+
-    '</h4>'+
-    '<a href="/match?match=' + theMatch.id + '" >Veja como foi</a>'+
-    '</div>';
+    const theCard =
+      '<div class="card text--centered">' +
+      "<h4>" +
+      '<span class="text--ellipsis">' +
+      theMatch.gameStats.basicData.homeTeam.teamName +
+      "</span><br />" +
+      '<span class="text--gold-color">' +
+      theScore.homeTeam +
+      " x " +
+      theScore.alwayTeam +
+      "</span><br/>" +
+      '<span class="text--ellipsis">' +
+      theMatch.gameStats.basicData.alwayTeam.teamName +
+      "</span>" +
+      "</h4>" +
+      '<a href="/match?match=' +
+      theMatch.id +
+      '" >Veja como foi</a>' +
+      "</div>";
 
-    this.cards.push(theCard)
+    this.cards.push(theCard);
   }
 
-  calculateScore(team, matchData){
-    const theTeam = matchData.theGame.filter( element => element.attackingTeam === team)
-    const teamScore = theTeam.reduce((acc,play) => acc + (play.result === "success"), 0)
+  calculateScore(team, matchData) {
+    const theTeam = matchData.theGame.filter(
+      (element) => element.attackingTeam === team
+    );
+    const teamScore = theTeam.reduce(
+      (acc, play) => acc + (play.result === "success"),
+      0
+    );
 
-    return teamScore
+    return teamScore;
   }
 
-  printCards(){
-    this.cards.forEach(element => {
+  printCards() {
+    this.cards.forEach((element) => {
       this.gamesListDom.innerHTML = this.gamesListDom.innerHTML + element;
     });
   }
@@ -278,3 +296,22 @@ function prepare() {
   const lastMatches = new lastGames();
   lastMatches.getMatchesData();
 }
+class modal{
+  constructor(element){
+    this.modal = document.getElementById(element)
+  }
+  open(){
+    this.modal.classList.remove('modal--closed')
+    this.modal.showModal();
+  }
+  close(){
+    this.modal.classList.add('modal--closed')
+    this.modal.close()
+  }
+}
+
+const theModal = new modal("modal");
+const modalCloser = document.getElementById("modalClose");
+modalCloser.addEventListener("click", () => {
+  theModal.close();
+});
