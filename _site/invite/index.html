@@ -49,72 +49,56 @@
     </div>
   </nav>
   <main>
-  <h1 class="text--centered text__main-title" id="teamName">O seu time</h1>
-  <!-- Dashboard -->
-  <section class="grid text--centered">
-    <div>
-      <h2 id="totalPlayers">-/-</h2>
-      <p>Jogadores no elenco</p>
-    </div>
-    <div>
-      <h2><span class="text--gold-color" id="teamValue">-/-</span> milhões</h2>
-      <p>Valor total do time</p>
-    </div>
-    <div>
-      <h2><span class="text--gold-color" id="bankAccount">-/-</span> milhões</h2>
-      <p>Dinheiro em caixa</p>
-    </div>
-  </section>
-  <hr />
-  <h2>Jogos e campeonatos</h2>
-  <h3>Últimos jogos do seu time</h3>
-  <section class="grid" id="lastGames">
-    <!-- JS Generated -->
-  </section>
-  <!-- Matches -->
-  <h3>Jogue uma partida</h3>
-  <section class="card grid">
-    <div>
-      <h4>Jogue contra um amigo</h4>
-      <p>Convite amigos para jogarem um jogo contra o seu time.</p>
-      <button class="btn" onclick="theModal.open()">Enviar um convite</button>
-    </div>
-    <div>
-      <h4>Partidas Amistosas</h4>
-      <p>Jogue um amistoso para ver como o seu time está se saindo.</p>
-      <a class="btn" href="/friendly">Jogar um amistoso</a>
-    </div>
-  </section>
-  <!-- Team table -->
-  <h2>O seu elenco</h2>
-  <table class="table--responsive">
-    <thead>
-      <tr>
-        <th>Posição</th>
-        <th>Nome</th>
-        <th>Qualidade</th>
-        <th>Valor</th>
-        <th>Vender</th>
-      </tr>
-    </thead>
-    <tbody id="playersList">
-      <!-- JS Defined -->
-    </tbody>
-  </table>
-  <a class="btn" href="/market">Mercado da bola</a>
-</main>
-<dialog id="modal" class="modal modal--closed">
-  <span class="modal__close-button" id="modalClose">✖</span>
-  <h1>Jogar com amigos</h1>
-  <hr />
-  <p>Copie o código abaixo e envie para seus amigos desafiarem o seu time titular.</p>
-  <pre>https://123gol.com.br/invite?CODIGO_DO_CONVITE</pre>
-  <p>Esse convite tem validade de 3 dias.</p>
-  <a class="btn">Compartilhar agora</a>
-  <a class="btn">Voltar para o jogo</a>
-</dialog>
+  <h1 class="text--centered text__main-title" id="teamName">Convite para partida</h1>
 
-<script src="/js/dashboard.js"></script>
+  <!-- Cenário em que o usuário JÁ jogou esse jogo antes -->
+  <h2>Quanta fome de gol, ein?</h2>
+  <p>Parece que você já jogou esse desafio... Cada desafio só pode ser jogado uma vez.</p>
+  <a class="btn" href="/dashboard">Ok, entendi.</a>
+  <!--  -->
+
+  <h2>Desafio lançado!</h2>
+  <p>O técnico <strong id="homeTeamUser">Nome do usuário</strong>, treinador do time <strong id="homeTeamName">Nome do
+      time</strong> está desafiando o seu time para uma partida!</p>
+  <h2>Detalhes do <span>Nome do time</span></h2>
+  <ul>
+    <li>Modo de jogo: <strong>Normal</strong></li>
+    <li>Estilo de ataques: <strong>Misto</strong></li>
+    <li>Formação esperada: <strong>4-4-2</strong></li>
+  </ul>
+  <h3>Como se saiu nos últimos 3 jogos</h3>
+  <p>Esses foram os últimos resultados do seu adversário. Assistindo o jogo você consegue conhecer um pouco mais sobre o time e as estretégicas do <strong>Nome do técnico</strong>.</p>
+  <section class="grid" id="homeTeamLastGames">
+    <div class="card text--centered">
+      <h4>
+        <span class="text--ellipsis">Corinthians de Pinheiros</span>
+        <br><span class="text--gold-color">2 x 0</span><br>
+        <span class="text--ellipsis">Pechincha FC</span>
+      </h4>
+      <a href="/match?match=ID-DA-MATCH">Veja como foi</a>
+    </div>
+    <div class="card text--centered">
+      <h4>
+        <span class="text--ellipsis">Corinthians de Pinheiros</span>
+        <br><span class="text--gold-color">2 x 0</span><br>
+        <span class="text--ellipsis">Pechincha FC</span>
+      </h4>
+      <a href="/match?match=ID-DA-MATCH">Veja como foi</a>
+    </div>
+    <div class="card text--centered">
+      <h4>
+        <span class="text--ellipsis">Corinthians de Pinheiros</span>
+        <br><span class="text--gold-color">2 x 0</span><br>
+        <span class="text--ellipsis">Pechincha FC</span>
+      </h4>
+      <a href="/match?match=ID-DA-MATCH">Veja como foi</a>
+    </div>
+  </section>
+  <h2>E aí, pronto para o jogo?</h2>
+  <p>O seu <a href="/manage-team">Time titular</a> está escalado e ajustado? É hora de jogar!</p>
+  <a class="btn">Jogar agora!</a>
+  <a class="btn btn--danger" href="/dashboard">Não quero jogar...</a>
+</main>
   <footer class="text--centered">
     <hr />
     <p>Versão <a href="/changelog">0.4.4</a></p>
