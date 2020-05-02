@@ -21,7 +21,17 @@ class playersTable {
     this.tableDOM.innerHTML = "";
 
     const formatedplayers = this.formatData();
-    const playersByPosition = this.selectPlayersByPosition(formatedplayers);
+    const sortedPlayers = formatedplayers.sort(function (a, b) {
+      if (a.name < b.name) {
+        return -1;
+      }
+      if (a.name > b.name) {
+        return 1;
+      }
+      return 0;
+    });
+
+    const playersByPosition = this.selectPlayersByPosition(sortedPlayers);
     const playersByScore = this.selectPlayersByScore(playersByPosition);
 
     if (!localStorage.getItem("user")) {
