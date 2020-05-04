@@ -61,10 +61,21 @@ layout: simple_base.html
   <h1>Jogar com amigos</h1>
   <hr />
   <p>Copie o código abaixo e envie para seus amigos desafiarem o seu time titular.</p>
-  <pre>https://123gol.com.br/invite?CODIGO_DO_CONVITE</pre>
+  <pre id="shareLink">https://123gol.com.br/invite?CODIGO_DO_CONVITE</pre>
   <p>Esse convite tem validade de 3 dias.</p>
-  <a class="btn">Compartilhar agora</a>
+  <a class="btn" onclick="share()">Compartilhar agora</a>
   <a class="btn">Voltar para o jogo</a>
 </dialog>
 
+<script>
+  function share() {
+    const shareData = {
+      title: 'Desafio lançado! - 1, 2, 3 Gol!',
+      text: 'O seu time está sendo desafiado, você está pronto para o jogo?',
+      url: document.getElementById('shareLink').innerText,
+    }
+
+    navigator.share(shareData)
+  }
+</script>
 <script src="/js/dashboard.js"></script>
