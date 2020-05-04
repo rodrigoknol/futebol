@@ -15,17 +15,27 @@ function getLoginData(type) {
       return profile.getId();
     default:
       return profile.getGivenName()
+  } 
+}
+
+function redirector(){
+  const toRedirect = sessionStorage.getItem("pageToRedirect");
+  if (toRedirect) {
+    sessionStorage.removeItem("pageToRedirect");
+    window.location.href = toRedirect;
   }
-  
 }
 
 function isSignedIn(){
   const auth2 = gapi.auth2.getAuthInstance();
   if(!auth2.isSignedIn.get()){
-    window.location.replace("/");
+    sessionStorage.setItem("pageToRedirect", document.location.href);
+    return window.location.replace("/");
   }
+  
+  redirector()
 
-  validateLocal()
+  return validateLocal()
 }
 
 function onLoad() {

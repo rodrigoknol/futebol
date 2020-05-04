@@ -296,24 +296,24 @@ function prepare() {
   const lastMatches = new lastGames();
   lastMatches.getMatchesData();
 }
-class modal{
-  constructor(element){
+class modal {
+  constructor(element) {
     this.modal = document.getElementById(element);
     this.userId = JSON.parse(localStorage.getItem("user")).id;
   }
 
-  open(){
-    this.modal.classList.remove('modal--closed')
-    this.createInvite()
+  open() {
+    this.modal.classList.remove("modal--closed");
+    this.createInvite();
     this.modal.showModal();
   }
 
-  close(){
-    this.modal.classList.add('modal--closed')
-    this.modal.close()
+  close() {
+    this.modal.classList.add("modal--closed");
+    this.modal.close();
   }
 
-  createInvite(){
+  createInvite() {
     post(
       "/.netlify/functions/create_invite",
       JSON.stringify({ theUser: this.userId })
@@ -322,8 +322,8 @@ class modal{
     });
   }
 
-  printLink(data){
-    document.getElementById('shareLink').innerText = data;
+  printLink(data) {
+    document.getElementById("shareLink").innerText = data;
   }
 }
 
