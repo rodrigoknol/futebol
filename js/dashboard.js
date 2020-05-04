@@ -296,6 +296,7 @@ function prepare() {
   const lastMatches = new lastGames();
   lastMatches.getMatchesData();
 }
+
 class modal {
   constructor(element) {
     this.modal = document.getElementById(element);
@@ -314,12 +315,30 @@ class modal {
   }
 
   createInvite() {
-    post(
-      "/.netlify/functions/create_invite",
-      JSON.stringify({ theUser: this.userId })
-    ).then((data) => {
-      this.printLink(data);
-    });
+    if (JSON.parse(localStorage.getItem('user')).startingTeam.players.length >= 11){
+      return post(
+        "/.netlify/functions/create_invite",
+        JSON.stringify({ theUser: this.userId })
+      ).then((data) => {
+        this.printLink(data);
+      });
+    }
+    
+    if (confirm("Para jogar, você precisa ter um time titular completo escalado.")) {
+      window.location.replace(`/manage-team`);
+    }
+
+    this.close()
+  }
+
+  share() {
+    const shareData = {
+      title: 'Desafio lançado! - 1, 2, 3 Gol!',
+      text: 'O seu time está sendo desafiado, você está pronto para o jogo?',
+      url: 'https://123gol.com.br/invite?' + document.getElementById('shareLink').innerText,
+    }
+  
+    navigator.share(shareData)
   }
 
   printLink(data) {
@@ -331,4 +350,12 @@ const theModal = new modal("modal");
 const modalCloser = document.getElementById("modalClose");
 modalCloser.addEventListener("click", () => {
   theModal.close();
+});
+
+const shareBtn = document.getElementById("sharing");
+sharing.addEventListener("click",()=>{theModal.share()} )
+
+const modalOpen = document.getElementById("modalOpener");
+modalOpen.addEventListener("click", () => {
+  theModal.open();
 });

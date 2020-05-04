@@ -84,7 +84,7 @@
     <div>
       <h4>Jogue contra um amigo</h4>
       <p>Convite amigos para jogarem um jogo contra o seu time.</p>
-      <button class="btn" onclick="theModal.open()">Enviar um convite</button>
+      <button class="btn" id="modalOpener">Enviar um convite</button>
     </div>
     <div>
       <h4>Partidas Amistosas</h4>
@@ -112,25 +112,16 @@
 </main>
 <dialog id="modal" class="modal modal--closed">
   <span class="modal__close-button" id="modalClose">✖</span>
-  <h1>Jogar com amigos</h1>
-  <hr />
-  <p>Copie o código abaixo e envie para seus amigos desafiarem o seu time.</p>
-  <pre>https://123gol.com.br/invite?<span id="shareLink">CODIGO_DO_CONVITE</span></pre>
-  <p>Esse convite pode ser enviado para qualquer pessoa, porém cada um pode aceitar cada desafio apenas uma vez.</p>
-  <a class="btn" onclick="share()">Compartilhar agora</a>
+  <div id="modalContent">
+    <h1>Jogar com amigos</h1>
+    <hr />
+    <p>Copie o código abaixo e envie para seus amigos desafiarem o seu time.</p>
+    <pre>https://123gol.com.br/invite?<span id="shareLink">CODIGO_DO_CONVITE</span></pre>
+    <p>Esse convite pode ser enviado para qualquer pessoa, porém cada um pode aceitar cada desafio apenas uma vez.</p>
+    <a class="btn" id="sharing">Compartilhar agora</a>
+  </div>
 </dialog>
 
-<script>
-  function share() {
-    const shareData = {
-      title: 'Desafio lançado! - 1, 2, 3 Gol!',
-      text: 'O seu time está sendo desafiado, você está pronto para o jogo?',
-      url: 'https://123gol.com.br/invite?' + document.getElementById('shareLink').innerText,
-    }
-
-    navigator.share(shareData)
-  }
-</script>
 <script src="/js/dashboard.js"></script>
   <footer class="text--centered">
     <hr />

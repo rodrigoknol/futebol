@@ -30,14 +30,14 @@ class invite {
     }
   }
 
-  checkIfSelf(){
-    if (
-      this.host === JSON.parse(localStorage.getItem("user")).id
-    ) {
+  checkIfSelf() {
+    if (this.host === JSON.parse(localStorage.getItem("user")).id) {
       const theHTML =
         "<h2>Você não pode jogar o seu próprio desafio...</h2>" +
         "<p>Mas envie esse link para os seus amigos, assim eles podem jogar com você:</p>" +
-        "<pre>"+ document.location.href + "</pre>"+
+        "<pre>" +
+        document.location.href +
+        "</pre>" +
         '<a class="btn" href="/dashboard">Ok, entendi.</a>';
 
       document.getElementById("content").innerHTML = theHTML;
@@ -58,14 +58,16 @@ class invite {
     document.getElementById("homeTeamUser").innerText = this.hostData.name;
     document.getElementById("homeTeamName").innerText = this.hostData.teamName;
     document.getElementById("hostTeamName").innerText = this.hostData.teamName;
-   
-    const gamesList = new lastGames;
-    gamesList.getMatchesData(this.hostData)
+
+    const gamesList = new lastGames();
+    gamesList.getMatchesData(this.hostData);
   }
 
-  activateButton(){
-    const btn = document.getElementById('playNow');
-    btn.addEventListener('click', ()=>{this.playGame()})
+  activateButton() {
+    const btn = document.getElementById("playNow");
+    btn.addEventListener("click", () => {
+      this.playGame();
+    });
   }
 
   playGame() {
@@ -76,16 +78,27 @@ class invite {
 
     if (alwayTeam.players.length === 11) {
       document.body.classList.add("loading");
+
       return post(
-        "/.netlify/functions/save_pre_match_data",
-        JSON.stringify(data)
-      ).then((theResponse) => {
-        const theMatchId = theResponse["@ref"].id;
-        window.location.replace(`/match?id=${theMatchId}`);
+        "/.netlify/functions/updates_invite",
+        JSON.stringify({
+          challenging: userData.id,
+          invite: document.location.search.split("?")[1],
+        })
+      ).then(() => {
+        post(
+          "/.netlify/functions/save_pre_match_data",
+          JSON.stringify(data)
+        ).then((theResponse) => {
+          const theMatchId = theResponse["@ref"].id;
+          window.location.replace(`/match?id=${theMatchId}`);
+        });
       });
     }
-  
-    if (confirm("Para jogar, você precisa ter um time titular completo escalado.")) {
+
+    if (
+      confirm("Para jogar, você precisa ter um time titular completo escalado.")
+    ) {
       window.location.replace(`/manage-team`);
     }
   }
