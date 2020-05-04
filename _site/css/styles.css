@@ -68,7 +68,7 @@ h3:first-child {
   margin-top: 0;
 }
 
-pre{
+pre {
   background: var(--lighter-gray);
   padding: 0.25rem;
   border-radius: 0.25rem;
@@ -449,7 +449,7 @@ button.btn[disabled] {
 .modal:before {
   content: "";
   position: absolute;
-  background: rgba(60,60,80,0.5);
+  background: rgba(60, 60, 80, 0.5);
   top: 0;
   bottom: 0;
   right: 560px;
@@ -457,11 +457,11 @@ button.btn[disabled] {
   z-index: -1;
 }
 
-.modal--closed{
+.modal--closed {
   display: none;
 }
 
-.modal__close-button{
+.modal__close-button {
   float: right;
   color: var(---gray);
   cursor: pointer;
@@ -531,6 +531,12 @@ button.btn[disabled] {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.text--small {
+  display: block;
+  font-weight: 400;
+  font-size: 0.75em;
 }
 
 .text__main-title {
@@ -627,12 +633,12 @@ button.btn[disabled] {
     display: flex;
     flex-direction: initial;
   }
-  .modal{
+  .modal {
     left: 0;
     width: 100%;
     max-width: 100%;
   }
-  .modal:before{
+  .modal:before {
     display: none;
   }
   .table--responsive {
