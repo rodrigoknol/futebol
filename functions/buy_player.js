@@ -88,7 +88,7 @@ exports.handler = (event, context, callback) => {
 
     const data = {
       playerBase: {
-        bankAccount: user.data.playerBase.bankAccount.toFixed(1) - player.data.price.toFixed(1),
+        bankAccount: user.data.playerBase.bankAccount - player.data.price,
         playersList,
       },
     };
