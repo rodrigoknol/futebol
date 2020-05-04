@@ -1,3 +1,6 @@
+---
+og: "No 1,2,3 Gol! você é o técnico que vai levar o seu time de futebol ao sucesso!"
+---
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -6,6 +9,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="mobile-web-app-capable" content="yes">
+  <!-- OG -->
+  <meta property="og:title" content="1,2,3 Gol! - A experiência do futebol" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta property="og:image" content="img/og/og.png" />
+  <meta property="og:description" content={{og}} />
   <!-- Favicon -->
   <link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-icon-57x57.png">
   <link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-icon-60x60.png">
@@ -42,24 +50,30 @@
         alt="símbolo representando uma bola de futebol" style="filter:brightness(3)" height="36" /><span>1, 2, 3
         <strong>Gol!</strong></span></a>
     <div class="grid">
-      <a class="hidden-mobile" href="/dashboard"><img alt="símbolo representando uma casa" src="/img/icons/home.svg" />Início</a>
-      <a class="hidden-mobile" href="/manage-team"><img alt="símbolo representando uma bola de futebol" src="/img/icons/team.svg" />Time Titular</a>
-      <a class="hidden-mobile" href="/market"><img alt="duas setas opostas, representando troca / comércio" src="/img/icons/trade.svg" />Mercado</a>
+      <a class="hidden-mobile" href="/dashboard"><img alt="símbolo representando uma casa"
+          src="/img/icons/home.svg" />Início</a>
+      <a class="hidden-mobile" href="/manage-team"><img alt="símbolo representando uma bola de futebol"
+          src="/img/icons/team.svg" />Time Titular</a>
+      <a class="hidden-mobile" href="/market"><img alt="duas setas opostas, representando troca / comércio"
+          src="/img/icons/trade.svg" />Mercado</a>
       <a onclick="signOut()">Sair</a>
     </div>
   </nav>
   {{content}}
   <footer class="text--centered">
     <hr />
-    <p>Versão <a href="/changelog">0.4.4</a></p>
+    <p>Versão <a href="/changelog">0.5.0</a></p>
     <span>Desenvolvido por <a target="_blank" href="https://www.linkedin.com/in/rodrigoknolseisen/"
         rel="noopener">Rodrigo Knolseisen</a></span>
   </footer>
   <nav class="mobile-nav">
     <a href="/dashboard"><img alt="desenho de uma casa" src="/img/icons/home.svg" height="18" />Início</a>
-    <a href="/manage-team"><img alt="símbolo representando uma bola de futebol" src="/img/icons/team.svg" height="18" />Time Titular</a>
-    <a href="/market"><img alt="duas setas opostas, representando troca / comércio" src="/img/icons/trade.svg" height="18" />Mercado</a>
+    <a href="/manage-team"><img alt="símbolo representando uma bola de futebol" src="/img/icons/team.svg"
+        height="18" />Time Titular</a>
+    <a href="/market"><img alt="duas setas opostas, representando troca / comércio" src="/img/icons/trade.svg"
+        height="18" />Mercado</a>
   </nav>
 </body>
 <script src="/js/util.js" async defer></script>
+
 </html>

@@ -20,17 +20,24 @@ layout: simple_base.html
   </section>
   <hr />
   <h2>Jogos e campeonatos</h2>
-  <!-- <h3>Próximos compromissos</h3>
-  <br />
-  <span>😐</span>
-  <p>O seu time não tem nenhum jogo marcado no momento...</p> -->
-  <h3>Últimos jogos</h3>
+  <h3>Últimos jogos do seu time</h3>
   <section class="grid" id="lastGames">
     <!-- JS Generated -->
   </section>
-  <h3>Partidas Amistosas</h3>
-  <p>Jogue um amistoso para ver como o seu time está se saindo.</p>
-  <a class="btn" href="/friendly">Jogos amistosos</a>
+  <!-- Matches -->
+  <h3>Jogue uma partida</h3>
+  <section class="card grid">
+    <div>
+      <h4>Jogue contra um amigo</h4>
+      <p>Convite amigos para jogarem um jogo contra o seu time.</p>
+      <button class="btn" onclick="theModal.open()">Enviar um convite</button>
+    </div>
+    <div>
+      <h4>Partidas Amistosas</h4>
+      <p>Jogue um amistoso para ver como o seu time está se saindo.</p>
+      <a class="btn" href="/friendly">Jogar um amistoso</a>
+    </div>
+  </section>
   <!-- Team table -->
   <h2>O seu elenco</h2>
   <table class="table--responsive">
@@ -49,4 +56,25 @@ layout: simple_base.html
   </table>
   <a class="btn" href="/market">Mercado da bola</a>
 </main>
+<dialog id="modal" class="modal modal--closed">
+  <span class="modal__close-button" id="modalClose">✖</span>
+  <h1>Jogar com amigos</h1>
+  <hr />
+  <p>Copie o código abaixo e envie para seus amigos desafiarem o seu time.</p>
+  <pre>https://123gol.com.br/invite?<span id="shareLink">CODIGO_DO_CONVITE</span></pre>
+  <p>Esse convite pode ser enviado para qualquer pessoa, porém cada um pode aceitar cada desafio apenas uma vez.</p>
+  <a class="btn" onclick="share()">Compartilhar agora</a>
+</dialog>
+
+<script>
+  function share() {
+    const shareData = {
+      title: 'Desafio lançado! - 1, 2, 3 Gol!',
+      text: 'O seu time está sendo desafiado, você está pronto para o jogo?',
+      url: 'https://123gol.com.br/invite?' + document.getElementById('shareLink').innerText,
+    }
+
+    navigator.share(shareData)
+  }
+</script>
 <script src="/js/dashboard.js"></script>

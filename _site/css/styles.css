@@ -1,87 +1,106 @@
 :root {
-  --dark-gray: rgb(50,50,70);
-  --gray: rgb(70,70,85);
-  --light-gray: rgb(200,200,215);
-  --lighter-gray: rgb(245,245,252);
-  --background: rgb(252,252,254);
-  --success: rgb(100,200,100);
-  --error: rgb(250,50,75);
-  --clickable: rgb(80,120,200);
-  --gold: rgb(220,180,30);
+  --dark-gray: rgb(50, 50, 70);
+  --gray: rgb(70, 70, 85);
+  --light-gray: rgb(200, 200, 215);
+  --lighter-gray: rgb(245, 245, 252);
+  --background: rgb(252, 252, 254);
+  --success: rgb(100, 200, 100);
+  --error: rgb(250, 50, 75);
+  --clickable: rgb(80, 120, 200);
+  --gold: rgb(220, 180, 30);
 }
 
 /* Main elements */
-a{
+a {
   cursor: pointer;
   color: var(--clickable);
   transition: filter 0.3s;
 }
 
-a:hover, button:hover{
+a:hover,
+button:hover {
   filter: brightness(1.2);
 }
 
-button{
+button {
   transition: 0.3s;
 }
 
-body{
+body {
   font-size: 18px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   color: var(--dark-gray);
   background: var(--background);
   position: relative;
 }
 
-p + p{
+p + p {
   padding-top: 1.5rem;
 }
 
-h1, h2, h3{
+h1,
+h2,
+h3 {
   margin-top: 1.5rem;
+  margin-bottom: 0.25rem;
 }
 
-h1{
+h4 {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+h1 {
   font-weight: 900;
   font-size: 2.75rem;
 }
 
-h2{
-  color:var(--gray)
+h2 {
+  color: var(--gray);
 }
 
-h3{
-  color:var(--gray)
+h3 {
+  color: var(--gray);
 }
 
-h3:first-child{
+h3:first-child {
   margin-top: 0;
 }
 
-hr{
+pre {
+  background: var(--lighter-gray);
+  padding: 0.25rem;
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  text-align: center;
+}
+
+hr {
   border: 0;
   border-bottom: 1px solid var(--light-gray);
   margin: 1rem 0;
 }
 
-label{
+label {
   margin-top: 0.25rem;
   display: block;
   font-weight: 500;
 }
 
-fieldset{
+fieldset {
   border: 1px solid var(--lighter-gray);
   border-radius: 0.25rem;
   background: white;
   margin: 1.5rem 0;
 }
 
-legend{
+legend {
   font-weight: 300;
 }
 
-main, footer{
+main,
+footer {
   width: 55rem;
   max-width: 100%;
   margin: auto;
@@ -89,7 +108,7 @@ main, footer{
   padding: 1rem;
 }
 
-nav{
+nav {
   position: fixed;
   background: var(--success);
   right: 0;
@@ -104,17 +123,17 @@ nav{
   justify-content: space-between;
 }
 
-nav div{
+nav div {
   display: flex;
 }
 
-nav a{
+nav a {
   color: white;
   font-weight: 500;
   text-decoration: none;
 }
 
-nav .grid a{
+nav .grid a {
   margin-right: 1.25rem;
   display: flex;
   align-items: center;
@@ -124,22 +143,22 @@ nav .grid a{
   transition: 0.3s;
 }
 
-nav .grid a:hover{
+nav .grid a:hover {
   background: var(--success);
   filter: brightness(1.125);
 }
 
-nav .grid a img{
+nav .grid a img {
   height: 1.25rem;
   margin-right: 0.25rem;
   filter: invert(1);
 }
 
-nav .grid a:last-of-type{
+nav .grid a:last-of-type {
   margin-right: 0;
 }
 
-select{
+select {
   width: 100%;
   font-size: 1em;
   line-height: 1;
@@ -147,12 +166,13 @@ select{
   padding: 0.5em;
 }
 
-.util__hidden{
-  display: none!important;
+.util__hidden {
+  display: none !important;
 }
 
 /* Other elements - Alphabetical order */
-.btn, button.btn{
+.btn,
+button.btn {
   font-weight: bold;
   text-decoration: none;
   cursor: pointer;
@@ -170,20 +190,20 @@ select{
 .btn:disabled,
 .btn[disabled],
 button.btn:disabled,
-button.btn[disabled]{
+button.btn[disabled] {
   pointer-events: none;
   background: var(--light-gray);
 }
 
-.btn--no-margins{
+.btn--no-margins {
   margin: 0;
 }
 
-.btn--danger{
+.btn--danger {
   background: var(--error);
 }
 
-.card{
+.card {
   padding: 1rem;
   margin: 1rem 0;
   background: white;
@@ -192,21 +212,21 @@ button.btn[disabled]{
   transition: transform 0.3s;
 }
 
-.card:hover{
+.card:hover {
   transform: scale(1.015);
 }
 
-.card__timeline{
+.card__timeline {
   position: relative;
   margin-left: 2rem;
 }
 
-.card__timeline:hover{
+.card__timeline:hover {
   transform: none;
 }
 
-.card__timeline:before{
-  content: '';
+.card__timeline:before {
+  content: "";
   position: absolute;
   background: var(--light-gray);
   top: -0.5rem;
@@ -215,8 +235,8 @@ button.btn[disabled]{
   left: -1.5rem;
 }
 
-.card__timeline:after{
-  content: '';
+.card__timeline:after {
+  content: "";
   position: absolute;
   background: var(--light-gray);
   border-radius: 100%;
@@ -226,18 +246,18 @@ button.btn[disabled]{
   width: 1rem;
 }
 
-.card__timeline--goal:after{
+.card__timeline--goal:after {
   background: white url(../img/icons/ball-success.svg);
   height: 1.5rem;
   width: 1.5rem;
   left: -2.25rem;
 }
 
-.card__timeline--goal-alwayTeam:after{
+.card__timeline--goal-alwayTeam:after {
   background: white url(../img/icons/ball-failure.svg);
 }
 
-.card__flex{
+.card__flex {
   display: flex;
   align-items: center;
 }
@@ -251,21 +271,21 @@ button.btn[disabled]{
   justify-content: space-between;
 }
 
-.card--clickable{
+.card--clickable {
   cursor: pointer;
 }
 
-.card--clickable:hover{
+.card--clickable:hover {
   transform: scale(1.025);
 }
 
-.card--clicked{
+.card--clicked {
   pointer-events: none;
   filter: grayscale(1);
   opacity: 0.5;
 }
 
-.field{
+.field {
   background: var(--success) url(../img/textures/grass.jpg);
   background-size: cover;
   color: white;
@@ -274,22 +294,22 @@ button.btn[disabled]{
   width: 100%;
 }
 
-.field td{
+.field td {
   height: 4.5em;
   width: 4.5em;
 }
 
-.field__item{
+.field__item {
   position: relative;
   transition: 0.3s;
 }
 
-.field__item:hover{
+.field__item:hover {
   transform: scale(1.1);
 }
 
-.field__item:before{
-  content: '';
+.field__item:before {
+  content: "";
   position: absolute;
   background: url(../img/icons/ball-success.svg);
   filter: brightness(3);
@@ -301,77 +321,77 @@ button.btn[disabled]{
   right: 15%;
 }
 
-.field__item-center_back{
+.field__item-center_back {
   background: url(../img/icons/positions/center_back.svg) no-repeat center;
   background-size: 70%;
 }
 
-.field__item-goalkeeper{
+.field__item-goalkeeper {
   background: url(../img/icons/positions/goalkeeper.svg) no-repeat center;
   background-size: 70%;
 }
 
-.field__item-left_wing_back{
+.field__item-left_wing_back {
   background: url(../img/icons/positions/left_wing_back.svg) no-repeat center;
   background-size: 70%;
 }
 
-.field__item-midfielder{
+.field__item-midfielder {
   background: url(../img/icons/positions/midfielder.svg) no-repeat center;
   background-size: 70%;
 }
 
-.field__item-right_wing_back{
+.field__item-right_wing_back {
   background: url(../img/icons/positions/right_wing_back.svg) no-repeat center;
   background-size: 70%;
 }
 
-.field__item-stricker{
+.field__item-stricker {
   background: url(../img/icons/positions/stricker.svg) no-repeat center;
   background-size: 70%;
 }
 
-.field__item-winger{
+.field__item-winger {
   background: url(../img/icons/positions/winger.svg) no-repeat center;
   background-size: 70%;
 }
 
-.grid{
+.grid {
   display: flex;
 }
 
-.grid > *{
+.grid > * {
   flex: 1 1 0;
   margin-right: 0.5rem;
   margin-left: 0.5rem;
 }
 
-.grid > *:first-child{
+.grid > *:first-child {
   margin-left: 0;
 }
 
-.grid > *:last-child{
+.grid > *:last-child {
   margin-right: 0;
 }
 
-.img__icon{
+.img__icon {
   height: 4.5rem;
   width: 4.5rem;
   object-fit: contain;
 }
 
-.list--no-style li{
+.list--no-style li {
   list-style: none;
 }
 
-.loading{
+.loading {
   overflow: hidden;
 }
 
-.loading:before{
-  content: '';
+.loading:before {
+  content: "";
   position: absolute;
-  background: rgba(80,80,100, 0.3);
+  background: rgba(80, 80, 100, 0.3);
   top: -5rem;
   right: 0;
   left: 0;
@@ -379,7 +399,7 @@ button.btn[disabled]{
   z-index: 15;
 }
 
-.loading:after{
+.loading:after {
   content: "";
   position: fixed;
   top: 48vh;
@@ -387,12 +407,12 @@ button.btn[disabled]{
   height: 4rem;
   width: 4rem;
   background: url(../img/icons/ball-success.svg);
-  filter:brightness(3);
+  filter: brightness(3);
   animation: rotateFull 2s linear infinite;
   z-index: 16;
 }
 
-.mobile-nav{
+.mobile-nav {
   background: white;
   top: initial;
   bottom: 0;
@@ -401,14 +421,53 @@ button.btn[disabled]{
   display: none;
 }
 
-.mobile-nav a{
+.mobile-nav a {
   color: var(--dark-gray);
   font-size: 0.8rem;
   display: flex;
   flex-direction: column;
 }
 
-.nav__logo{
+.modal {
+  position: fixed;
+  background: white;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: initial;
+  width: initial;
+  width: 35rem;
+  max-width: 80%;
+  height: 100vh;
+  height: -webkit-fill-available;
+  z-index: 100;
+  border: 0;
+  box-shadow: 0.1rem 0.1rem 0.5rem 0rem var(--light-gray);
+  padding: 1.5rem;
+}
+
+.modal:before {
+  content: "";
+  position: absolute;
+  background: rgba(60, 60, 80, 0.5);
+  top: 0;
+  bottom: 0;
+  right: 560px;
+  left: -100vw;
+  z-index: -1;
+}
+
+.modal--closed {
+  display: none;
+}
+
+.modal__close-button {
+  float: right;
+  color: var(---gray);
+  cursor: pointer;
+}
+
+.nav__logo {
   display: flex;
   align-items: center;
   font-weight: 300;
@@ -416,11 +475,11 @@ button.btn[disabled]{
   padding: 0.25rem 0;
 }
 
-.nav__logo img{
+.nav__logo img {
   margin-right: 0.5rem;
 }
 
-.table--responsive{
+.table--responsive {
   width: 100%;
   display: block;
   -webkit-overflow-scrolling: auto;
@@ -431,48 +490,56 @@ button.btn[disabled]{
   max-height: 30rem;
 }
 
-.table--responsive td, .table--responsive th{
+.table--responsive td,
+.table--responsive th {
   padding: 1rem;
   width: 100%;
   text-align: left;
 }
 
-.table--responsive td strong{
+.table--responsive td strong {
   min-width: 10rem;
   display: block;
 }
 
-.table--responsive thead tr{
+.table--responsive thead tr {
   font-weight: 600;
   font-size: 1.1rem;
 }
 
-.table--responsive th:last-child, .table--responsive td:last-child{
+.table--responsive th:last-child,
+.table--responsive td:last-child {
   text-align: right;
 }
 
-.table--responsive th{
+.table--responsive th {
   position: sticky;
   top: 0rem;
   background: var(--lighter-gray);
 }
 
-.table--responsive tbody{
+.table--responsive tbody {
   background: white;
 }
 
-.text--centered{
+.text--centered {
   text-align: center;
 }
 
-.text--ellipsis{
+.text--ellipsis {
   display: inline-block;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.text__main-title{
+.text--small {
+  display: block;
+  font-weight: 400;
+  font-size: 0.75em;
+}
+
+.text__main-title {
   position: sticky;
   top: 3.25rem;
   padding-top: 0.75rem;
@@ -486,11 +553,11 @@ button.btn[disabled]{
   margin-left: -1%;
 }
 
-.text--gold-color{
+.text--gold-color {
   color: var(--gold);
 }
 
-.toast{
+.toast {
   background: white;
   max-width: 30rem;
   position: fixed;
@@ -502,7 +569,7 @@ button.btn[disabled]{
   z-index: 15;
 }
 
-.toast--success{
+.toast--success {
   background: var(--success);
   color: white;
   font-weight: 500;
@@ -518,8 +585,9 @@ button.btn[disabled]{
 }
 
 /* Media querie, elements in alphabetical order */
-@media (max-width: 800px){
-  .btn, button.btn{
+@media (max-width: 800px) {
+  .btn,
+  button.btn {
     display: block;
     text-align: center;
     width: 100%;
@@ -527,51 +595,59 @@ button.btn[disabled]{
   .card__header {
     font-size: 0.85rem;
   }
-  .field{
+  .field {
     width: 80%;
     max-width: 20em;
     margin: auto;
   }
-  .field td{
+  .field td {
     height: 3.5em;
     width: 3.5em;
   }
-  .field__item:before{
+  .field__item:before {
     height: 2.6em;
     width: 2.6em;
     right: 5%;
   }
-  footer{
+  footer {
     margin-bottom: 4rem;
   }
-  .grid{
+  .grid {
     flex-direction: column;
     flex: initial;
   }
-  .grid > *:not(a){
+  .grid > *:not(a) {
     margin-right: 0;
     margin-left: 0;
   }
-  h1{
+  h1 {
     font-size: 1.25rem;
   }
-  .hidden-mobile{
-    display: none!important;
+  .hidden-mobile {
+    display: none !important;
   }
-  input{
+  input {
     width: 100%;
   }
-  .mobile-nav{
+  .mobile-nav {
     display: flex;
     flex-direction: initial;
   }
-  .table--responsive{
+  .modal {
+    left: 0;
+    width: 100%;
+    max-width: 100%;
+  }
+  .modal:before {
+    display: none;
+  }
+  .table--responsive {
     max-height: 60vh;
   }
-  .table--responsive td{
+  .table--responsive td {
     min-width: 10rem;
   }
-  .toast{
+  .toast {
     bottom: 0;
     right: 0;
     left: 0;

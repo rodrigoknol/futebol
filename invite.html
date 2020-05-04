@@ -1,0 +1,27 @@
+---
+layout: simple_base.html
+og: "Você está sendo desafiado para uma partida de futebol no 1,2,3 Gol. O desafio está lançado!"
+---
+<main>
+  <h1 class="text--centered text__main-title" id="teamName">Convite para uma grande partida!</h1>
+  <div id="content">
+    <h2>O desafio está lançado!</h2>
+    <p>O técnico <strong id="homeTeamUser">Nome do usuário</strong>, treinador do time <strong id="homeTeamName">Nome do
+        time</strong> está desafiando o seu time para uma partida!</p>
+    <hr />
+    <h2><span class="text--small">O seu adversário: </span><span id="hostTeamName">Nome do time</span></h2>
+    <h3>Como se saiu nos últimos jogos</h3>
+    <p>Esses foram os últimos resultados do seu oponente. Assistindo os jogos, você consegue conhecer um pouco mais
+      sobre
+      o time adversário, seu elenco e suas estratégias.</p>
+    <section class="grid" id="lastGames">
+      <!-- JS Generated -->
+    </section>
+    <h2>E aí, pronto para o jogo?</h2>
+    <p>O seu <a href="/manage-team">Time titular</a> está escalado e ajustado? É hora de jogar!</p>
+    <a class="btn" id="playNow">Jogar agora!</a>
+    <a class="btn btn--danger" href="/dashboard">Não quero jogar...</a>
+  </div>
+</main>
+
+<script src="/js/invite.js"></script>

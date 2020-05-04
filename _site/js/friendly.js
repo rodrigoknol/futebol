@@ -51,13 +51,13 @@ const galaticos = {
     { left_wing_back: "Filipe Luís" },
     { right_wing_back: "Fagner" },
     { center_back: "Rodrigo Caio" },
-    { center_back: "Gil" },
+    { center_back: "Kannemann" },
     { midfielder: "Cantillo" },
     { midfielder: "Luan" },
     { midfielder: "Lucas Lima" },
     { winger: "Pedrinho" },
     { winger: "Dudu" },
-    { stricker: "Mauro Boselli" },
+    { stricker: "Gabigol" },
   ],
 };
 
@@ -76,9 +76,9 @@ const pechincha = {
     { midfielder: "Ramires" },
     { midfielder: "Gabriel" },
     { midfielder: "Mateus Vital" },
-    { midfielder: "Patrick de Paula" },
+    { midfielder: "Rodrigo Dourado" },
     { stricker: "Ribamar" },
-    { winger: "Janderson" },
+    { winger: "Luciano" },
   ],
 };
 
