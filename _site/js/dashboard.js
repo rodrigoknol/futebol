@@ -298,15 +298,32 @@ function prepare() {
 }
 class modal{
   constructor(element){
-    this.modal = document.getElementById(element)
+    this.modal = document.getElementById(element);
+    this.userId = JSON.parse(localStorage.getItem("user")).id;
   }
+
   open(){
     this.modal.classList.remove('modal--closed')
+    this.createInvite()
     this.modal.showModal();
   }
+
   close(){
     this.modal.classList.add('modal--closed')
     this.modal.close()
+  }
+
+  createInvite(){
+    post(
+      "/.netlify/functions/create_invite",
+      JSON.stringify({ theUser: this.userId })
+    ).then((data) => {
+      this.printLink(data);
+    });
+  }
+
+  printLink(data){
+    document.getElementById('shareLink').innerText = data;
   }
 }
 
